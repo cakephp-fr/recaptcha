@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><phpunit
+	backupGlobals="false"
+	backupStaticAttributes="true"
+	bootstrap="./tests/bootstrap.php"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	processIsolation="false"
+	stopOnError="false"
+	stopOnFailure="false"
+	stopOnIncomplete="false"
+	stopOnSkipped="false"
+	syntaxCheck="false"
+	>
+	<php>
+		<ini name="memory_limit" value="-1"/>
+		<ini name="apc.enable_cli" value="1"/>
+	</php>
+
+	<!-- Add any additional test suites you want to run here -->
+	<testsuites>
+		<testsuite name="Recaptcha Test Suite">
+			<directory>./tests/TestCase</directory>
+		</testsuite>
+	</testsuites>
+
+</phpunit>
