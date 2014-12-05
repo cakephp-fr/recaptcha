@@ -62,7 +62,11 @@ class RecaptchaComponent extends Component {
 		$error = null;
 		$reCaptcha = new ReCaptcha($secret);
 
-		if ($controller->request->is('post')) {
+		// send siteKey and lang from config to helper
+		$controller->helpers['Recaptcha.Recaptcha']['siteKey'] = $siteKey;
+		$controller->helpers['Recaptcha.Recaptcha']['lang'] = $lang;
+
+		if ($controller->request->is(['post', 'put'])) {
 			//debug($controller->request->data);
 			// Was there a reCAPTCHA response?
 			if (isset($controller->request->data["g-recaptcha-response"]) && !empty($controller->request->data["g-recaptcha-response"])) {
@@ -70,11 +74,13 @@ class RecaptchaComponent extends Component {
 					$host,
 					$controller->request->data["g-recaptcha-response"]
 				);
+				// if verification is incorrect,
+				if ($resp != null && !$resp->success) {
+					$controller->Flash->error(__d('recaptcha', 'The Recaptcha is incorrect. Please, try again.'), ['key' => 'error']);
+					return $controller->redirect($controller->referer());
+				}
 			}
 		}
-
-		$controller->helpers['Recaptcha.Recaptcha']['siteKey'] = $siteKey;
-		$controller->helpers['Recaptcha.Recaptcha']['lang'] = $lang;
 	}
 
 }

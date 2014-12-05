@@ -9,6 +9,7 @@
  */
 namespace Recaptcha\View\Helper;
 
+use Cake\I18n\I18n;
 use Cake\View\Helper;
 use Cake\View\View;
 
@@ -78,7 +79,7 @@ class RecaptchaHelper extends Helper {
  *
  * @return string HTML
  */
-	public function recaptcha($siteKey = null, $lang = null) {
+	public function display($siteKey = null, $lang = null) {
 
 		$lang = $this->_language($lang);
 		$siteKey = $this->_siteKey($siteKey);
@@ -93,6 +94,7 @@ class RecaptchaHelper extends Helper {
  * Define the language to choose
  * First the one given in the recaptcha() method
  * If empty => the default one from config file
+ * If empty => the I18n locale
  * If not correct => use masterLang in config
  *
  * @return string language in code 2 (fr, en, ...)
@@ -101,6 +103,10 @@ class RecaptchaHelper extends Helper {
 		if (empty($lang)) {
 			$lang = $this->config('lang');
 		}
+		if (empty($lang)) {
+			$lang = I18n::locale();
+		}
+
 		// in case the language is not in accepted languages, 'en' language is chosen
 		if (!in_array($lang, $this->config('langAccepted'))) {
 			$lang = $this->config('masterLang');
