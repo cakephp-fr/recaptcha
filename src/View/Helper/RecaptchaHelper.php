@@ -81,7 +81,7 @@ class RecaptchaHelper extends Helper {
 	public function recaptcha($siteKey = null, $lang = null) {
 
 		$lang = $this->_language($lang);
-		$siteKey = $this->_language($siteKey);
+		$siteKey = $this->_siteKey($siteKey);
 
 		return '<div class="g-recaptcha" data-sitekey="' . $siteKey . '"></div>
 		<script type="text/javascript"
