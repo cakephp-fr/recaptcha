@@ -13,7 +13,7 @@ use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
 use Cake\Core\Configure;
 use Cake\Event\Event;
-use Recaptcha\Lib\Recaptcha;
+use Recaptcha\Lib\Recaptcha as GRecaptcha;
 
 class RecaptchaComponent extends Component {
 
@@ -60,7 +60,7 @@ class RecaptchaComponent extends Component {
 		$resp = null;
 		// The error code from reCAPTCHA, if any
 		$error = null;
-		$reCaptcha = new ReCaptcha($secret);
+		$reCaptcha = new GRecaptcha($secret);
 
 		if ($controller->request->is('post')) {
 			//debug($controller->request->data);
