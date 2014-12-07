@@ -16,7 +16,6 @@ This plugin adds functionnalities to use Google Recaptcha in CakePHP projects.
 
 - PHP 5.4.16
 - [CakePHP 3.x](http://book.cakephp.org/3.0/en/index.html)
-- [Recaptcha Twitter 3.2.x](http://getbootstrap.com)
 
 ## Installation ##
 
@@ -65,13 +64,11 @@ Enable the plugin in your config/bootstrap.php file:
 
 	`Plugin::load('Recaptcha', ['routes' => false, 'bootstrap' => true]);`
 
-More info in the [github docs](http://cake17.github.io/cakephp-recaptcha)
-
 First, go to Google Recaptcha site to create a pair of keys for your website.
 
 Create a /config/recaptcha.php file. There is a template in plugins/Recaptcha/config/recaptcha.default.php. Don't forget to put this /config/recaptcha.php file in .gitignore.
 
-I'll put a composer install command to add in composer.json that will create the default file in /config from /plugins/Recaptcha/config.
+I made a composer install command to add in composer.json that will create the default file in /config from /plugins/Recaptcha/config.
 
 Fullfill the information in `/config/recaptcha.php` : siteKey, secret and default lang.
 
@@ -85,7 +82,7 @@ Then add the component in your controller where you need the recaptcha, for exam
     }
 
 No need to add the helper, it will be added with the component.
-And add `<?= $this->Recaptcha->recaptcha() ?>` in your view template inside the form:
+And add `<?= $this->Recaptcha->display() ?>` in your view template inside the form:
 
     <?= $this->Form->create() ?>
     <?= $this->Recaptcha->recaptcha() ?>
