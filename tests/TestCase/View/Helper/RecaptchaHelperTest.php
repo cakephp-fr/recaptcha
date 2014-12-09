@@ -33,11 +33,11 @@ class RecaptchaHelperTest extends TestCase {
 	}
 
 /**
- * Test initial setup
+ * Test display method
  *
  * @return void
  */
-	public function testInitialization() {
+	public function testDisplay() {
 		$this->markTestIncomplete('Not implemented yet.');
 	}
 

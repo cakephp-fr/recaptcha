@@ -16,13 +16,20 @@ use Cake\View\View;
 class RecaptchaHelper extends Helper {
 
 /**
+ * Default language
+ * If no language is found anywhere
+ *
+ * @var string
+ */
+	protected $_defaultLang = 'en';
+
+/**
  * Default configuration.
  *
  * @var array
  */
 	protected $_defaultConfig = [
 		'secureApiUrl' => 'https://www.google.com/recaptcha/api',
-		'masterLang' => 'en',
 		// reCAPTCHA supported 40+ languages listed here: https://developers.google.com/recaptcha/docs/language
 		'langAccepted' => [
 			'ar',
@@ -91,11 +98,11 @@ class RecaptchaHelper extends Helper {
 	}
 
 /**
- * Define the language to choose
- * First the one given in the recaptcha() method
- * If empty => the default one from config file
- * If empty => the I18n locale
- * If not correct => use masterLang in config
+ * Define the language
+ * - First the one given in the display() method
+ * - If empty : use default one from config file
+ * - If empty : use I18n locale
+ * - If not correct : use defaultLang var
  *
  * @return string language in code 2 (fr, en, ...)
  */
@@ -109,15 +116,15 @@ class RecaptchaHelper extends Helper {
 
 		// in case the language is not in accepted languages, 'en' language is chosen
 		if (!in_array($lang, $this->config('langAccepted'))) {
-			$lang = $this->config('masterLang');
+			$lang = $this->_defaultLang;
 		}
 		return $lang;
 	}
 
 /**
- * Define the siteKey to choose
- * First the one given in the recaptcha() method
- * If empty => the default one from config file
+ * Define the siteKey
+ * - First the one given in the display() method
+ * - If empty : the default one from config file
  *
  * @return string siteKey
  */

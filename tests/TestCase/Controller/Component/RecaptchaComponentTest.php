@@ -41,4 +41,13 @@ class RecaptchaComponentTest extends TestCase {
 		$this->markTestIncomplete('Not implemented yet.');
 	}
 
+/**
+ * Test Startup
+ *
+ * @return void
+ */
+	public function testStartup() {
+		$this->markTestIncomplete('Not implemented yet.');
+	}
+
 }

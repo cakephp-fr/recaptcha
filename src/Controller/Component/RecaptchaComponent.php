@@ -51,10 +51,6 @@ class RecaptchaComponent extends Component {
 		// reCAPTCHA supported 40+ languages listed here: https://developers.google.com/recaptcha/docs/language
 		$lang = Configure::read('Recaptcha.defaultLang');
 		$host = $controller->request->env("REMOTE_ADDR");
-		// $devHost = Configure::read('Recaptcha.host');
-		// if (!empty($devHost)) {
-		// 	$host = $devHost;
-		// }
 
 		// The response from reCAPTCHA
 		$resp = null;
