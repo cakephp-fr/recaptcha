@@ -9,10 +9,7 @@
 		"recaptcha",
 		"captcha"
 	],
-	"homepage": [
-		"https://github.com/cake17/cakephp-recaptcha",
-		"https://github.com/google/ReCAPTCHA"
-	],
+	"homepage": "https://github.com/cake17/cakephp-recaptcha",
 	"license": "MIT",
 	"authors": [
 		{
@@ -22,7 +19,8 @@
 	],
 	"support": {
 		"issues": "https://github.com/cake17/cakephp-recaptcha/issues",
-		"source": "https://github.com/cake17/cakephp-recaptcha"
+		"source": "https://github.com/cake17/cakephp-recaptcha",
+		"wiki": "https://github.com/google/ReCAPTCHA"
 	},
 	"require": {
 		"php": ">=5.4.16",
