@@ -60,7 +60,7 @@ class ReCaptcha {
  *
  * @param string $secret shared secret between site and ReCAPTCHA server.
  */
-  function ReCaptcha($secret) {
+  public function __construct($secret) {
     if ($secret == null || $secret == "") {
         die("To use reCAPTCHA you must get an API key from <a href='"
             . self::$_signupUrl . "'>" . self::$_signupUrl . "</a>");
@@ -139,4 +139,5 @@ class ReCaptcha {
 
     return $recaptchaResponse;
   }
+
 }
