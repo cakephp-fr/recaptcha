@@ -68,7 +68,15 @@ First, go to Google Recaptcha site to create a pair of keys for your website.
 
 Create a /config/recaptcha.php file. There is a template in plugins/Recaptcha/config/recaptcha.default.php. Don't forget to put this /config/recaptcha.php file in .gitignore.
 
-I made a composer install command to add in composer.json that will create the default file in /config from /plugins/Recaptcha/config.
+I made a composer install command to add in composer.json that will create the default file in /config from `/plugins/Recaptcha/config`. To use it, add this in your project composer.json::
+
+    ...
+    "scripts": {
+      "post-install-cmd": [
+        "Recaptcha\\Console\\Installer::postInstall"
+      ]
+    }
+    ...
 
 Fullfill the information in `/config/recaptcha.php` : siteKey, secret and default lang.
 
@@ -107,19 +115,12 @@ And add `<?= $this->Recaptcha->display() ?>` in your view template inside the fo
 
 **HELPERS**
 
-- RecaptchaHelper
+- RecaptchaHelper (Automatically added when the RecaptchaComponent is added)
 
 **CONSOLE**
 
-Add this in your project composer.json:
+- Installer
 
-    ...
-    "scripts": {
-      "post-install-cmd": [
-        "Recaptcha\\Console\\Installer::postInstall"
-      ]
-    }
-    ...
 
 ## License ##
 
