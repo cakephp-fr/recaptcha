@@ -71,7 +71,7 @@ class RecaptchaComponent extends Component {
 					$controller->request->data["g-recaptcha-response"]
 				);
 				// if verification is incorrect,
-				if ($resp != null && !$resp->success) {
+				if (!$resp->success) {
 					$controller->Flash->error(__d('recaptcha', 'The Recaptcha is incorrect. Please, try again.'), ['key' => 'error']);
 					return $controller->redirect($controller->referer());
 				}
