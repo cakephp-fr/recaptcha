@@ -47,7 +47,7 @@ class RecaptchaComponent extends Component {
 
 		// Register API keys at https://www.google.com/recaptcha/admin
 		$siteKey = Configure::read('Recaptcha.siteKey');
-		$secret = Configure::read('Recaptcha.secret');;
+		$secret = Configure::read('Recaptcha.secret');
 		// reCAPTCHA supported 40+ languages listed here: https://developers.google.com/recaptcha/docs/language
 		$lang = Configure::read('Recaptcha.defaultLang');
 		$host = $controller->request->env("REMOTE_ADDR");
