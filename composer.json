@@ -29,7 +29,8 @@
 	},
 	"suggest": {
 		"phpunit/phpunit": "*",
-		"cakephp/cakephp-codesniffer": "dev-master"
+		"cakephp/cakephp-codesniffer": "dev-master",
+		"friendsofcake/search": "dev-master"
 	},
 	"autoload": {
 		"psr-4": {

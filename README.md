@@ -60,13 +60,13 @@ git clone git://github.com/cake17/cakephp-recaptcha.git Recaptcha
 
 ## Usage of plugin ##
 
-Enable the plugin in your config/bootstrap.php file:
+### 1. Enable the plugin in your config/bootstrap.php file:
 
-	`Plugin::load('Recaptcha', ['routes' => false, 'bootstrap' => true]);`
+	Plugin::load('Recaptcha', ['routes' => false, 'bootstrap' => true]);
 
-First, go to Google Recaptcha site to create a pair of keys for your website.
+### 2. Go to Google Recaptcha site to create a pair of keys for your website.
 
-Create a /config/recaptcha.php file. There is a template in plugins/Recaptcha/config/recaptcha.default.php. Don't forget to put this /config/recaptcha.php file in .gitignore.
+### 3. Create a /config/recaptcha.php file
 
 I made a composer install command to add in composer.json that will create the default file in /config from `/plugins/Recaptcha/config`. To use it, add this in your project composer.json::
 
@@ -78,28 +78,48 @@ I made a composer install command to add in composer.json that will create the d
     }
     ...
 
-Fullfill the information in `/config/recaptcha.php` : siteKey, secret and default lang.
+The template used is in plugins/Recaptcha/config/recaptcha.default.php. Don't forget to put `/config/recaptcha.php` file in .gitignore.
 
-Then add the component in your controller where you need the recaptcha, for example:
+### 4. Fullfill the information in `/config/recaptcha.php`
+
+- siteKey
+- secret
+- default lang.
+
+### 5. Then add the component in your controller where you need the recaptcha.
+
+For example:
 
     public function initialize() {
       parent::initialize();
       if ($this->request->action === 'contact'):
         $this->loadComponent('Recaptcha.Recaptcha');
+        // $this->loadComponent('Search.Prg');
       endif;
     }
 
-No need to add the helper, it will be added with the component.
-And add `<?= $this->Recaptcha->display() ?>` in your view template inside the form:
+As you can see, you can optionnaly add the Prg Component from friendsofcake/search plugin (need to be added to your composer.json). This
+put the request data into querystring, so the form contains the entries of
+the user even if the checkbox is not checked.
+
+### 6. No need to add the helper.
+
+It will be added with the component.
+
+### 7. Finally add `<?= $this->Recaptcha->display() ?>` in your view template inside the form.
+
+For example:
 
     <?= $this->Form->create() ?>
     <?= $this->Recaptcha->recaptcha() ?>
 
-    <?= $this->Form->input('nom', [
-      'label' => __('Your Name')
+    <?= $this->Form->input('name', [
+      'label' => __('Your Name'),
+      // 'default' => $this->request->query('name'); // in case you add the Prg Component
     ]) ?>
     <?= $this->Form->input('message', [
       'type' => 'textarea',
+      // 'default' => $this->request->query('message'); // in case you add the Prg Component
       'label' => __('Your Message')
     ]) ?>
 
