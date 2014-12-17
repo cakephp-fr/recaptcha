@@ -1,34 +1,20 @@
 <?php
+/**
+ * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ */
+require dirname(__DIR__) . '/vendor/cakephp/cakephp/src/basics.php';
+require dirname(__DIR__) . '/vendor/autoload.php';
 
 define('DS', DIRECTORY_SEPARATOR);
-define('ROOT', dirname(__DIR__));
-define('TMP', ROOT . DS . 'tmp' . DS);
-define('LOGS', TMP . 'logs' . DS);
-define('CACHE', TMP . 'cache' . DS);
 define('APP', sys_get_temp_dir());
-define('APP_DIR', 'src');
-define('CAKE_CORE_INCLUDE_PATH', ROOT . '/vendor/cakephp/cakephp');
-define('CORE_PATH', CAKE_CORE_INCLUDE_PATH . DS);
-define('CAKE', CORE_PATH . APP_DIR . DS);
-define('WWW_ROOT', ROOT . DS . 'webroot' . DS);
-define('CONFIG', dirname(__FILE__) . DS . 'config' . DS);
-require ROOT . '/vendor/cakephp/cakephp/src/basics.php';
-require ROOT . '/vendor/autoload.php';
+define('ROOT', dirname(__DIR__));
 Cake\Core\Configure::write('App', [
-    'namespace' => 'App',
-    'encoding' => 'UTF-8'
+    'namespace' => 'App'
 ]);
-Cake\Core\Configure::write('debug', true);
-mb_internal_encoding('UTF-8');
-
-// Cake\Datasource\ConnectionManager::config('test', [
-// 	'className' => 'Cake\Database\Connection',
-// 	'driver' => getenv('db_class'),
-// 	'dsn' => getenv('db_dsn'),
-// 	'database' => getenv('db_database'),
-// 	'login' => getenv('db_login'),
-// 	'password' => getenv('db_password'),
-// 	'timezone' => 'UTC',
-// 	'quoteIdentifiers' => true,
-// 	'cacheMetadata' => true,
-// ]);
