@@ -35,16 +35,15 @@
  */
 namespace Recaptcha\Lib;
 
-class ReCaptchaResponse {
+class ReCaptchaResponse
+{
+    /**
+     * @var $success
+     */
+    public $success;
 
-/**
- * @var $success
- */
-	public $success;
-
-/**
- * @var $errorCodes
- */
-	public $errorCodes;
-
+    /**
+     * @var $errorCodes
+     */
+    public $errorCodes;
 }

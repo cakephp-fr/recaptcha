@@ -8,46 +8,49 @@ use Recaptcha\Controller\Component\RecaptchaComponent;
 /**
  * Recaptcha\Controller\Component\RecaptchaComponent Test Case
  */
-class RecaptchaComponentTest extends TestCase {
+class RecaptchaComponentTest extends TestCase
+{
+    /**
+     * setUp method
+     *
+     * @return void
+     */
+    public function setUp()
+    {
+        parent::setUp();
+        $registry = new ComponentRegistry();
+        $this->Recaptcha = new RecaptchaComponent($registry);
+    }
 
-/**
- * setUp method
- *
- * @return void
- */
-	public function setUp() {
-		parent::setUp();
-		$registry = new ComponentRegistry();
-		$this->Recaptcha = new RecaptchaComponent($registry);
-	}
+    /**
+     * tearDown method
+     *
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->Recaptcha);
 
-/**
- * tearDown method
- *
- * @return void
- */
-	public function tearDown() {
-		unset($this->Recaptcha);
+        parent::tearDown();
+    }
 
-		parent::tearDown();
-	}
+    /**
+     * Test initial setup
+     *
+     * @return void
+     */
+    public function testInitialization()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
 
-/**
- * Test initial setup
- *
- * @return void
- */
-	public function testInitialization() {
-		$this->markTestIncomplete('Not implemented yet.');
-	}
-
-/**
- * Test Startup
- *
- * @return void
- */
-	public function testStartup() {
-		$this->markTestIncomplete('Not implemented yet.');
-	}
-
+    /**
+     * Test Startup
+     *
+     * @return void
+     */
+    public function testStartup()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
 }

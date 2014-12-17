@@ -16,38 +16,40 @@ use Composer\Script\Event;
  * Provides installation hooks for when this application is installed via
  * composer. Customize this class to suit your needs.
  */
-class Installer {
+class Installer
+{
 
-/**
- * Does some routine installation tasks so people don't have to.
- *
- * @param \Composer\Script\Event $event The composer event object.
- * @return void
- */
-	public static function postInstall(Event $event) {
-		$io = $event->getIO();
+    /**
+     * Does some routine installation tasks so people don't have to.
+     *
+     * @param \Composer\Script\Event $event The composer event object.
+     * @return void
+     */
+    public static function postInstall(Event $event)
+    {
+        $io = $event->getIO();
 
-		$rootDir = dirname(dirname(dirname(dirname(__DIR__))));
-		$pluginDir = dirname(dirname(__DIR__));
+        $rootDir = dirname(dirname(dirname(dirname(__DIR__))));
+        $pluginDir = dirname(dirname(__DIR__));
 
-		static::createPluginConfig($rootDir, $pluginDir, $io);
-	}
+        static::createPluginConfig($rootDir, $pluginDir, $io);
+    }
 
-/**
- * Create the config/app.php file if it does not exist.
- *
- * @param string $dir The application's root directory.
- * @param \Composer\IO\IOInterface $io IO interface to write to console.
- * @return void
- */
-	public static function createPluginConfig($dir, $pluginDir, $io) {
-		// copy the file
-		$pluginConfig = $dir . '/config/recaptcha.php';
-		$pluginDefaultConfig = $pluginDir . '/config/recaptcha.default.php';
-		if (!file_exists($pluginConfig)) {
-			copy($pluginDefaultConfig, $pluginConfig);
-			$io->write('Created `config/recaptcha.php` file');
-		}
-	}
-
+    /**
+     * Create the config/app.php file if it does not exist.
+     *
+     * @param string $dir The application's root directory.
+     * @param \Composer\IO\IOInterface $io IO interface to write to console.
+     * @return void
+     */
+    public static function createPluginConfig($dir, $pluginDir, $io)
+    {
+        // copy the file
+        $pluginConfig = $dir . '/config/recaptcha.php';
+        $pluginDefaultConfig = $pluginDir . '/config/recaptcha.default.php';
+        if (!file_exists($pluginConfig)) {
+            copy($pluginDefaultConfig, $pluginConfig);
+            $io->write('Created `config/recaptcha.php` file');
+        }
+    }
 }

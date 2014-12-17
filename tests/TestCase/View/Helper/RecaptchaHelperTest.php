@@ -8,37 +8,39 @@ use Recaptcha\View\Helper\RecaptchaHelper;
 /**
  * Recaptcha\View\Helper\RecaptchaHelper Test Case
  */
-class RecaptchaHelperTest extends TestCase {
+class RecaptchaHelperTest extends TestCase
+{
+    /**
+     * setUp method
+     *
+     * @return void
+     */
+    public function setUp()
+    {
+        parent::setUp();
+        $view = new View();
+        $this->Recaptcha = new RecaptchaHelper($view);
+    }
 
-/**
- * setUp method
- *
- * @return void
- */
-	public function setUp() {
-		parent::setUp();
-		$view = new View();
-		$this->Recaptcha = new RecaptchaHelper($view);
-	}
+    /**
+     * tearDown method
+     *
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->Recaptcha);
 
-/**
- * tearDown method
- *
- * @return void
- */
-	public function tearDown() {
-		unset($this->Recaptcha);
+        parent::tearDown();
+    }
 
-		parent::tearDown();
-	}
-
-/**
- * Test display method
- *
- * @return void
- */
-	public function testDisplay() {
-		$this->markTestIncomplete('Not implemented yet.');
-	}
-
+    /**
+     * Test display method
+     *
+     * @return void
+     */
+    public function testDisplay()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
 }
