@@ -124,7 +124,7 @@ class ReCaptcha
 
         $getResponse = $this->_submitHttpGet(
             self::$_siteVerifyUrl,
-            array (
+            array(
                 'secret' => $this->_secret,
                 'remoteip' => $remoteIp,
                 'v' => self::$_version,

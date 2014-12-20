@@ -18,7 +18,6 @@ use Composer\Script\Event;
  */
 class Installer
 {
-
     /**
      * Does some routine installation tasks so people don't have to.
      *

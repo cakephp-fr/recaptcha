@@ -17,7 +17,6 @@ use Recaptcha\Lib\ReCaptcha;
 
 class RecaptchaComponent extends Component
 {
-
     /**
      * Default configuration.
      *

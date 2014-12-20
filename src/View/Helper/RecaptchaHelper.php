@@ -88,7 +88,6 @@ class RecaptchaHelper extends Helper
      */
     public function display($siteKey = null, $lang = null)
     {
-
         $lang = $this->_language($lang);
         $siteKey = $this->_siteKey($siteKey);
 
