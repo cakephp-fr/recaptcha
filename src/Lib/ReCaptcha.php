@@ -63,10 +63,10 @@ class ReCaptcha
     public function __construct($secret)
     {
         if ($secret == null || $secret == "") {
-            die("To use reCAPTCHA you must get an API key from <a href='"
-                . self::$_signupUrl . "'>" . self::$_signupUrl . "</a>");
+            die("To use reCAPTCHA you must get an API key from <a href='" .
+            self::$_signupUrl . "'>" . self::$_signupUrl . "</a>");
         }
-        $this->_secret=$secret;
+        $this->_secret = $secret;
     }
 
     /**
@@ -76,7 +76,7 @@ class ReCaptcha
      *
      * @return string - encoded request.
      */
-    private function _encodeQS($data)
+    private function __encodeQS($data)
     {
         $req = "";
         foreach ($data as $key => $value) {
@@ -84,7 +84,7 @@ class ReCaptcha
         }
 
         // Cut the last '&'
-        $req=substr($req, 0, strlen($req)-1);
+        $req = substr($req, 0, strlen($req) - 1);
         return $req;
     }
 
@@ -96,9 +96,9 @@ class ReCaptcha
      *
      * @return array response
      */
-    private function _submitHTTPGet($path, $data)
+    private function __submitHttpGet($path, $data)
     {
-        $req = $this->_encodeQS($data);
+        $req = $this->__encodeQS($data);
         $response = file_get_contents($path . $req);
         return $response;
     }
@@ -122,7 +122,7 @@ class ReCaptcha
             return $recaptchaResponse;
         }
 
-        $getResponse = $this->_submitHttpGet(
+        $getResponse = $this->__submitHttpGet(
             self::$_siteVerifyUrl,
             array(
                 'secret' => $this->_secret,
@@ -134,7 +134,7 @@ class ReCaptcha
         $answers = json_decode($getResponse, true);
         $recaptchaResponse = new ReCaptchaResponse();
 
-        if (trim($answers ['success']) == true) {
+        if (trim($answers['success']) == true) {
             $recaptchaResponse->success = true;
         } else {
             $recaptchaResponse->success = false;
