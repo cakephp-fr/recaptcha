@@ -24,10 +24,10 @@
     },
     "require": {
         "cakephp/cakephp": "3.0.*-dev",
-        "cakephp/plugin-installer": "*"
+        "cakephp/plugin-installer": "*",
+        "cakephp/cakephp-codesniffer": "dev-master"
     },
     "require-dev": {
-        "cakephp/cakephp-codesniffer": "dev-master",
         "phpunit/phpunit": "4.1.*"
     },
     "suggest": {
