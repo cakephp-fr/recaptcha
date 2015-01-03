@@ -23,13 +23,14 @@
         "wiki": "https://github.com/google/ReCAPTCHA"
     },
     "require": {
-        "php": ">=5.4.16",
-        "cakephp/cakephp": "3.0.x-dev",
-        "cakephp/plugin-installer": "dev-master"
+        "cakephp/cakephp": "3.0.*-dev",
+        "cakephp/plugin-installer": "*"
+    },
+    "require-dev": {
+        "cakephp/cakephp-codesniffer": "dev-master",
+        "phpunit/phpunit": "4.1.*"
     },
     "suggest": {
-        "phpunit/phpunit": "*",
-        "cakephp/cakephp-codesniffer": "dev-master",
         "friendsofcake/search": "dev-master"
     },
     "autoload": {
