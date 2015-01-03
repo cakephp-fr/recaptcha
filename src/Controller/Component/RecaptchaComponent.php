@@ -52,6 +52,11 @@ class RecaptchaComponent extends Component
         $secret = Configure::read('Recaptcha.secret');
         // reCAPTCHA supported 40+ languages listed here: https://developers.google.com/recaptcha/docs/language
         $lang = Configure::read('Recaptcha.defaultLang');
+        // either light or dark
+        $theme = Configure::read('Recaptcha.defaultTheme');
+        // either image or audio
+        $type = Configure::read('Recaptcha.defaultType');
+        debug($type);
         $host = $controller->request->env("REMOTE_ADDR");
 
         // The response from reCAPTCHA
@@ -60,9 +65,11 @@ class RecaptchaComponent extends Component
         $error = null;
         $reCaptcha = new ReCaptcha($secret);
 
-        // send siteKey and lang from config to helper
+        // send siteKey, lang, theme and type from config to helper
         $controller->helpers['Recaptcha.Recaptcha']['siteKey'] = $siteKey;
         $controller->helpers['Recaptcha.Recaptcha']['lang'] = $lang;
+        $controller->helpers['Recaptcha.Recaptcha']['theme'] = $theme;
+        $controller->helpers['Recaptcha.Recaptcha']['type'] = $type;
 
         if ($controller->request->is(['post', 'put'])) {
             //debug($controller->request->data);

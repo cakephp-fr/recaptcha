@@ -24,6 +24,22 @@ class RecaptchaHelper extends Helper
     protected $_defaultLang = 'en';
 
     /**
+     * Default theme
+     * If no theme is found anywhere
+     *
+     * @var string
+     */
+    protected $_defaultTheme = 'light';
+
+    /**
+     * Default type
+     * If no type is found anywhere
+     *
+     * @var string
+     */
+    protected $_defaultType = 'image';
+
+    /**
      * Default configuration.
      *
      * @var array
@@ -78,6 +94,14 @@ class RecaptchaHelper extends Helper
             'tr',
             'uk',
             'vi'
+        ],
+        'themeAccepted' => [
+            'dark',
+            'light'
+        ],
+        'typeAccepted' => [
+            'audio',
+            'image'
         ]
     ];
 
@@ -86,12 +110,14 @@ class RecaptchaHelper extends Helper
      *
      * @return string HTML
      */
-    public function display($siteKey = null, $lang = null)
+    public function display($siteKey = null, $lang = null, $theme = null, $type = null)
     {
         $lang = $this->_language($lang);
         $siteKey = $this->_siteKey($siteKey);
+        $theme = $this->_theme($theme);
+        $type = $this->_type($type);
 
-        return '<div class="g-recaptcha" data-sitekey="' . $siteKey . '"></div>
+        return '<div class="g-recaptcha" data-sitekey="' . $siteKey . '" data-theme="' . $theme . '" data-type="' . $type . '"></div>
         <script type="text/javascript"
         src="' . $this->config('secureApiUrl') . '.js?hl=' . $lang . '">
         </script>';
@@ -135,5 +161,45 @@ class RecaptchaHelper extends Helper
             $siteKey = $this->config('siteKey');
         }
         return $siteKey;
+    }
+
+    /**
+     * Define the theme : either dark or light
+     * - First the one given in the display() method
+     * - If empty : the default one from config file
+     * - If not correct : use defaultTheme var
+     *
+     * @return string theme
+     */
+    protected function _theme($theme)
+    {
+        if (empty($theme)) {
+            $theme = $this->config('theme');
+        }
+        // in case the theme is not in accepted themes, the default theme is chosen
+        if (!in_array($theme, $this->config('themeAccepted'))) {
+            $theme = $this->_defaultTheme;
+        }
+        return $theme;
+    }
+
+    /**
+     * Define the type : either image or audio
+     * - First the one given in the display() method
+     * - If empty : the default one from config file
+     * - If not correct : use defaultType var
+     *
+     * @return string type
+     */
+    protected function _type($type)
+    {
+        if (empty($type)) {
+            $type = $this->config('type');
+        }
+        // in case the theme is not in accepted themes, the default theme is chosen
+        if (!in_array($type, $this->config('typeAccepted'))) {
+            $type = $this->_defaultType;
+        }
+        return $type;
     }
 }
