@@ -82,9 +82,11 @@ The template used is in plugins/Recaptcha/config/recaptcha.default.php. Don't fo
 
 ### 4. Fullfill the information in `/config/recaptcha.php`
 
-- siteKey
-- secret
-- default lang.
+- siteKey: get it on google website
+- secret: get it on google website
+- default lang: see the list on google website
+- default theme: dark or light
+- default type: image or audio
 
 ### 5. Then add the component in your controller where you need the recaptcha.
 
