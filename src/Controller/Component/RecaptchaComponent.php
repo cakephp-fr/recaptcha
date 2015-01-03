@@ -75,7 +75,7 @@ class RecaptchaComponent extends Component
             //debug($controller->request->data);
             // Was there a reCAPTCHA response?
             $gRecaptchaResponse = $controller->request->data["g-recaptcha-response"];
-            if (isset($gRecaptchaResponse) && !empty(isset($gRecaptchaResponse))) {
+            if (isset($gRecaptchaResponse) && !empty($gRecaptchaResponse)) {
                 $resp = $reCaptcha->verifyResponse(
                     $host,
                     $controller->request->data["g-recaptcha-response"]
