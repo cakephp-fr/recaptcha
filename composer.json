@@ -1,48 +1,48 @@
 {
-	"name": "cake17/cakephp-recaptcha",
-	"type": "cakephp-plugin",
-	"description": "To easily use Google Recaptcha (free CAPTCHA service that protect websites from spam and abuse) in CakePHP projects",
-	"keywords": [
-		"cakephp",
-		"bootstrap",
-		"google",
-		"recaptcha",
-		"captcha"
-	],
-	"homepage": "https://github.com/cake17/cakephp-recaptcha",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "cake17",
-			"email": "cake17@cake-websites.com"
-		}
-	],
-	"support": {
-		"issues": "https://github.com/cake17/cakephp-recaptcha/issues",
-		"source": "https://github.com/cake17/cakephp-recaptcha",
-		"wiki": "https://github.com/google/ReCAPTCHA"
-	},
-	"require": {
-		"php": ">=5.4.16",
-		"cakephp/cakephp": "3.0.x-dev",
-		"cakephp/plugin-installer": "dev-master"
-	},
-	"suggest": {
-		"phpunit/phpunit": "*",
-		"cakephp/cakephp-codesniffer": "dev-master",
-		"friendsofcake/search": "dev-master"
-	},
-	"autoload": {
-		"psr-4": {
-			"Recaptcha\\": "src"
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"Recaptcha\\": "tests"
-		}
-	},
-	"extra": {
-		"installer-name": "Recaptcha"
-	}
+    "name": "cake17/cakephp-recaptcha",
+    "type": "cakephp-plugin",
+    "description": "To easily use Google Recaptcha (free CAPTCHA service that protect websites from spam and abuse) in CakePHP projects",
+    "keywords": [
+        "cakephp",
+        "bootstrap",
+        "google",
+        "recaptcha",
+        "captcha"
+    ],
+    "homepage": "https://github.com/cake17/cakephp-recaptcha",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "cake17",
+            "email": "cake17@cake-websites.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/cake17/cakephp-recaptcha/issues",
+        "source": "https://github.com/cake17/cakephp-recaptcha",
+        "wiki": "https://github.com/google/ReCAPTCHA"
+    },
+    "require": {
+        "php": ">=5.4.16",
+        "cakephp/cakephp": "3.0.x-dev",
+        "cakephp/plugin-installer": "dev-master"
+    },
+    "suggest": {
+        "phpunit/phpunit": "*",
+        "cakephp/cakephp-codesniffer": "dev-master",
+        "friendsofcake/search": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Recaptcha\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Recaptcha\\": "tests"
+        }
+    },
+    "extra": {
+        "installer-name": "Recaptcha"
+    }
 }
