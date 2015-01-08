@@ -56,7 +56,7 @@ class RecaptchaComponent extends Component
         $theme = Configure::read('Recaptcha.defaultTheme');
         // either image or audio
         $type = Configure::read('Recaptcha.defaultType');
-        debug($type);
+
         $host = $controller->request->env("REMOTE_ADDR");
 
         // The response from reCAPTCHA
