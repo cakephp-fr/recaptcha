@@ -113,7 +113,7 @@ It will be added with the component.
 For example:
 
     <?= $this->Form->create() ?>
-    <?= $this->Recaptcha->recaptcha() ?>
+    <?= $this->Recaptcha->display() ?>
 
     <?= $this->Form->input('name', [
       'label' => __('Your Name'),
