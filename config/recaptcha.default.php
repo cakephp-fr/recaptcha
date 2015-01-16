@@ -1,5 +1,5 @@
 <?php
-$config = [
+return [
     'Recaptcha' => [
         // Register API keys at https://www.google.com/recaptcha/admin
         'siteKey' => '',
