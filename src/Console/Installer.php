@@ -28,7 +28,7 @@ class Installer
     {
         $io = $event->getIO();
 
-        $rootDir = dirname(dirname(dirname(dirname(__DIR__))));
+        $rootDir = dirname(dirname(dirname(dirname(dirname(__DIR__)))));
         $pluginDir = dirname(dirname(__DIR__));
 
         static::createPluginConfig($rootDir, $pluginDir, $io);
@@ -46,6 +46,7 @@ class Installer
         // copy the file
         $pluginConfig = $dir . '/config/recaptcha.php';
         $pluginDefaultConfig = $pluginDir . '/config/recaptcha.default.php';
+
         if (!file_exists($pluginConfig)) {
             copy($pluginDefaultConfig, $pluginConfig);
             $io->write('Created `config/recaptcha.php` file');
