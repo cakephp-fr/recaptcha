@@ -10,11 +10,12 @@ This plugin is still under development...
 
 ## Plugin's Objective ##
 
-This plugin adds functionnalities to use Google Recaptcha in CakePHP projects.
+This plugin adds functionalities to use the new Google reCAPTCHA in CakePHP
+projects.
 
 ## Requirements ##
 
-- PHP 5.4.16
+- PHP >= 5.4.16
 - [CakePHP 3.x](http://book.cakephp.org/3.0/en/index.html)
 
 ## Installation ##
@@ -31,44 +32,30 @@ Add the plugin to your project's `composer.json` - something like this:
 }
 ```
 
-Because this plugin has the type `cakephp-plugin` set in it's own `composer.json`, composer knows to install it inside your `/plugins` directory, rather than in the usual vendors file. It is recommended that you add `/plugins/Recaptcha` to your .gitignore file. (Why? [read this](http://getcomposer.org/doc/faqs/should-i-commit-the-dependencies-in-my-vendor-directory.md).)
-
-_[Manual]_
-
-- Download this: http://github.com/cake17/cakephp-recaptcha/zipball/master
-- Unzip that download.
-- Copy the resulting folder to `/plugins`
-- Rename the folder you just copied to `Recaptcha`
-
-_[GIT Submodule]_
-
-In your app directory type:
-
-```bash
-git submodule add git://github.com/cake17/cakephp-recaptcha.git plugins/Recaptcha
-git submodule init
-git submodule update
-```
-
-_[GIT Clone]_
-
-In your plugin directory type
-
-```bash
-git clone git://github.com/cake17/cakephp-recaptcha.git Recaptcha
-```
+Because this plugin has the type `cakephp-plugin` set in it's own
+`composer.json`, composer knows to install it inside your `/vendor` directory.
+It is recommended that you add `/vendor` to your .gitignore file.
+(Why? [read this](http://getcomposer.org/doc/faqs/should-i-commit-the-dependencies-in-my-vendor-directory.md).)
 
 ## Usage of plugin ##
 
-### 1. Enable the plugin in your config/bootstrap.php file:
+### 1. Enable the plugin
 
-	Plugin::load('Recaptcha', ['routes' => false, 'bootstrap' => true]);
+In your `config/bootstrap.php` file:
 
-### 2. Go to Google Recaptcha site to create a pair of keys for your website.
+    Plugin::load('Recaptcha', ['routes' => false, 'bootstrap' => true]);
 
-### 3. Create a /config/recaptcha.php file
+### 2. Go to Google reCAPTCHA site
 
-I made a composer install command to add in composer.json that will create the default file in /config from `/plugins/Recaptcha/config`. To use it, add this in your project composer.json::
+Go [here](https://www.google.com/recaptcha/intro/index.html) to create a pair
+of keys for your website.
+
+### 3. Create or copy the reCAPTCHA config file
+
+I made a composer install command to add in composer.json that will create
+the default file in `/config/recaptcha.php` from
+`/vendor/cake17/cakephp-recaptcha/config/recaptcha.default.php`.
+To use it, add this in your project composer.json::
 
     ...
     "scripts": {
@@ -78,7 +65,7 @@ I made a composer install command to add in composer.json that will create the d
     }
     ...
 
-The template used is in plugins/Recaptcha/config/recaptcha.default.php. Don't forget to put `/config/recaptcha.php` file in .gitignore.
+Don't forget to put `/config/recaptcha.php` file in .gitignore.
 
 ### 4. Fullfill the information in `/config/recaptcha.php`
 
@@ -88,7 +75,9 @@ The template used is in plugins/Recaptcha/config/recaptcha.default.php. Don't fo
 - default theme: dark or light
 - default type: image or audio
 
-### 5. Then add the component in your controller where you need the recaptcha.
+If you don't have a key and a secret, an exception will be raised.
+
+### 5. Then add the component in your controller where you need the reCAPTCHA.
 
 For example:
 
@@ -100,7 +89,8 @@ For example:
       endif;
     }
 
-As you can see, you can optionnaly add the Prg Component from friendsofcake/search plugin (need to be added to your composer.json). This
+As you can see, you can optionnaly add the Prg Component from
+friendsofcake/search plugin (need to be added to your composer.json). This
 put the request data into querystring, so the form contains the entries of
 the user even if the checkbox is not checked.
 
@@ -128,6 +118,8 @@ For example:
     <?= $this->Form->button(__('OK')) ?>
     <?= $this->Form->end() ?>
 
+See another example of contact with no form in
+`src/Controller/ContactController.php` and in `src/View/Contact/index.ctp`
 
 ## What's inside ? ##
 
@@ -143,21 +135,34 @@ For example:
 
 - Installer
 
-
 ## Support & Contribution ##
 
 For support and feature request, please contact me through Github issues
 
-Please feel free to contribute to the plugin with new issues, requests, unit tests and code fixes or new features. If you want to contribute some code,
+Please feel free to contribute to the plugin with new issues, requests, unit
+tests and code fixes or new features. If you want to contribute some code,
 create a feature branch, and send us your pull request.
-Unit tests for new features and issues detected are mandatory to keep quality high.
+Unit tests for new features and issues detected are mandatory to keep quality
+high.
 
 ## License ##
 
 Copyright (c) [2014-2015] [cake17]
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

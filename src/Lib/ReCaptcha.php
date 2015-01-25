@@ -32,7 +32,7 @@
 namespace Recaptcha\Lib;
 
 use Recaptcha\Lib\ReCaptchaResponse;
-use Recaptcha\View\Exception\MissingRecaptchaApiKey;
+use Recaptcha\Lib\Exception\MissingRecaptchaApiKey;
 
 class ReCaptcha
 {
@@ -66,7 +66,7 @@ class ReCaptcha
     public function __construct($secret)
     {
         if ($secret == null || $secret == "") {
-            throw new MissingRecaptchaApiKey(self::$signupUrl);
+            throw new MissingRecaptchaApiKey(['link' => self::$signupUrl, 'name' => 'here']);
         }
         $this->secret = $secret;
     }

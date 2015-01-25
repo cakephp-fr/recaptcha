@@ -17,5 +17,5 @@ use Cake\Core\Exception\Exception;
  */
 class MissingRecaptchaApiKey extends Exception
 {
-    protected $_messageTemplate = 'The api key for recapatcha could not be found. You must register one <a href="%s">%s</a>';
+    protected $_messageTemplate = 'The api key for reCAPTCHA could not be found. You must register one <a href="%s">%s</a>';
 }
