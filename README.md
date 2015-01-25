@@ -1,4 +1,4 @@
-Google Recaptcha for CakePHP 3
+Google reCAPTCHA for CakePHP 3
 ==============================
 
 [![Build Status](https://api.travis-ci.org/cake17/cakephp-recaptcha.png?branch=master)](https://travis-ci.org/cake17/cakephp-recaptcha)
