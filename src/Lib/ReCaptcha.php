@@ -32,41 +32,43 @@
 namespace Recaptcha\Lib;
 
 use Recaptcha\Lib\ReCaptchaResponse;
+use Recaptcha\View\Exception\MissingRecaptchaApiKey;
 
 class ReCaptcha
 {
     /**
-     * @var
+     * @var string
      */
-    private static $_signupUrl = "https://www.google.com/recaptcha/admin";
+    protected static $signupUrl = "https://www.google.com/recaptcha/admin";
 
     /**
-     * @var
+     * @var string
      */
-    private static $_siteVerifyUrl = "https://www.google.com/recaptcha/api/siteverify?";
+    protected static $siteVerifyUrl = "https://www.google.com/recaptcha/api/siteverify?";
 
     /**
-     * @var
+     * @var string
      */
-    private $_secret;
+    protected $secret;
 
     /**
-     * @var
+     * @var string
      */
-    private static $_version = "php_1.0";
+    protected static $version = "php_1.0";
 
     /**
      * Constructor.
      *
      * @param string $secret shared secret between site and ReCAPTCHA server.
+     *
+     * @return void
      */
     public function __construct($secret)
     {
         if ($secret == null || $secret == "") {
-            die("To use reCAPTCHA you must get an API key from <a href='" .
-            self::$_signupUrl . "'>" . self::$_signupUrl . "</a>");
+            throw new MissingRecaptchaApiKey(self::$signupUrl);
         }
-        $this->_secret = $secret;
+        $this->secret = $secret;
     }
 
     /**
@@ -76,7 +78,7 @@ class ReCaptcha
      *
      * @return string - encoded request.
      */
-    private function __encodeQS($data)
+    protected function encodeQS($data)
     {
         $req = "";
         foreach ($data as $key => $value) {
@@ -96,9 +98,9 @@ class ReCaptcha
      *
      * @return array response
      */
-    private function __submitHttpGet($path, $data)
+    protected function submitHttpGet($path, $data)
     {
-        $req = $this->__encodeQS($data);
+        $req = $this->encodeQS($data);
         $response = file_get_contents($path . $req);
         return $response;
     }
@@ -122,12 +124,12 @@ class ReCaptcha
             return $recaptchaResponse;
         }
 
-        $getResponse = $this->__submitHttpGet(
-            self::$_siteVerifyUrl,
+        $getResponse = $this->submitHttpGet(
+            self::$siteVerifyUrl,
             array(
-                'secret' => $this->_secret,
+                'secret' => $this->secret,
                 'remoteip' => $remoteIp,
-                'v' => self::$_version,
+                'v' => self::$version,
                 'response' => $response
             )
         );

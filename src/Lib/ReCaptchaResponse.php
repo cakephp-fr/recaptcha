@@ -38,12 +38,12 @@ namespace Recaptcha\Lib;
 class ReCaptchaResponse
 {
     /**
-     * @var $success
+     * @var bool $success
      */
     public $success;
 
     /**
-     * @var $errorCodes
+     * @var string $errorCodes
      */
     public $errorCodes;
 }

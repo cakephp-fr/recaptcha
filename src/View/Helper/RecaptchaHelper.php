@@ -21,7 +21,7 @@ class RecaptchaHelper extends Helper
      *
      * @var string
      */
-    protected $_defaultLang = 'en';
+    protected $defaultLang = 'en';
 
     /**
      * Default theme
@@ -29,7 +29,7 @@ class RecaptchaHelper extends Helper
      *
      * @var string
      */
-    protected $_defaultTheme = 'light';
+    protected $defaultTheme = 'light';
 
     /**
      * Default type
@@ -37,7 +37,7 @@ class RecaptchaHelper extends Helper
      *
      * @var string
      */
-    protected $_defaultType = 'image';
+    protected $defaultType = 'image';
 
     /**
      * Default configuration.
@@ -108,14 +108,19 @@ class RecaptchaHelper extends Helper
     /**
      * Render the recaptcha div and js script
      *
+     * @param string $sitekey : Key
+     * @param string $lang : Lang
+     * @param string $theme : Theme
+     * @param string $type : Type
+     *
      * @return string HTML
      */
     public function display($siteKey = null, $lang = null, $theme = null, $type = null)
     {
-        $lang = $this->_language($lang);
-        $siteKey = $this->_siteKey($siteKey);
-        $theme = $this->_theme($theme);
-        $type = $this->_type($type);
+        $lang = $this->language($lang);
+        $siteKey = $this->siteKey($siteKey);
+        $theme = $this->theme($theme);
+        $type = $this->type($type);
 
         return '<div class="g-recaptcha" data-sitekey="' . $siteKey . '" data-theme="' . $theme . '" data-type="' . $type . '"></div>
         <script type="text/javascript"
@@ -130,9 +135,11 @@ class RecaptchaHelper extends Helper
      * - If empty : use I18n locale
      * - If not correct : use defaultLang var
      *
+     * @param string $lang : Lang
+     *
      * @return string language in code 2 (fr, en, ...)
      */
-    protected function _language($lang)
+    protected function language($lang)
     {
         if (empty($lang)) {
             $lang = $this->config('lang');
@@ -143,7 +150,7 @@ class RecaptchaHelper extends Helper
 
         // in case the language is not in accepted languages, 'en' language is chosen
         if (!in_array($lang, $this->config('langAccepted'))) {
-            $lang = $this->_defaultLang;
+            $lang = $this->defaultLang;
         }
         return $lang;
     }
@@ -153,9 +160,11 @@ class RecaptchaHelper extends Helper
      * - First the one given in the display() method
      * - If empty : the default one from config file
      *
+     * @param string $siteKey : Key
+     *
      * @return string siteKey
      */
-    protected function _siteKey($siteKey)
+    protected function siteKey($siteKey)
     {
         if (empty($siteKey)) {
             $siteKey = $this->config('siteKey');
@@ -169,16 +178,18 @@ class RecaptchaHelper extends Helper
      * - If empty : the default one from config file
      * - If not correct : use defaultTheme var
      *
+     * @param string $theme : Theme
+     *
      * @return string theme
      */
-    protected function _theme($theme)
+    protected function theme($theme)
     {
         if (empty($theme)) {
             $theme = $this->config('theme');
         }
         // in case the theme is not in accepted themes, the default theme is chosen
         if (!in_array($theme, $this->config('themeAccepted'))) {
-            $theme = $this->_defaultTheme;
+            $theme = $this->defaultTheme;
         }
         return $theme;
     }
@@ -189,16 +200,18 @@ class RecaptchaHelper extends Helper
      * - If empty : the default one from config file
      * - If not correct : use defaultType var
      *
+     * @param string $type : Type
+     *
      * @return string type
      */
-    protected function _type($type)
+    protected function type($type)
     {
         if (empty($type)) {
             $type = $this->config('type');
         }
         // in case the theme is not in accepted themes, the default theme is chosen
         if (!in_array($type, $this->config('typeAccepted'))) {
-            $type = $this->_defaultType;
+            $type = $this->defaultType;
         }
         return $type;
     }

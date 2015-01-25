@@ -28,6 +28,7 @@ class RecaptchaComponent extends Component
      * Initialize config data and properties.
      *
      * @param array $config The config data.
+     *
      * @return void
      */
     public function initialize(array $config)
@@ -41,6 +42,7 @@ class RecaptchaComponent extends Component
      * startup callback
      *
      * @param \Cake\Event\Event $event : Event
+     *
      * @return void
      */
     public function startup(Event $event)

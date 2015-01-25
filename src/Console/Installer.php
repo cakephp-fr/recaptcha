@@ -4,7 +4,7 @@
  *
  * @author   cake17
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
- * @link     http://www.cake-websites.com
+ * @link     http://cake17.github.io/
  *
  */
 namespace Recaptcha\Console;

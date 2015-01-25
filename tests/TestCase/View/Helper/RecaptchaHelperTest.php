@@ -1,4 +1,12 @@
 <?php
+/**
+ * RecaptchaHelperTest
+ *
+ * @author   cake17
+ * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @link     http://cake17.github.io/
+ *
+ */
 namespace Recaptcha\Test\TestCase\View\Helper;
 
 use Cake\TestSuite\TestCase;
