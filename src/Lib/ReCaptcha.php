@@ -78,7 +78,7 @@ class ReCaptcha
      *
      * @return string - encoded request.
      */
-    protected function encodeQS($data)
+    protected function _encodeQS($data)
     {
         $req = "";
         foreach ($data as $key => $value) {
@@ -98,9 +98,9 @@ class ReCaptcha
      *
      * @return array response
      */
-    protected function submitHttpGet($path, $data)
+    protected function _submitHttpGet($path, $data)
     {
-        $req = $this->encodeQS($data);
+        $req = $this->_encodeQS($data);
         $response = file_get_contents($path . $req);
         return $response;
     }
@@ -124,7 +124,7 @@ class ReCaptcha
             return $recaptchaResponse;
         }
 
-        $getResponse = $this->submitHttpGet(
+        $getResponse = $this->_submitHttpGet(
             self::$siteVerifyUrl,
             array(
                 'secret' => $this->secret,

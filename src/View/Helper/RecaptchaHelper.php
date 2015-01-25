@@ -117,10 +117,10 @@ class RecaptchaHelper extends Helper
      */
     public function display($siteKey = null, $lang = null, $theme = null, $type = null)
     {
-        $lang = $this->language($lang);
-        $siteKey = $this->siteKey($siteKey);
-        $theme = $this->theme($theme);
-        $type = $this->type($type);
+        $lang = $this->_language($lang);
+        $siteKey = $this->_siteKey($siteKey);
+        $theme = $this->_theme($theme);
+        $type = $this->_type($type);
 
         return '<div class="g-recaptcha" data-sitekey="' . $siteKey . '" data-theme="' . $theme . '" data-type="' . $type . '"></div>
         <script type="text/javascript"
@@ -139,7 +139,7 @@ class RecaptchaHelper extends Helper
      *
      * @return string language in code 2 (fr, en, ...)
      */
-    protected function language($lang)
+    protected function _language($lang)
     {
         if (empty($lang)) {
             $lang = $this->config('lang');
@@ -164,7 +164,7 @@ class RecaptchaHelper extends Helper
      *
      * @return string siteKey
      */
-    protected function siteKey($siteKey)
+    protected function _siteKey($siteKey)
     {
         if (empty($siteKey)) {
             $siteKey = $this->config('siteKey');
@@ -182,7 +182,7 @@ class RecaptchaHelper extends Helper
      *
      * @return string theme
      */
-    protected function theme($theme)
+    protected function _theme($theme)
     {
         if (empty($theme)) {
             $theme = $this->config('theme');
@@ -204,7 +204,7 @@ class RecaptchaHelper extends Helper
      *
      * @return string type
      */
-    protected function type($type)
+    protected function _type($type)
     {
         if (empty($type)) {
             $type = $this->config('type');
