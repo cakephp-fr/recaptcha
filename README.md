@@ -82,11 +82,11 @@ If you don't have a key and a secret, an exception will be raised.
 For example:
 
     public function initialize() {
-      parent::initialize();
-      if ($this->request->action === 'contact'):
-        $this->loadComponent('Recaptcha.Recaptcha');
-        // $this->loadComponent('Search.Prg');
-      endif;
+        parent::initialize();
+        if ($this->request->action === 'contact') {
+            $this->loadComponent('Recaptcha.Recaptcha');
+            // $this->loadComponent('Search.Prg');
+        }
     }
 
 As you can see, you can optionnaly add the Prg Component from

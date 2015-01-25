@@ -17,25 +17,35 @@ use App\Form\ContactForm;
 
 class ContactController extends AppController
 {
-
-    public function initialize() {
+    /**
+     * Initialize callback
+     *
+     * @return void
+     */
+    public function initialize()
+    {
         parent::initialize();
-        if ($this->request->action === 'index'):
+        if ($this->request->action === 'index') {
             $this->loadComponent('Recaptcha.Recaptcha');
             // $this->loadComponent('Search.Prg');
-        endif;
+        }
     }
 
+    /**
+     * Contact Form Page
+     *
+     * @return void
+     */
     public function index()
     {
         $contact = new ContactForm();
         if ($this->request->is('post')) {
             if ($contact->execute($this->request->data)) {
-                $this->Flash->success('We will get back to you soon.');
+                $this->Flash->success(__('We will get back to you soon.'));
             } else {
-                $this->Flash->error('There was a problem submitting your form.');
+                $this->Flash->error(__('There was a problem submitting your form.'));
             }
         }
-        $this->set('contact', $contact);
+        $this->set(compact('contact'));
     }
 }

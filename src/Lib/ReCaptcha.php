@@ -31,8 +31,8 @@
  */
 namespace Recaptcha\Lib;
 
-use Recaptcha\Lib\ReCaptchaResponse;
 use Recaptcha\Lib\Exception\MissingRecaptchaApiKey;
+use Recaptcha\Lib\ReCaptchaResponse;
 
 class ReCaptcha
 {
