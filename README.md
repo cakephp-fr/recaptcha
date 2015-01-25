@@ -119,7 +119,8 @@ For example:
     <?= $this->Form->end() ?>
 
 See another example of contact with no form in
-`src/Controller/ContactController.php` and in `src/View/Contact/index.ctp`
+`src/Controller/ContactController.php`, `src/Template/Contact/index.ctp` and
+`src/Form/ContactForm.php`
 
 ## What's inside ? ##
 
