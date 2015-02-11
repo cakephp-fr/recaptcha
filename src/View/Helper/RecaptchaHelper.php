@@ -40,6 +40,13 @@ class RecaptchaHelper extends Helper
     protected $defaultType = 'image';
 
     /**
+     * Infos for Widgets
+     *
+     * @var array
+     */
+    protected $widgets;
+
+    /**
      * Default configuration.
      *
      * @var array
@@ -129,6 +136,92 @@ class RecaptchaHelper extends Helper
     }
 
     /**
+     * Render the recaptcha div : multiple recaptcha
+     *
+     * @param int $id : Id
+     * @param string $sitekey : Key
+     * @param array $options
+     * - theme : Theme
+     * - type : Type
+     * - lang : Langue
+     * - callback : Callback
+     *
+     * @return string HTML
+     */
+    public function widget($id, $siteKey, array $options = [])
+    {
+        $defaultOptions = [
+            'theme' => '',
+            'type' => '',
+            'lang' => '',
+            'callback' => '',
+            'action' => ''
+        ];
+        $options = array_merge($defaultOptions, $options);
+
+        // add infos in widgets for script()
+        $this->widgets[] = [
+            'id' => $id,
+            'siteKey' => $this->_siteKey($siteKey),
+            'theme' => $this->_theme($options['theme']),
+            'type' => $this->_type($options['type']),
+            'lang' => $this->_language($options['lang']),
+            'callback' => $options['callback'],
+            'action' => $options['action'],
+        ];
+
+        $actions = [
+            'getResponse' => "javascript:alert(grecaptcha.getResponse(widgetId" . $id . "));",
+            'reset' => "javascript:grecaptcha.reset(widgetId" . $id . ");",
+        ];
+
+        $html = '';
+        if (isset($actions[$options['action']])) {
+            $html .= '<form action="' . $actions[$options['action']] . '">';
+        }
+        $html .= '<div id="example' . $id . '"></div>';
+        if (isset($actions[$options['action']])) {
+            $html .= '<br>
+            <input type="submit" value="' . $options['action'] . '">
+            </form>';
+        }
+        return $html;
+    }
+
+    /**
+     * Define the script to render
+     *
+     * @return string js script
+     */
+    public function script()
+    {
+        $js = "<script type=\"text/javascript\">
+        var verifyCallback = function(response) {
+            alert(response);
+        };";
+
+        foreach ($this->widgets as $widget) {
+            $js .= "var widgetId" . $widget['id'] . ";";
+        }
+
+        $js .= "var onloadCallback = function() {";
+        foreach ($this->widgets as $widget) {
+            $js .= "
+                widgetId" . $widget['id'] . " = grecaptcha.render('example" . $widget['id'] . "', {
+                    'sitekey' : '" . $widget['siteKey'] . "',
+                    'theme' : '" . $widget['theme'] . "',
+                    'lang' : '" . $widget['lang'] . "',
+                    'callback' : " . $widget['callback'] . ",
+                });
+            ";
+        }
+        $js .= "};</script>";
+        $js .= '<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>';
+        //debug($js);
+        return $js;
+    }
+
+    /**
      * Define the language
      * - First the one given in the display() method
      * - If empty : use default one from config file
@@ -209,7 +302,7 @@ class RecaptchaHelper extends Helper
         if (empty($type)) {
             $type = $this->config('type');
         }
-        // in case the theme is not in accepted themes, the default theme is chosen
+        // in case the type is not in accepted types, the default type is chosen
         if (!in_array($type, $this->config('typeAccepted'))) {
             $type = $this->defaultType;
         }
