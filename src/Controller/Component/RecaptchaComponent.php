@@ -74,8 +74,12 @@ class RecaptchaComponent extends Component
         $controller->helpers['Recaptcha.Recaptcha']['type'] = $type;
 
         if ($controller->request->is(['post', 'put'])) {
-            //debug($controller->request->data);
-            // Was there a reCAPTCHA response?
+        
+            // if Recaptcha is not checked
+            if (empty($controller->request->data["g-recaptcha-response"])) {
+                $controller->Flash->error( __d('recaptcha', 'Please check Recaptcha Box.'), ['key' => 'error']);
+                return $controller->redirect($controller->referer());
+            }
 
             if (isset($controller->request->data["g-recaptcha-response"]) && !empty($controller->request->data["g-recaptcha-response"])) {
                 $gRecaptchaResponse = $controller->request->data["g-recaptcha-response"];
