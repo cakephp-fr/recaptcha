@@ -76,7 +76,7 @@ class RecaptchaComponent extends Component
         if ($controller->request->is(['post', 'put'])) {
             // if Recaptcha is not checked
             if (isset($controller->request->data["g-recaptcha-response"]) && empty($controller->request->data["g-recaptcha-response"])) {
-                $controller->Flash->error(__d('recaptcha', 'Please check Recaptcha Box.'), ['key' => 'error']);
+                $controller->Flash->error(__d('recaptcha', 'Please check Recaptcha Box.'));
                 return $controller->redirect($controller->referer());
             }
 
@@ -88,7 +88,7 @@ class RecaptchaComponent extends Component
                 );
                 // if verification is incorrect,
                 if ($resp != null && !$resp->success) {
-                    $controller->Flash->error(__d('recaptcha', 'Please check Recaptcha Box.'), ['key' => 'error']);
+                    $controller->Flash->error(__d('recaptcha', 'Please check Recaptcha Box.'));
                     return $controller->redirect($controller->referer());
                 }
             }
