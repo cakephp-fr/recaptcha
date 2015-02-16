@@ -27,7 +27,8 @@
         "cakephp/cakephp-codesniffer": "dev-master"
     },
     "require-dev": {
-        "phpunit/phpunit": "*"
+        "phpunit/phpunit": "*",
+        "cakephp/app": "dev-master"
     },
     "suggest": {
         "friendsofcake/search": "dev-master"
