@@ -10,6 +10,10 @@
 namespace Recaptcha\Test\TestCase\Controller\Component;
 
 use Cake\Controller\ComponentRegistry;
+use Cake\Core\Configure;
+use Cake\Core\Configure\Engine\PhpConfig;
+use Cake\Core\Plugin;
+use Cake\Event\Event;
 use Cake\TestSuite\TestCase;
 use Recaptcha\Controller\Component\RecaptchaComponent;
 
@@ -52,13 +56,44 @@ class RecaptchaComponentTest extends TestCase
         $this->markTestIncomplete('Not implemented yet.');
     }
 
-    /**
-     * Test Startup
-     *
-     * @return void
-     */
-    public function testStartup()
+    public function testStartupWithNonExistingConfigFile()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        Configure::config('default', new PhpConfig(TESTS . DS . 'config' . DS));
+
+        try {
+            Configure::load('nonExistingFile', 'default', false);
+        } catch (\Cake\Core\Exception\Exception $expected) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    public function testStartupWithExistingConfigFile()
+    {
+        Configure::config('default', new PhpConfig(TESTS . DS . 'config' . DS));
+        Configure::load('recaptchaWithExistingKeys', 'default', false);
+
+        // check that configs are well imported
+        $this->assertEquals('goodkey', Configure::read('Recaptcha.siteKey'));
+        $this->assertEquals('goodsecret', Configure::read('Recaptcha.secret'));
+        $this->assertEquals('en', Configure::read('Recaptcha.defaultLang'));
+        $this->assertEquals('light', Configure::read('Recaptcha.defaultTheme'));
+        $this->assertEquals('image', Configure::read('Recaptcha.defaultType'));
+
+        // test that startup returns void
+        //$this->Recaptcha->startup();
+    }
+
+    public function testStartupWithEmptyOptions()
+    {
+        Configure::config('default', new PhpConfig(TESTS . DS . 'config' . DS));
+        Configure::load('recaptchaWithEmptyOptions', 'default', false);
+
+        $this->assertEquals('goodkey', Configure::read('Recaptcha.siteKey'));
+        $this->assertEquals('goodsecret', Configure::read('Recaptcha.secret'));
+        $this->assertEquals('', Configure::read('Recaptcha.defaultLang'));
+        $this->assertEquals('', Configure::read('Recaptcha.defaultTheme'));
+        $this->assertEquals('', Configure::read('Recaptcha.defaultType'));
     }
 }

@@ -59,7 +59,7 @@ class ReCaptcha
     /**
      * Constructor.
      *
-     * @param string $secret shared secret between site and ReCAPTCHA server.
+     * @param string $secret Shared secret between site and ReCAPTCHA server.
      *
      * @return void
      */
@@ -74,9 +74,9 @@ class ReCaptcha
     /**
      * Encodes the given data into a query string format.
      *
-     * @param array $data array of string elements to be encoded.
+     * @param array $data Array of string elements to be encoded.
      *
-     * @return string - encoded request.
+     * @return string Encoded request.
      */
     protected function _encodeQS($data)
     {
@@ -93,8 +93,8 @@ class ReCaptcha
     /**
      * Submits an HTTP GET to a reCAPTCHA server.
      *
-     * @param string $path url path to recaptcha server.
-     * @param array  $data array of parameters to be sent.
+     * @param string $path Url path to recaptcha server.
+     * @param array  $data Array of parameters to be sent.
      *
      * @return array response
      */
@@ -109,8 +109,8 @@ class ReCaptcha
      * Calls the reCAPTCHA siteverify API to verify whether the user passes
      * CAPTCHA test.
      *
-     * @param string $remoteIp   IP address of end user.
-     * @param string $response   response string from recaptcha verification.
+     * @param string $remoteIp IP address of end user.
+     * @param string $response Response string from recaptcha verification.
      *
      * @return ReCaptchaResponse
      */
@@ -126,12 +126,12 @@ class ReCaptcha
 
         $getResponse = $this->_submitHttpGet(
             self::$siteVerifyUrl,
-            array(
+            [
                 'secret' => $this->secret,
                 'remoteip' => $remoteIp,
                 'v' => self::$version,
                 'response' => $response
-            )
+            ]
         );
         $answers = json_decode($getResponse, true);
         $recaptchaResponse = new ReCaptchaResponse();

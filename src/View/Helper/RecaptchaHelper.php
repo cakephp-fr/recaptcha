@@ -113,12 +113,12 @@ class RecaptchaHelper extends Helper
     ];
 
     /**
-     * Render the recaptcha div and js script
+     * Render the recaptcha div and js script.
      *
-     * @param string $sitekey : Key
-     * @param string $lang : Lang
-     * @param string $theme : Theme
-     * @param string $type : Type
+     * @param string $siteKey Key.
+     * @param string $lang Lang.
+     * @param string $theme Theme.
+     * @param string $type Type.
      *
      * @return string HTML
      */
@@ -222,15 +222,15 @@ class RecaptchaHelper extends Helper
     }
 
     /**
-     * Define the language
+     * Define the language.
      * - First the one given in the display() method
      * - If empty : use default one from config file
      * - If empty : use I18n locale
      * - If not correct : use defaultLang var
      *
-     * @param string $lang : Lang
+     * @param string $lang Lang.
      *
-     * @return string language in code 2 (fr, en, ...)
+     * @return string Language in code 2 (fr, en, ...)
      */
     protected function _language($lang)
     {
@@ -253,7 +253,7 @@ class RecaptchaHelper extends Helper
      * - First the one given in the display() method
      * - If empty : the default one from config file
      *
-     * @param string $siteKey : Key
+     * @param string $siteKey Key.
      *
      * @return string siteKey
      */
@@ -271,7 +271,7 @@ class RecaptchaHelper extends Helper
      * - If empty : the default one from config file
      * - If not correct : use defaultTheme var
      *
-     * @param string $theme : Theme
+     * @param string $theme Theme.
      *
      * @return string theme
      */
@@ -293,7 +293,7 @@ class RecaptchaHelper extends Helper
      * - If empty : the default one from config file
      * - If not correct : use defaultType var
      *
-     * @param string $type : Type
+     * @param string $type Type.
      *
      * @return string type
      */

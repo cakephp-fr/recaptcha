@@ -41,9 +41,9 @@ class RecaptchaComponent extends Component
     /**
      * startup callback
      *
-     * @param \Cake\Event\Event $event : Event
+     * @param \Cake\Event\Event $event Event.
      *
-     * @return void
+     * @return mix void
      */
     public function startup(Event $event)
     {
