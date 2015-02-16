@@ -42,13 +42,37 @@ class RecaptchaHelperTest extends TestCase
         parent::tearDown();
     }
 
-    /**
-     * Test display method
-     *
-     * @return void
-     */
     public function testDisplay()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $lang = 'en';
+        $siteKey = 'goodKey';
+        $theme = 'light';
+        $type = 'image';
+
+        $expected = '<div class="g-recaptcha" data-sitekey="goodKey" data-theme="light" data-type="image"></div>
+        <script type="text/javascript"
+        src="https://www.google.com/recaptcha/api.js?hl=en">
+        </script>';
+
+        $actual = $this->Recaptcha->display($siteKey, $lang, $theme, $type);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testDisplayWithEmptyValues()
+    {
+        $lang = '';
+        $siteKey = '';
+        $theme = '';
+        $type = '';
+
+        $expected = '<div class="g-recaptcha" data-sitekey="" data-theme="light" data-type="image"></div>
+        <script type="text/javascript"
+        src="https://www.google.com/recaptcha/api.js?hl=en">
+        </script>';
+
+        $actual = $this->Recaptcha->display($siteKey, $lang, $theme, $type);
+
+        $this->assertEquals($expected, $actual);
     }
 }
