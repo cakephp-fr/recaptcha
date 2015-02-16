@@ -62,9 +62,7 @@ class RecaptchaComponentTest extends TestCase
 
         try {
             Configure::load('nonExistingFile', 'default', false);
-        }
-
-        catch (\Cake\Core\Exception\Exception $expected) {
+        } catch (\Cake\Core\Exception\Exception $expected) {
             return;
         }
 
