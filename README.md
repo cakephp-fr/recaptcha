@@ -52,18 +52,21 @@ of keys for your website.
 
 ### 3. Create or copy the reCAPTCHA config file
 
-I made a composer install command to add in composer.json that will create
-the default file in `/config/recaptcha.php` from
-`/vendor/cake17/cakephp-recaptcha/config/recaptcha.default.php`.
-To use it, add this in your project composer.json::
+- Either copy the default file in `/config/recaptcha.php` from
+  `/vendor/cake17/cakephp-recaptcha/config/recaptcha.default.php`.
 
-    ...
-    "scripts": {
-      "post-install-cmd": [
-        "Recaptcha\\Console\\Installer::postInstall"
-      ]
-    }
-    ...
+- Either use the composer install command to add in composer.json that will
+  make the copy for you
+  To use it, add this in your project composer.json and run `composer install`
+  after::
+
+      ...
+      "scripts": {
+        "post-install-cmd": [
+          "Recaptcha\\Console\\Installer::postInstall"
+        ]
+      }
+      ...
 
 Don't forget to put `/config/recaptcha.php` file in .gitignore.
 
