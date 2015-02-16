@@ -62,7 +62,6 @@ class RecaptchaComponentTest extends TestCase
 
         try {
             Configure::load('nonExistingFile', 'default', false);
-            //Cake\Core\Exception\Exception: Could not load configuration file: /Users/cake17/sites/dev/cakephp-recaptcha/config/nonExistingFile.php
         }
 
         catch (\Cake\Core\Exception\Exception $expected) {
