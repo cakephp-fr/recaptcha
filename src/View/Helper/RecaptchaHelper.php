@@ -138,9 +138,9 @@ class RecaptchaHelper extends Helper
     /**
      * Render the recaptcha div : multiple recaptcha
      *
-     * @param int $id : Id
-     * @param string $sitekey : Key
-     * @param array $options
+     * @param int $id Id
+     * @param string $sitekey Key
+     * @param array $options Options
      * - theme : Theme
      * - type : Type
      * - lang : Langue
@@ -200,20 +200,24 @@ class RecaptchaHelper extends Helper
             alert(response);
         };";
 
-        foreach ($this->widgets as $widget) {
-            $js .= "var widgetId" . $widget['id'] . ";";
+        if (isset($this->widgets) && !empty($this->widgets)) {
+            foreach ($this->widgets as $widget) {
+                $js .= "var widgetId" . $widget['id'] . ";";
+            }
         }
 
         $js .= "var onloadCallback = function() {";
-        foreach ($this->widgets as $widget) {
-            $js .= "
-                widgetId" . $widget['id'] . " = grecaptcha.render('example" . $widget['id'] . "', {
-                    'sitekey' : '" . $widget['siteKey'] . "',
-                    'theme' : '" . $widget['theme'] . "',
-                    'lang' : '" . $widget['lang'] . "',
-                    'callback' : " . $widget['callback'] . ",
-                });
-            ";
+        if (isset($this->widgets) && !empty($this->widgets)) {
+            foreach ($this->widgets as $widget) {
+                $js .= "
+                    widgetId" . $widget['id'] . " = grecaptcha.render('example" . $widget['id'] . "', {
+                        'sitekey' : '" . $widget['siteKey'] . "',
+                        'theme' : '" . $widget['theme'] . "',
+                        'lang' : '" . $widget['lang'] . "',
+                        'callback' : " . $widget['callback'] . ",
+                    });
+                ";
+            }
         }
         $js .= "};</script>";
         $js .= '<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>';

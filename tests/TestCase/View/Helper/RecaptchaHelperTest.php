@@ -75,4 +75,62 @@ class RecaptchaHelperTest extends TestCase
 
         $this->assertEquals($expected, $actual);
     }
+
+    public function testMultipleWidgets()
+    {
+        $id = 1;
+        $siteKey = '';
+        $options = [
+            'theme' => '',
+            'type' => '',
+            'lang' => '',
+            'callback' => '',
+            'action' => ''
+        ];
+
+        $expected = '
+        <form action="javascript:alert(grecaptcha.getResponse(widgetId1));">
+          <div id="example1"></div>
+          <br>
+          <input type="submit" value="getResponse">
+        </form>
+        <br>
+        <form action="javascript:grecaptcha.reset(widgetId2);">
+          <div id="example2"></div>
+          <br>
+          <input type="submit" value="reset">
+        </form>
+        <br>
+        <form action="?" method="POST">
+          <div id="example3"></div>
+          <br>
+          <input type="submit" value="Submit">
+        </form>
+        <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>';
+
+        $actual = $this->Recaptcha->display($id, $siteKey, $options);
+
+        //$this->assertEquals($expected, $actual);
+    }
+
+    public function testMultipleWidgetsHeadScript()
+    {
+        // add widget
+        $id = 1;
+        $siteKey = '';
+        $options = [
+            'theme' => '',
+            'type' => '',
+            'lang' => '',
+            'callback' => '',
+            'action' => ''
+        ];
+        $this->Recaptcha->display($id, $siteKey, $options);
+
+        $expected = '';
+
+        $actual = $this->Recaptcha->script();
+
+        //$this->assertEquals($expected, $actual);
+    }
 }
