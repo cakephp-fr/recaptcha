@@ -11,4 +11,4 @@
  */
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-require dirname(__DIR__) . '/vendor/cakephp/cakephp/config/bootstrap.php';
+require dirname(__DIR__) . '/tests/paths.php';

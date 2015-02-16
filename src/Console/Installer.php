@@ -38,6 +38,7 @@ class Installer
      * Create the config/app.php file if it does not exist.
      *
      * @param string $dir The application's root directory.
+     * @param string $pluginDir The plugin's directory.
      * @param \Composer\IO\IOInterface $io IO interface to write to console.
      * @return void
      */
