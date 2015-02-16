@@ -57,8 +57,8 @@ of keys for your website.
 
 - Either use the composer install command to add in composer.json that will
   make the copy for you
-  To use it, add this in your project composer.json and run `composer install`
-  after::
+  To use it, add the following snippet in your project composer.json and run
+  `composer run-script post-install-cmd` after::
 
       ...
       "scripts": {
