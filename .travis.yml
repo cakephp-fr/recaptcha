@@ -15,8 +15,9 @@ matrix:
   fast_finish: true
   include:
     - php: 5.4
-      env: PHPCS=1
-      env: PHPUNIT=1
+      env:
+        - PHPCS=1
+        - PHPUNIT=1
 
 install:
   - composer self-update
