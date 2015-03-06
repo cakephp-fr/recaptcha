@@ -43,7 +43,7 @@ It is recommended that you add `/vendor` to your .gitignore file.
 
 In your `config/bootstrap.php` file:
 
-    Plugin::load('Recaptcha', ['routes' => false, 'bootstrap' => true]);
+    Plugin::load('Recaptcha', ['routes' => true, 'bootstrap' => true]);
 
 ### 2. Go to Google reCAPTCHA site
 
@@ -123,7 +123,7 @@ For example:
 
 See another example of contact with no form in
 `src/Controller/ContactController.php`, `src/Template/Contact/index.ctp` and
-`src/Form/ContactForm.php`
+`src/Form/ContactForm.php`. You can test it by going to `http://yoursite.com/recaptcha/contact`.
 
 ## What's inside ? ##
 

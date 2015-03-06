@@ -6,7 +6,7 @@
  * @link     http://book.cakephp.org/3.0/en/core-libraries/form.html#
  *
  */
-namespace App\Form;
+namespace Recaptcha\Form;
 
 use Cake\Form\Form;
 use Cake\Form\Schema;
@@ -36,7 +36,7 @@ class ContactForm extends Form
     protected function _buildValidator(Validator $validator)
     {
         return $validator->add('name', 'length', [
-            'rule' => ['minLength', 10],
+            'rule' => ['minLength', 5],
             'message' => 'A name is required'
         ])->add('email', 'format', [
             'rule' => 'email',

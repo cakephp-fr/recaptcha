@@ -23,7 +23,8 @@
         "wiki": "https://github.com/google/ReCAPTCHA"
     },
     "require": {
-        "cakephp/cakephp": "3.0.*-dev"
+        "php": ">=5.4",
+        "cakephp/cakephp": "3.0.x-dev"
     },
     "require-dev": {
         "phpunit/phpunit": "*",
@@ -39,10 +40,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Recaptcha\\": "tests"
+            "Recaptcha\\Test\\": "tests",
+            "Cake\\Test\\": "./vendor/cakephp/cakephp/tests"
         }
-    },
-    "extra": {
-        "installer-name": "Recaptcha"
     }
 }

@@ -42,6 +42,16 @@ class RecaptchaHelperTest extends TestCase
         parent::tearDown();
     }
 
+    /**
+     * testConstruct method
+     *
+     * @return void
+     */
+    public function testConstruct()
+    {
+        $this->assertEquals([], $this->Recaptcha->config());
+    }
+
     public function testDisplay()
     {
         $lang = 'en';

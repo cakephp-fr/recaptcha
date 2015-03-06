@@ -56,6 +56,11 @@ class RecaptchaComponentTest extends TestCase
         $this->markTestIncomplete('Not implemented yet.');
     }
 
+    /**
+     * Test StartupWithNonExistingConfigFile
+     *
+     * @return void
+     */
     public function testStartupWithNonExistingConfigFile()
     {
         Configure::config('default', new PhpConfig(TESTS . DS . 'config' . DS));
@@ -69,6 +74,11 @@ class RecaptchaComponentTest extends TestCase
         $this->fail('An expected exception has not been raised.');
     }
 
+    /**
+     * Test StartupWithExistingConfigFile
+     *
+     * @return void
+     */
     public function testStartupWithExistingConfigFile()
     {
         Configure::config('default', new PhpConfig(TESTS . DS . 'config' . DS));
@@ -85,6 +95,11 @@ class RecaptchaComponentTest extends TestCase
         //$this->Recaptcha->startup();
     }
 
+    /**
+     * Test StartupWithEmptyOptions
+     *
+     * @return void
+     */
     public function testStartupWithEmptyOptions()
     {
         Configure::config('default', new PhpConfig(TESTS . DS . 'config' . DS));

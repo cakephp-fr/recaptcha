@@ -12,33 +12,10 @@ namespace Recaptcha\View\Helper;
 use Cake\I18n\I18n;
 use Cake\View\Helper;
 use Cake\View\View;
+use Cake\Core\Configure;
 
 class RecaptchaHelper extends Helper
 {
-    /**
-     * Default language
-     * If no language is found anywhere
-     *
-     * @var string
-     */
-    protected $defaultLang = 'en';
-
-    /**
-     * Default theme
-     * If no theme is found anywhere
-     *
-     * @var string
-     */
-    protected $defaultTheme = 'light';
-
-    /**
-     * Default type
-     * If no type is found anywhere
-     *
-     * @var string
-     */
-    protected $defaultType = 'image';
-
     /**
      * Infos for Widgets
      *
@@ -52,6 +29,12 @@ class RecaptchaHelper extends Helper
      * @var array
      */
     protected $_defaultConfig = [
+        // If no language is found anywhere
+        'lang' => 'en',
+        // If no theme is found anywhere
+        'theme' => 'light',
+        // If no type is found anywhere
+        'type' => 'image',
         'secureApiUrl' => 'https://www.google.com/recaptcha/api',
         // reCAPTCHA supported 40+ languages listed here: https://developers.google.com/recaptcha/docs/language
         'langAccepted' => [
@@ -111,6 +94,26 @@ class RecaptchaHelper extends Helper
             'image'
         ]
     ];
+
+    /**
+     * Constructor
+     *
+     * @param View $view View
+     * @param array $config Config
+     * @return void
+     */
+    public function __construct(View $view, $config = [])
+    {
+        parent::__construct($view, $config);
+
+        // Merge Options given by user in config/recaptcha
+        $configRecaptcha = Configure::read('Recaptcha');
+
+        $this->config($config);
+
+        // debug($this->config());
+        $this->config('secret', '');
+    }
 
     /**
      * Render the recaptcha div and js script.

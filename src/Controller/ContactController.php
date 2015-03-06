@@ -10,10 +10,10 @@
  * @link     http://cake17.github.io/
  *
  */
-namespace App\Controller;
+namespace Recaptcha\Controller;
 
 use App\Controller\AppController;
-use App\Form\ContactForm;
+use Recaptcha\Form\ContactForm;
 
 class ContactController extends AppController
 {

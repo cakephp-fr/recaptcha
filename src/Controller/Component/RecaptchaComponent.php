@@ -59,12 +59,15 @@ class RecaptchaComponent extends Component
         // The error code from reCAPTCHA, if any
         $error = null;
         $reCaptcha = new ReCaptcha($this->config('secret'));
+        // unset secret from config
+        $this->config('secret', '');
 
         // send siteKey, lang, theme and type from config to helper
-        $controller->helpers['Recaptcha.Recaptcha']['siteKey'] = $this->config('siteKey');
-        $controller->helpers['Recaptcha.Recaptcha']['lang'] = $this->config('defaultLang');
-        $controller->helpers['Recaptcha.Recaptcha']['theme'] = $this->config('defaultTheme');
-        $controller->helpers['Recaptcha.Recaptcha']['type'] = $this->config('defaultType');
+        // $controller->helpers['Recaptcha.Recaptcha'] = $this->config();
+        // $controller->helpers['Recaptcha.Recaptcha']['siteKey'] = $this->config('siteKey');
+        // $controller->helpers['Recaptcha.Recaptcha']['lang'] = $this->config('defaultLang');
+        // $controller->helpers['Recaptcha.Recaptcha']['theme'] = $this->config('defaultTheme');
+        // $controller->helpers['Recaptcha.Recaptcha']['type'] = $this->config('defaultType');
 
         if ($controller->request->is(['post', 'put', 'patch'])) {
             // if Recaptcha is not checked
