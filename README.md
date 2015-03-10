@@ -24,13 +24,15 @@ _[Using [Composer](http://getcomposer.org/)]_
 
 Add the plugin to your project's `composer.json` - something like this:
 
-```javascript
+```json
 {
     "require": {
         "cake17/cakephp-recaptcha": "dev-master"
     }
 }
 ```
+
+And run `composer update`.
 
 Because this plugin has the type `cakephp-plugin` set in it's own
 `composer.json`, composer knows to install it inside your `/vendor` directory.
