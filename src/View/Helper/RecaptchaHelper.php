@@ -144,6 +144,7 @@ class RecaptchaHelper extends Helper
      * @param int $id Id
      * @param string $sitekey Key
      * @param array $options Options
+     * - sitekey : Site Key
      * - theme : Theme
      * - type : Type
      * - lang : Langue
@@ -151,9 +152,10 @@ class RecaptchaHelper extends Helper
      *
      * @return string HTML
      */
-    public function widget($id, $siteKey, array $options = [])
+    public function widget($id, array $options = [])
     {
         $defaultOptions = [
+            'sitekey' => '',
             'theme' => '',
             'type' => '',
             'lang' => '',
@@ -165,7 +167,7 @@ class RecaptchaHelper extends Helper
         // add infos in widgets for script()
         $this->widgets[] = [
             'id' => $id,
-            'siteKey' => $this->_siteKey($siteKey),
+            'sitekey' => $this->_siteKey($options['sitekey']),
             'theme' => $this->_theme($options['theme']),
             'type' => $this->_type($options['type']),
             'lang' => $this->_language($options['lang']),
@@ -214,7 +216,7 @@ class RecaptchaHelper extends Helper
             foreach ($this->widgets as $widget) {
                 $js .= "
                     widgetId" . $widget['id'] . " = grecaptcha.render('example" . $widget['id'] . "', {
-                        'sitekey' : '" . $widget['siteKey'] . "',
+                        'sitekey' : '" . $widget['sitekey'] . "',
                         'theme' : '" . $widget['theme'] . "',
                         'lang' : '" . $widget['lang'] . "',
                         'callback' : " . $widget['callback'] . ",

@@ -62,13 +62,6 @@ class RecaptchaComponent extends Component
         // unset secret from config
         $this->config('secret', '');
 
-        // send siteKey, lang, theme and type from config to helper
-        // $controller->helpers['Recaptcha.Recaptcha'] = $this->config();
-        // $controller->helpers['Recaptcha.Recaptcha']['siteKey'] = $this->config('siteKey');
-        // $controller->helpers['Recaptcha.Recaptcha']['lang'] = $this->config('defaultLang');
-        // $controller->helpers['Recaptcha.Recaptcha']['theme'] = $this->config('defaultTheme');
-        // $controller->helpers['Recaptcha.Recaptcha']['type'] = $this->config('defaultType');
-
         if ($controller->request->is(['post', 'put', 'patch'])) {
             // if Recaptcha is not checked
             if (isset($controller->request->data["g-recaptcha-response"]) && empty($controller->request->data["g-recaptcha-response"])) {

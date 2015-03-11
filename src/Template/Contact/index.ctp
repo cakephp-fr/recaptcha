@@ -16,6 +16,8 @@
 <?= $this->Form->input('name') ?>
 <?= $this->Form->input('email') ?>
 <?= $this->Form->input('body') ?>
-<?= $this->Recaptcha->display() ?>
+<?= $this->Recaptcha->widget('widget-1') ?>
+<?= $this->Recaptcha->widget('widget-2') ?>
+<?= $this->Recaptcha->script() ?>
 <?= $this->Form->button('Submit') ?>
 <?= $this->Form->end() ?>
