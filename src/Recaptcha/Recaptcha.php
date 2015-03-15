@@ -29,12 +29,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Recaptcha\Lib;
+/**
+ * Recaptcha
+ *
+ * @author   cake17
+ * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @link     http://blog.cake-websites.com/
+ */
+namespace Recaptcha\Recaptcha;
 
-use Recaptcha\Lib\Exception\MissingRecaptchaApiKey;
-use Recaptcha\Lib\ReCaptchaResponse;
+use Recaptcha\Recaptcha\Exception\MissingRecaptchaApiKey;
+use Recaptcha\Recaptcha\RecaptchaResponse;
 
-class ReCaptcha
+/**
+ * Recaptcha class
+ */
+class Recaptcha
 {
     /**
      * @var string
@@ -52,6 +62,11 @@ class ReCaptcha
     protected $secret;
 
     /**
+     * @var RecaptchaResponse Recaptcha Response.
+     */
+    protected $recaptchaResponse;
+
+    /**
      * @var string
      */
     protected static $version = "php_1.0";
@@ -59,14 +74,19 @@ class ReCaptcha
     /**
      * Constructor.
      *
+     * @param RecaptchaResponse Recaptcha Response
      * @param string $secret Shared secret between site and ReCAPTCHA server.
      *
      * @return void
      */
-    public function __construct($secret)
+    public function __construct(RecaptchaResponse $recaptchaResponse, $secret)
     {
+        $this->recaptchaResponse = $recaptchaResponse;
         if ($secret == null || $secret == "") {
-            throw new MissingRecaptchaApiKey(['link' => self::$signupUrl, 'name' => 'here']);
+            throw new MissingRecaptchaApiKey([
+                'link' => self::$signupUrl,
+                'name' => 'here'
+            ]);
         }
         $this->secret = $secret;
     }
@@ -112,16 +132,15 @@ class ReCaptcha
      * @param string $remoteIp IP address of end user.
      * @param string $response Response string from recaptcha verification.
      *
-     * @return ReCaptchaResponse
+     * @return RecaptchaResponse
      */
     public function verifyResponse($remoteIp, $response)
     {
         // Discard empty solution submissions
         if ($response == null || strlen($response) == 0) {
-            $recaptchaResponse = new ReCaptchaResponse();
-            $recaptchaResponse->success = false;
-            $recaptchaResponse->errorCodes = 'missing-input';
-            return $recaptchaResponse;
+            $recaptchaResponse->setSuccess(false);
+            $recaptchaResponse->setErrorCodes('missing-input');
+            return $this->recaptchaResponse;
         }
 
         $getResponse = $this->_submitHttpGet(
@@ -134,15 +153,14 @@ class ReCaptcha
             ]
         );
         $answers = json_decode($getResponse, true);
-        $recaptchaResponse = new ReCaptchaResponse();
 
         if (trim($answers['success']) == true) {
-            $recaptchaResponse->success = true;
+            $this->recaptchaResponse->setSuccess(true);
         } else {
-            $recaptchaResponse->success = false;
-            $recaptchaResponse->errorCodes = $answers['error-codes'];
+            $this->recaptchaResponse->setSuccess(false);
+            $this->recaptchaResponse->setErrorCodes($answers['error-codes']);
         }
 
-        return $recaptchaResponse;
+        return $this->recaptchaResponse;
     }
 }

@@ -4,7 +4,7 @@
  *
  * @author   cake17
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
- * @link     http://cake17.github.io/
+ * @link     http://blog.cake-websites.com/
  *
  */
 namespace Recaptcha\View\Helper;
@@ -100,6 +100,7 @@ class RecaptchaHelper extends Helper
      *
      * @param View $view View
      * @param array $config Config
+     *
      * @return void
      */
     public function __construct(View $view, $config = [])
@@ -109,9 +110,8 @@ class RecaptchaHelper extends Helper
         // Merge Options given by user in config/recaptcha
         $configRecaptcha = Configure::read('Recaptcha');
 
-        $this->config($config);
-
-        // debug($this->config());
+        $this->config($configRecaptcha);
+        // unset secret param
         $this->config('secret', '');
     }
 
@@ -138,6 +138,11 @@ class RecaptchaHelper extends Helper
         </script>';
     }
 
+    public function render()
+    {
+        return $this->html();
+    }
+
     /**
      * Render the recaptcha div : multiple recaptcha
      *
@@ -154,41 +159,46 @@ class RecaptchaHelper extends Helper
      */
     public function widget($id, array $options = [])
     {
-        $defaultOptions = [
-            'sitekey' => '',
-            'theme' => '',
-            'type' => '',
-            'lang' => '',
-            'callback' => '',
-            'action' => ''
-        ];
-        $options = array_merge($defaultOptions, $options);
+        $options = array_merge($this->config(), $options);
 
         // add infos in widgets for script()
         $this->widgets[] = [
             'id' => $id,
-            'sitekey' => $this->_siteKey($options['sitekey']),
-            'theme' => $this->_theme($options['theme']),
-            'type' => $this->_type($options['type']),
-            'lang' => $this->_language($options['lang']),
-            'callback' => $options['callback'],
-            'action' => $options['action'],
+            'sitekey' => $this->validate($options['sitekey'], 'sitekey'),
+            'theme' => $this->validate($options['theme'], 'theme'),
+            'type' => $this->validate($options['type'], 'type'),
+            'lang' => $this->validate($options['lang'], 'lang'),
+            'callback' => '',
+            'action' => 'render',
         ];
+    }
 
-        $actions = [
-            'getResponse' => "javascript:alert(grecaptcha.getResponse(widgetId" . $id . "));",
-            'reset' => "javascript:grecaptcha.reset(widgetId" . $id . ");",
-        ];
-
+    /**
+     * Define the html to render
+     *
+     * @return string html code
+     */
+    public function html() {
         $html = '';
-        if (isset($actions[$options['action']])) {
-            $html .= '<form action="' . $actions[$options['action']] . '">';
-        }
-        $html .= '<div id="example' . $id . '"></div>';
-        if (isset($actions[$options['action']])) {
-            $html .= '<br>
-            <input type="submit" value="' . $options['action'] . '">
-            </form>';
+
+        if (isset($this->widgets) && !empty($this->widgets)) {
+            foreach ($this->widgets as $widget) {
+                $actions = [
+                    'getResponse' => "javascript:alert(grecaptcha.getResponse(id" . $widget['id'] . "));",
+                    'reset' => "javascript:grecaptcha.reset(id" . $widget['id'] . ");",
+                    'render' => '?'
+                ];
+                if (isset($actions[$widget['action']])) {
+                    $html .= '<form action="' . $actions[$widget['action']] . '">';
+                }
+                $html .= '<div id="' . $widget['id'] . '"></div>';
+
+                if (isset($actions[$widget['action']])) {
+                    $html .= '<br>
+                    <input type="submit" value="' . $widget['action'] . '">
+                    </form>';
+                }
+            }
         }
         return $html;
     }
@@ -207,7 +217,7 @@ class RecaptchaHelper extends Helper
 
         if (isset($this->widgets) && !empty($this->widgets)) {
             foreach ($this->widgets as $widget) {
-                $js .= "var widgetId" . $widget['id'] . ";";
+                $js .= "var id" . $widget['id'] . ";";
             }
         }
 
@@ -215,7 +225,7 @@ class RecaptchaHelper extends Helper
         if (isset($this->widgets) && !empty($this->widgets)) {
             foreach ($this->widgets as $widget) {
                 $js .= "
-                    widgetId" . $widget['id'] . " = grecaptcha.render('example" . $widget['id'] . "', {
+                    id" . $widget['id'] . " = grecaptcha.render('" . $widget['id'] . "', {
                         'sitekey' : '" . $widget['sitekey'] . "',
                         'theme' : '" . $widget['theme'] . "',
                         'lang' : '" . $widget['lang'] . "',
@@ -269,7 +279,7 @@ class RecaptchaHelper extends Helper
     protected function _siteKey($siteKey)
     {
         if (empty($siteKey)) {
-            $siteKey = $this->config('siteKey');
+            $siteKey = $this->config('sitekey');
         }
         return $siteKey;
     }
@@ -316,5 +326,35 @@ class RecaptchaHelper extends Helper
             $type = $this->defaultType;
         }
         return $type;
+    }
+
+    /**
+     * Validate a value given a name
+     *
+     * @param string $value Value to check
+     * @param string $name Name of param to validate
+     *
+     * @return bool
+     */
+    protected function validate($value, $name)
+    {
+        switch ($name) {
+            case 'lang':
+                if (!in_array($value, $this->config('langAccepted'))) {
+                    return false;
+                }
+                break;
+            case 'theme':
+                if (!in_array($value, $this->config('themeAccepted'))) {
+                    return false;
+                }
+                break;
+            case 'type':
+                if (!in_array($value, $this->config('typeAccepted'))) {
+                    return false;
+                }
+                break;
+        }
+        return true;
     }
 }

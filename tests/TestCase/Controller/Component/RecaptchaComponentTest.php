@@ -4,7 +4,7 @@
  *
  * @author   cake17
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
- * @link     http://cake17.github.io/
+ * @link     http://blog.cake-websites.com/
  *
  */
 namespace Recaptcha\Test\TestCase\Controller\Component;
@@ -63,7 +63,7 @@ class RecaptchaComponentTest extends TestCase
      */
     public function testStartupWithNonExistingConfigFile()
     {
-        Configure::config('default', new PhpConfig(TESTS . DS . 'config' . DS));
+        Configure::config('default', new PhpConfig(PATH_TO_CONFIG_FILES));
 
         try {
             Configure::load('nonExistingFile', 'default', false);
@@ -81,7 +81,7 @@ class RecaptchaComponentTest extends TestCase
      */
     public function testStartupWithExistingConfigFile()
     {
-        Configure::config('default', new PhpConfig(TESTS . DS . 'config' . DS));
+        Configure::config('default', new PhpConfig(PATH_TO_CONFIG_FILES));
         Configure::load('recaptchaWithExistingKeys', 'default', false);
 
         // check that configs are well imported
@@ -102,7 +102,7 @@ class RecaptchaComponentTest extends TestCase
      */
     public function testStartupWithEmptyOptions()
     {
-        Configure::config('default', new PhpConfig(TESTS . DS . 'config' . DS));
+        Configure::config('default', new PhpConfig(PATH_TO_CONFIG_FILES));
         Configure::load('recaptchaWithEmptyOptions', 'default', false);
 
         $this->assertEquals('goodkey', Configure::read('Recaptcha.siteKey'));

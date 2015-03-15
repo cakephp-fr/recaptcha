@@ -31,19 +31,68 @@
  */
 
 /**
- * A ReCaptchaResponse is returned from checkAnswer().
+ * RecaptchaResponse
+ *
+ * @author   cake17
+ * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @link     http://blog.cake-websites.com/
  */
-namespace Recaptcha\Lib;
+namespace Recaptcha\Recaptcha;
 
-class ReCaptchaResponse
+use Recaptcha\Recaptcha\RecaptchaResponseInterface;
+
+/**
+ * A RecaptchaResponse is returned from checkAnswer().
+ */
+class RecaptchaResponse //implements RecaptchaResponseInterface
 {
     /**
      * @var bool $success
      */
-    public $success;
+    protected $success;
 
     /**
      * @var string $errorCodes
      */
-    public $errorCodes;
+    protected $errorCodes;
+
+    /**
+     * Return true/false if Success/Fails
+     *
+     * @return bool
+     */
+    public function isSuccess() {
+        return $this->success;
+    }
+
+    /**
+     * Return the Code Errors if any
+     *
+     * @return string
+     */
+    public function errorCodes() {
+        return $this->errorCodes;
+    }
+
+    /**
+     * Sets the success
+     *
+     * @param bool $success Success
+     *
+     * @return void
+     */
+    public function setSuccess($success) {
+        $this->success = $success;
+    }
+
+    /**
+     * Sets the Code Errors
+     *
+     * @param string $errorCodes Error Codes
+     *
+     * @return void
+     */
+    public function setErrorCodes($errorCodes) {
+        $this->errorCodes = $errorCodes;
+    }
 }

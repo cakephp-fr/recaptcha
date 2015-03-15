@@ -23,7 +23,7 @@ class ContactForm extends Form
     protected function _buildSchema(Schema $schema)
     {
         return $schema->addField('name', 'string')
-            ->addField('email', ['type' => 'string'])
+            // ->addField('email', ['type' => 'string'])
             ->addField('body', ['type' => 'text']);
     }
 
@@ -36,7 +36,7 @@ class ContactForm extends Form
     protected function _buildValidator(Validator $validator)
     {
         return $validator->add('name', 'length', [
-            'rule' => ['minLength', 5],
+            'rule' => ['minLength', 2],
             'message' => 'A name is required'
         ])->add('email', 'format', [
             'rule' => 'email',

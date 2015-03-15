@@ -4,10 +4,10 @@
  *
  * @author   cake17
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
- * @link     http://cake17.github.io/
+ * @link     http://blog.cake-websites.com/
  *
  */
-namespace Recaptcha\Lib\Exception;
+namespace Recaptcha\Recaptcha\Exception;
 
 use Cake\Core\Exception\Exception;
 

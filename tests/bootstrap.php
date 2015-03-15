@@ -22,3 +22,6 @@ unset($findRoot);
 
 chdir($root);
 require $root . '/config/bootstrap.php';
+
+// Path to config files for tests
+define(PATH_TO_CONFIG_FILES, dirname(__DIR__) . DS . 'tests' . DS . 'config' . DS);

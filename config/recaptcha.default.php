@@ -1,10 +1,18 @@
 <?php
+/**
+ * Recaptcha Default Configuration
+ *
+ * @author   cake17
+ * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @link     http://blog.cake-websites.com/
+ */
 return [
     'Recaptcha' => [
         // Register API keys at https://www.google.com/recaptcha/admin
         'sitekey' => '',
         'secret' => '',
-        // reCAPTCHA supported 40+ languages listed here: https://developers.google.com/recaptcha/docs/language
+        // reCAPTCHA supported 40+ languages listed
+        // here: https://developers.google.com/recaptcha/docs/language
         'lang' => 'en',
         // either light or dark
         'theme' => 'light',

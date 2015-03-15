@@ -1,21 +1,22 @@
 <?php
 /**
- * ReCaptchaTest
+ * RecaptchaTest
  *
  * @author   cake17
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
- * @link     http://cake17.github.io/
+ * @link     http://blog.cake-websites.com/
  *
  */
 namespace Recaptcha\Test\TestCase\Lib;
 
 use Cake\TestSuite\TestCase;
-use Recaptcha\Lib\ReCaptcha;
+use Recaptcha\Recaptcha\Recaptcha;
+use Recaptcha\Recaptcha\RecaptchaResponse;
 
 /**
- * Recaptcha\Lib\ReCaptcha Test Case
+ * Recaptcha\Recaptcha\Recaptcha Test Case
  */
-class ReCaptchaTest extends TestCase
+class RecaptchaTest extends TestCase
 {
     /**
      * setUp method
@@ -40,16 +41,18 @@ class ReCaptchaTest extends TestCase
     public function testWithNonExistingSecret()
     {
         $secret = 'wrongSecret';
-        $this->ReCaptcha = new ReCaptcha($secret);
+        $recaptchaResponse = new RecaptchaResponse();
+        $this->Recaptcha = new Recaptcha($recaptchaResponse, $secret);
         //$this->assertEquals();
-        unset($this->ReCaptcha);
+        unset($this->Recaptcha);
     }
 
     public function testWithExistingSecret()
     {
         $secret = 'goodSecret';
-        $this->ReCaptcha = new ReCaptcha($secret);
+        $recaptchaResponse = new RecaptchaResponse();
+        $this->Recaptcha = new Recaptcha($recaptchaResponse, $secret);
         //$this->assertEquals();
-        unset($this->ReCaptcha);
+        unset($this->Recaptcha);
     }
 }

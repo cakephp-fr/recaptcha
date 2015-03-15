@@ -1,21 +1,21 @@
 <?php
 /**
- * ReCaptchaResponseTest
+ * MissingRecaptchaApiKeyTest
  *
  * @author   cake17
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
- * @link     http://cake17.github.io/
+ * @link     http://blog.cake-websites.com/
  *
  */
-namespace Recaptcha\Test\TestCase\Lib;
+namespace Recaptcha\Test\TestCase\Lib\Exception;
 
 use Cake\TestSuite\TestCase;
-use Recaptcha\Lib\ReCaptchaResponse;
+use Recaptcha\Recaptcha\Exception\MissingRecaptchaApiKey;
 
 /**
- * Recaptcha\Lib\ReCaptchaResponse Test Case
+ * Recaptcha\Lib\Recaptcha Test Case
  */
-class ReCaptchaResponseTest extends TestCase
+class RecaptchaTest extends TestCase
 {
     /**
      * setUp method
@@ -25,7 +25,6 @@ class ReCaptchaResponseTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        //$this->ReCaptchaResponse = new ReCaptchaResponse();
     }
 
     /**
@@ -35,8 +34,6 @@ class ReCaptchaResponseTest extends TestCase
      */
     public function tearDown()
     {
-        //unset($this->ReCaptchaResponse);
-
         parent::tearDown();
     }
 
