@@ -16,6 +16,7 @@ use Cake\Core\Plugin;
 use Cake\Event\Event;
 use Cake\TestSuite\TestCase;
 use Recaptcha\Controller\Component\RecaptchaComponent;
+use Recaptcha\Recaptcha\Recaptcha;
 
 /**
  * Recaptcha\Controller\Component\RecaptchaComponent Test Case
@@ -57,24 +58,6 @@ class RecaptchaComponentTest extends TestCase
     }
 
     /**
-     * Test StartupWithNonExistingConfigFile
-     *
-     * @return void
-     */
-    public function testStartupWithNonExistingConfigFile()
-    {
-        Configure::config('default', new PhpConfig(PATH_TO_CONFIG_FILES));
-
-        try {
-            Configure::load('nonExistingFile', 'default', false);
-        } catch (\Cake\Core\Exception\Exception $expected) {
-            return;
-        }
-
-        $this->fail('An expected exception has not been raised.');
-    }
-
-    /**
      * Test StartupWithExistingConfigFile
      *
      * @return void
@@ -84,31 +67,26 @@ class RecaptchaComponentTest extends TestCase
         Configure::config('default', new PhpConfig(PATH_TO_CONFIG_FILES));
         Configure::load('recaptchaWithExistingKeys', 'default', false);
 
-        // check that configs are well imported
-        $this->assertEquals('goodkey', Configure::read('Recaptcha.siteKey'));
+        // check that secret is well imported
         $this->assertEquals('goodsecret', Configure::read('Recaptcha.secret'));
-        $this->assertEquals('en', Configure::read('Recaptcha.defaultLang'));
-        $this->assertEquals('light', Configure::read('Recaptcha.defaultTheme'));
-        $this->assertEquals('image', Configure::read('Recaptcha.defaultType'));
-
-        // test that startup returns void
-        //$this->Recaptcha->startup();
     }
 
     /**
-     * Test StartupWithEmptyOptions
+     * testVerifyPostRecaptcha
      *
      * @return void
      */
-    public function testStartupWithEmptyOptions()
+    public function testVerifyPostRecaptcha()
     {
-        Configure::config('default', new PhpConfig(PATH_TO_CONFIG_FILES));
-        Configure::load('recaptchaWithEmptyOptions', 'default', false);
+        $stub = $this->getMockBuilder('Recaptcha')
+                     ->disableOriginalConstructor()
+                     ->getMock();
 
-        $this->assertEquals('goodkey', Configure::read('Recaptcha.siteKey'));
-        $this->assertEquals('goodsecret', Configure::read('Recaptcha.secret'));
-        $this->assertEquals('', Configure::read('Recaptcha.defaultLang'));
-        $this->assertEquals('', Configure::read('Recaptcha.defaultTheme'));
-        $this->assertEquals('', Configure::read('Recaptcha.defaultType'));
+        // Configure the stub.
+        $stub->method('verifyResponse')
+             ->willReturn('null');
+
+        // $this->Recaptcha->verifyPostRecaptcha($controller, $stub->verifyResponse());
+        $this->assertEquals(null, $stub->verifyResponse());
     }
 }

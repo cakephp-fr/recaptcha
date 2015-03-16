@@ -95,7 +95,7 @@ For example:
     }
 
 As you can see, you can optionnaly add the Prg Component from
-friendsofcake/search plugin (need to be added to your composer.json). This
+friendsofcake/search plugin (need to be added to your `composer.json`). This
 put the request data into querystring, so the form contains the entries of
 the user even if the checkbox is not checked.
 
@@ -140,6 +140,12 @@ See another example of contact with no form in
 **CONSOLE**
 
 - Installer
+
+**EXAMPLE**
+
+- Controller : ContactController
+- Form : ContactForm
+- Template : Contact/index.ctp
 
 ## Tests ##
 
