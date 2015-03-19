@@ -9,11 +9,14 @@
  */
 namespace Recaptcha\Test\TestCase\Controller\Component;
 
+use Cake\Controller\Controller;
 use Cake\Controller\ComponentRegistry;
 use Cake\Core\Configure;
 use Cake\Core\Configure\Engine\PhpConfig;
 use Cake\Core\Plugin;
 use Cake\Event\Event;
+use Cake\Network\Request;
+use Cake\Network\Response;
 use Cake\TestSuite\TestCase;
 use Recaptcha\Controller\Component\RecaptchaComponent;
 use Recaptcha\Recaptcha\Recaptcha;
@@ -24,6 +27,16 @@ use Recaptcha\Recaptcha\Recaptcha;
 class RecaptchaComponentTest extends TestCase
 {
     /**
+     * @var Component Component
+     */
+    public $component = null;
+
+    /**
+     * @var Controller Controller
+     */
+    public $controller = null;
+
+    /**
      * setUp method
      *
      * @return void
@@ -31,8 +44,16 @@ class RecaptchaComponentTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $registry = new ComponentRegistry();
-        $this->Recaptcha = new RecaptchaComponent($registry);
+        $request = new Request();
+        $response = new Response();
+        $this->controller = $this->getMock(
+            'Cake\Controller\Controller',
+            [],
+            [$request, $response]
+        );
+
+        $registry = new ComponentRegistry($this->controller);
+        $this->component = new RecaptchaComponent($registry);
     }
 
     /**
@@ -42,7 +63,7 @@ class RecaptchaComponentTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Recaptcha);
+        unset($this->component, $this->controller);
 
         parent::tearDown();
     }
@@ -78,15 +99,15 @@ class RecaptchaComponentTest extends TestCase
      */
     public function testVerifyPostRecaptcha()
     {
-//        $stub = $this->getMockBuilder('Recaptcha')
-//                     ->disableOriginalConstructor()
-//                     ->getMock();
-//
-//        // Configure the stub.
-//        $stub->method('verifyResponse')
-//             ->willReturn('null');
-//
-//        // $this->Recaptcha->verifyPostRecaptcha($controller, $stub->verifyResponse());
-//        $this->assertEquals(null, $stub->verifyResponse());
+        $response = new RecaptchaResponse();
+        // instantiate Recaptcha object that deals with retrieving data from google recaptcha
+        $recaptcha = new Recaptcha($response, 'good-secret');
+
+        $this->controller->request->data([
+            "g-recaptcha-response" => "good-response"
+        ]);
+        $this->assertFalse($this->component->verifyPostRecaptcha($this->controller, $recaptcha));
+        $this->assertFalse($this->component->verifyPostRecaptcha($this->controller, $recaptcha));
+        $this->assertEmpty($this->component->verifyPostRecaptcha($this->controller, $recaptcha));
     }
 }
