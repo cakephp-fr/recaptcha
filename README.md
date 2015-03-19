@@ -90,20 +90,31 @@ For example:
         parent::initialize();
         if ($this->request->action === 'contact') {
             $this->loadComponent('Recaptcha.Recaptcha');
-            // $this->loadComponent('Search.Prg');
         }
     }
 
-As you can see, you can optionnaly add the Prg Component from
-friendsofcake/search plugin (need to be added to your `composer.json`). This
-put the request data into querystring, so the form contains the entries of
-the user even if the checkbox is not checked.
+### 6. Add the following in your controller.
 
-### 6. No need to add the helper.
+    public function contact() {
+        if ($this->request->is('post')) {
+            if ($this->Recaptcha->verify()) {
+                if ($contact->execute($this->request->data)) {
+                    $this->Flash->success(__('We will get back to you soon.'));
+                    return $this->redirect($this->referer());
+                } else {
+                    $this->Flash->error(__('There was a problem submitting your form.'));
+                }
+            } else {
+                $this->Flash->error(__('Please check your Recaptcha Box.'));
+            }
+        }
+    }
+
+### 7. No need to add the helper.
 
 It will be added with the component.
 
-### 7. Finally add `<?= $this->Recaptcha->display() ?>` in your view template inside the form.
+### 8. Finally add `<?= $this->Recaptcha->display() ?>` in your view template inside the form.
 
 For example:
 

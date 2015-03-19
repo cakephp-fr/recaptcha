@@ -70,11 +70,11 @@ class RecaptchaResponseTest extends TestCase
     {
         $this->RecaptchaResponse->setSuccess('ee');
         $this->assertEquals(null, $this->RecaptchaResponse->isSuccess());
-        
+
         $this->RecaptchaResponse->setSuccess(['eee', 'e']);
         $this->assertEquals(null, $this->RecaptchaResponse->isSuccess());
     }
-    
+
     /**
      * Test Error Codes
      *
@@ -96,7 +96,7 @@ class RecaptchaResponseTest extends TestCase
         $this->RecaptchaResponse->setErrorCodes(['eee', 'e']);
         $this->assertEquals([], $this->RecaptchaResponse->errorCodes());
     }
-    
+
     /**
      * Test Set Response
      *
@@ -108,7 +108,7 @@ class RecaptchaResponseTest extends TestCase
         $this->assertEquals(null, $this->RecaptchaResponse->errorCodes());
         $this->assertEquals(null, $this->RecaptchaResponse->isSuccess());
     }
-    
+
     /**
      * Test Set Response
      *
@@ -119,11 +119,11 @@ class RecaptchaResponseTest extends TestCase
         $this->RecaptchaResponse->setJson(['error-codes' => ['input-error'], 'success' => true]);
         $this->assertEquals([], $this->RecaptchaResponse->errorCodes());
         $this->assertEquals(true, $this->RecaptchaResponse->isSuccess());
-        
+
         $this->RecaptchaResponse->setJson(['error-codes' => ['missing-input-secret'], 'success' => true]);
         $this->assertEquals(['missing-input-secret'], $this->RecaptchaResponse->errorCodes());
         $this->assertEquals(true, $this->RecaptchaResponse->isSuccess());
-        
+
         $this->RecaptchaResponse->setJson(['error-codes' => ['missing-input-secret', 'invalid-input-secret', 'eee'], 'success' => true]);
         $this->assertEquals(['missing-input-secret', 'invalid-input-secret'], $this->RecaptchaResponse->errorCodes());
         $this->assertEquals(true, $this->RecaptchaResponse->isSuccess());

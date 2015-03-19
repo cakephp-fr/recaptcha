@@ -76,6 +76,11 @@ class RecaptchaComponent extends Component
         $this->setController($controller);
     }
 
+    /**
+     * Verify Response
+     *
+     * @return bool
+     */
     public function verify()
     {
         $controller = $this->_registry->getController();

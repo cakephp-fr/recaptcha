@@ -55,7 +55,7 @@ class RecaptchaTest extends TestCase
         //$this->assertEquals();
         unset($this->Recaptcha);
     }
-    
+
     public function testVerifyResponse()
     {
         $secret = 'goodSecret';
@@ -65,7 +65,7 @@ class RecaptchaTest extends TestCase
         $this->assertEquals(false, $this->Recaptcha->verifyResponse($httpClient, 'good'));
         unset($this->Recaptcha);
     }
-    
+
     public function testVerifyResponseWrong()
     {
         $secret = 'goodSecret';

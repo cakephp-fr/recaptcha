@@ -69,16 +69,6 @@ class RecaptchaComponentTest extends TestCase
     }
 
     /**
-     * Test initial setup
-     *
-     * @return void
-     */
-    public function testInitialization()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
      * Test StartupWithExistingConfigFile
      *
      * @return void
@@ -93,11 +83,11 @@ class RecaptchaComponentTest extends TestCase
     }
 
     /**
-     * testVerifyPostRecaptcha
+     * testVerify
      *
      * @return void
      */
-    public function testVerifyPostRecaptcha()
+    public function testVerify()
     {
         $response = new RecaptchaResponse();
         // instantiate Recaptcha object that deals with retrieving data from google recaptcha
@@ -106,8 +96,8 @@ class RecaptchaComponentTest extends TestCase
         $this->controller->request->data([
             "g-recaptcha-response" => "good-response"
         ]);
-        $this->assertFalse($this->component->verifyPostRecaptcha($this->controller, $recaptcha));
-        $this->assertFalse($this->component->verifyPostRecaptcha($this->controller, $recaptcha));
-        $this->assertEmpty($this->component->verifyPostRecaptcha($this->controller, $recaptcha));
+        $this->assertFalse($this->controller->verify());
+        $this->assertFalse($this->controller->verify());
+        $this->assertEmpty($this->controller->verify());
     }
 }
