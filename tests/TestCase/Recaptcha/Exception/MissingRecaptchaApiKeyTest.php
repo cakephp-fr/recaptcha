@@ -7,7 +7,7 @@
  * @link     http://blog.cake-websites.com/
  *
  */
-namespace Recaptcha\Test\TestCase\Lib\Exception;
+namespace Recaptcha\Test\TestCase\Recaptcha\Exception;
 
 use Cake\TestSuite\TestCase;
 use Recaptcha\Recaptcha\Exception\MissingRecaptchaApiKey;

@@ -43,5 +43,5 @@ interface RecaptchaResponseInterface
      *
      * @return void
      */
-    public function setErrorCodes($errorCodes);
+    public function setErrorCodes(array $errorCodes);
 }

@@ -7,8 +7,9 @@
  * @link     http://blog.cake-websites.com/
  *
  */
-namespace Recaptcha\Test\TestCase\Lib;
+namespace Recaptcha\Test\TestCase\Recaptcha;
 
+use Cake\Network\Http\Client;
 use Cake\TestSuite\TestCase;
 use Recaptcha\Recaptcha\Recaptcha;
 use Recaptcha\Recaptcha\RecaptchaResponse;
@@ -53,6 +54,26 @@ class RecaptchaTest extends TestCase
         $recaptchaResponse = new RecaptchaResponse();
         $this->Recaptcha = new Recaptcha($recaptchaResponse, $secret);
         //$this->assertEquals();
+        unset($this->Recaptcha);
+    }
+    
+    public function testVerifyResponse()
+    {
+        $secret = 'goodSecret';
+        $httpClient = new Client();
+        $recaptchaResponse = new RecaptchaResponse();
+        $this->Recaptcha = new Recaptcha($recaptchaResponse, $secret);
+        $this->assertEquals(false, $this->Recaptcha->verifyResponse($httpClient, 'good'));
+        unset($this->Recaptcha);
+    }
+    
+    public function testVerifyResponseWrong()
+    {
+        $secret = 'goodSecret';
+        $httpClient = new Client();
+        $recaptchaResponse = new RecaptchaResponse();
+        $this->Recaptcha = new Recaptcha($recaptchaResponse, $secret);
+        $this->assertEquals(false, $this->Recaptcha->verifyResponse($httpClient, 'wrong'));
         unset($this->Recaptcha);
     }
 }

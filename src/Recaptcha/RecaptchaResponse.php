@@ -44,7 +44,7 @@ use Recaptcha\Recaptcha\RecaptchaResponseInterface;
 /**
  * A RecaptchaResponse is returned from checkAnswer().
  */
-class RecaptchaResponse //implements RecaptchaResponseInterface
+class RecaptchaResponse implements RecaptchaResponseInterface
 {
     /**
      * @var bool $success
@@ -52,9 +52,19 @@ class RecaptchaResponse //implements RecaptchaResponseInterface
     protected $success;
 
     /**
-     * @var string $errorCodes
+     * @var array $errorCodes
      */
     protected $errorCodes;
+
+    /**
+     * @var array $errorCodesAvailable All error codes that google server may respond
+     */
+    protected static $errorCodesAuthorized = [
+        'missing-input-secret' => 'The secret parameter is missing.',
+        'invalid-input-secret' => 'The secret parameter is invalid or malformed.',
+        'missing-input-response' => 'The response parameter is missing.',
+        'invalid-input-response' => 'The response parameter is invalid or malformed.'
+    ];
 
     /**
      * Return true/false if Success/Fails
@@ -68,7 +78,7 @@ class RecaptchaResponse //implements RecaptchaResponseInterface
     /**
      * Return the Code Errors if any
      *
-     * @return string
+     * @return array
      */
     public function errorCodes() {
         return $this->errorCodes;
@@ -82,17 +92,87 @@ class RecaptchaResponse //implements RecaptchaResponseInterface
      * @return void
      */
     public function setSuccess($success) {
-        $this->success = $success;
+        if ($this->validateSuccess($success)) {
+            $this->success = $success;
+        }
+    }
+
+    /**
+     * Validates the success
+     * Only if success is a boolean
+     *
+     * @param bool $success Success
+     *
+     * @return bool
+     */
+    protected function validateSuccess($success) {
+        if (is_bool($success)) {
+            return true;
+        }
+        return false;
     }
 
     /**
      * Sets the Code Errors
      *
-     * @param string $errorCodes Error Codes
+     * @param array $errorCodes Error Codes
      *
      * @return void
      */
-    public function setErrorCodes($errorCodes) {
-        $this->errorCodes = $errorCodes;
+    public function setErrorCodes(array $errorCodes) {
+        if ($this->validateErrorCodes($errorCodes)) {
+            $this->errorCodes = $this->purifyErrorCodes($errorCodes);
+        }
+    }
+
+    /**
+     * Validates the errorCodes
+     * Only if errorCodes is an array and is in available errorCodes
+     *
+     * @param array $errorCodes Error Codes
+     *
+     * @return bool
+     */
+    protected function validateErrorCodes(array $errorCodes) {
+        if (empty($errorCodes)) {
+            return false;
+        }
+        if (!is_array($errorCodes)) {
+            return false;
+        }
+        
+        return true;
+    }
+
+    /**
+     * Return a array with only the authorized errorCodes
+     *
+     * @param array $errorCodes
+     * @return array
+     */
+    protected function purifyErrorCodes(array $errorCodes) {
+        $errorCodesPurified = [];
+        foreach ($errorCodes as $num => $errorCode) {
+            if (key_exists($errorCode, self::$errorCodesAuthorized)) {
+                $errorCodesPurified[$num] = $errorCode;
+            }
+        }
+        return $errorCodesPurified;
+    }
+    
+    /**
+     * Hydrate the Object with $json data
+     *
+     * @param array $json
+     *
+     * @return void
+     */
+    public function setJson(array $json) {
+        if (isset($json['error-codes']) && !empty($json['error-codes'])) {
+            $this->setErrorCodes($json['error-codes']);
+        }
+        if (isset($json['success']) && !empty($json['success'])) {
+            $this->setSuccess($json['success']);
+        }
     }
 }

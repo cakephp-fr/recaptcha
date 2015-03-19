@@ -38,6 +38,7 @@
  */
 namespace Recaptcha\Recaptcha;
 
+use Cake\Network\Http\Client;
 use Recaptcha\Recaptcha\Exception\MissingRecaptchaApiKey;
 use Recaptcha\Recaptcha\RecaptchaResponse;
 
@@ -54,7 +55,7 @@ class Recaptcha
     /**
      * @var string
      */
-    protected static $siteVerifyUrl = "https://www.google.com/recaptcha/api/siteverify?";
+    protected static $siteVerifyUrl = "https://www.google.com/recaptcha/api/siteverify";
 
     /**
      * @var string
@@ -67,15 +68,10 @@ class Recaptcha
     protected $recaptchaResponse;
 
     /**
-     * @var string
-     */
-    protected static $version = "php_1.0";
-
-    /**
      * Constructor.
      *
      * @param RecaptchaResponse Recaptcha Response
-     * @param string $secret Shared secret between site and ReCAPTCHA server.
+     * @param string $secret Required. The shared key between your site and ReCAPTCHA.
      *
      * @return void
      */
@@ -92,75 +88,41 @@ class Recaptcha
     }
 
     /**
-     * Encodes the given data into a query string format.
-     *
-     * @param array $data Array of string elements to be encoded.
-     *
-     * @return string Encoded request.
-     */
-    protected function _encodeQS($data)
-    {
-        $req = "";
-        foreach ($data as $key => $value) {
-            $req .= $key . '=' . urlencode(stripslashes($value)) . '&';
-        }
-
-        // Cut the last '&'
-        $req = substr($req, 0, strlen($req) - 1);
-        return $req;
-    }
-
-    /**
-     * Submits an HTTP GET to a reCAPTCHA server.
-     *
-     * @param string $path Url path to recaptcha server.
-     * @param array  $data Array of parameters to be sent.
-     *
-     * @return array response
-     */
-    protected function _submitHttpGet($path, $data)
-    {
-        $req = $this->_encodeQS($data);
-        $response = file_get_contents($path . $req);
-        return $response;
-    }
-
-    /**
      * Calls the reCAPTCHA siteverify API to verify whether the user passes
      * CAPTCHA test.
      *
-     * @param string $remoteIp IP address of end user.
-     * @param string $response Response string from recaptcha verification.
+     * @param HttpClientInterface $httpClient Required. HttpClient.
+     * @param string $response Required. The user response token provided by the reCAPTCHA to the user and provided to your site on.
+     * @param string $remoteIp Optional. The user's IP address.
      *
-     * @return RecaptchaResponse
+     * @return bool
      */
-    public function verifyResponse($remoteIp, $response)
+    public function verifyResponse(Client $httpClient, $response, $remoteIp = null)
     {
-        // Discard empty solution submissions
-        if ($response == null || strlen($response) == 0) {
-            $recaptchaResponse->setSuccess(false);
-            $recaptchaResponse->setErrorCodes('missing-input');
-            return $this->recaptchaResponse;
+        if (is_null($this->secret)) {
+            return false;
+        }
+        // Get Json GRecaptchaResponse Obj from Google server
+        $http = new Client();
+        $postOptions = [
+            'secret' => $this->secret,
+            'response' => $response
+        ];
+        if (!is_null($remoteIp)) {
+            $postOptions['remoteip'] = $remoteIp;
+        }
+        $gRecaptchaResponse = $http->post(self::$siteVerifyUrl, $postOptions);
+
+        // problem while accessing remote
+        if (!$gRecaptchaResponse->isOk()) {
+            return false;
         }
 
-        $getResponse = $this->_submitHttpGet(
-            self::$siteVerifyUrl,
-            [
-                'secret' => $this->secret,
-                'remoteip' => $remoteIp,
-                'v' => self::$version,
-                'response' => $response
-            ]
-        );
-        $answers = json_decode($getResponse, true);
-
-        if (trim($answers['success']) == true) {
-            $this->recaptchaResponse->setSuccess(true);
-        } else {
-            $this->recaptchaResponse->setSuccess(false);
-            $this->recaptchaResponse->setErrorCodes($answers['error-codes']);
+        $this->recaptchaResponse->setJson($gRecaptchaResponse->json);
+        
+        if ($this->recaptchaResponse->isSuccess()) {
+            return true;
         }
-
-        return $this->recaptchaResponse;
+        return false;
     }
 }
