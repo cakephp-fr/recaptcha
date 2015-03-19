@@ -29,7 +29,6 @@ class ContactController extends AppController
         parent::initialize();
         if ($this->request->action === 'index') {
             $this->loadComponent('Recaptcha.Recaptcha');
-            // $this->loadComponent('Search.Prg');
         }
     }
 
