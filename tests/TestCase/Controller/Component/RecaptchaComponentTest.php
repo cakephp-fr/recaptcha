@@ -41,32 +41,32 @@ class RecaptchaComponentTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
-    {
-        parent::setUp();
-        $request = new Request();
-        $response = new Response();
-        $this->controller = $this->getMock(
-            'Cake\Controller\Controller',
-            [],
-            [$request, $response]
-        );
-
-        $registry = new ComponentRegistry($this->controller);
-        $this->component = new RecaptchaComponent($registry);
-    }
+    // public function setUp()
+    // {
+    //     parent::setUp();
+    //     $request = new Request();
+    //     $response = new Response();
+    //     $this->controller = $this->getMock(
+    //         'Cake\Controller\Controller',
+    //         [],
+    //         [$request, $response]
+    //     );
+    //
+    //     $registry = new ComponentRegistry($this->controller);
+    //     $this->component = new RecaptchaComponent($registry);
+    // }
 
     /**
      * tearDown method
      *
      * @return void
      */
-    public function tearDown()
-    {
-        unset($this->component, $this->controller);
-
-        parent::tearDown();
-    }
+    // public function tearDown()
+    // {
+    //     unset($this->component, $this->controller);
+    //
+    //     parent::tearDown();
+    // }
 
     /**
      * Test StartupWithExistingConfigFile
@@ -81,23 +81,23 @@ class RecaptchaComponentTest extends TestCase
         // check that secret is well imported
         $this->assertEquals('goodsecret', Configure::read('Recaptcha.secret'));
     }
-
-    /**
-     * testVerify
-     *
-     * @return void
-     */
-    public function testVerify()
-    {
-        $response = new RecaptchaResponse();
-        // instantiate Recaptcha object that deals with retrieving data from google recaptcha
-        $recaptcha = new Recaptcha($response, 'good-secret');
-
-        $this->controller->request->data([
-            "g-recaptcha-response" => "good-response"
-        ]);
-        $this->assertFalse($this->controller->verify());
-        $this->assertFalse($this->controller->verify());
-        $this->assertEmpty($this->controller->verify());
-    }
+    //
+    // /**
+    //  * testVerify
+    //  *
+    //  * @return void
+    //  */
+    // public function testVerify()
+    // {
+    //     $response = new RecaptchaResponse();
+    //     // instantiate Recaptcha object that deals with retrieving data from google recaptcha
+    //     $recaptcha = new Recaptcha($response, 'good-secret');
+    //
+    //     $this->controller->request->data([
+    //         "g-recaptcha-response" => "good-response"
+    //     ]);
+    //     $this->assertFalse($this->controller->verify());
+    //     $this->assertFalse($this->controller->verify());
+    //     $this->assertEmpty($this->controller->verify());
+    // }
 }

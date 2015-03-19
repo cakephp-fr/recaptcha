@@ -118,22 +118,25 @@ class RecaptchaHelper extends Helper
     /**
      * Render the recaptcha div and js script.
      *
-     * @param string $siteKey Key.
-     * @param string $lang Lang.
-     * @param string $theme Theme.
-     * @param string $type Type.
+     * @param array $options Options.
+     * - sitekey
+     * - lang
+     * - theme
+     * - type
      *
      * @return string HTML
      */
     public function display(array $options = [])
     {
-        //$this->config(array_merge($));
+        // merge options
+        $options = array_merge($this->config(), $options);
+        extract($options);
         $lang = $this->_language($lang);
-        $siteKey = $this->_siteKey($siteKey);
+        $sitekey = $this->_siteKey($sitekey);
         $theme = $this->_theme($theme);
         $type = $this->_type($type);
 
-        return '<div class="g-recaptcha" data-sitekey="' . $siteKey . '" data-theme="' . $theme . '" data-type="' . $type . '"></div>
+        return '<div class="g-recaptcha" data-sitekey="' . $sitekey . '" data-theme="' . $theme . '" data-type="' . $type . '"></div>
         <script type="text/javascript"
         src="' . $this->config('secureApiUrl') . '.js?hl=' . $lang . '">
         </script>';
@@ -264,11 +267,6 @@ class RecaptchaHelper extends Helper
         }
         if (empty($lang)) {
             $lang = I18n::locale();
-        }
-
-        // in case the language is not in accepted languages, 'en' language is chosen
-        if (!in_array($lang, $this->config('langAccepted'))) {
-            $lang = $this->defaultLang;
         }
         return $lang;
     }
