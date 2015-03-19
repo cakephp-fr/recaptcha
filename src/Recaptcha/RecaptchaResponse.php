@@ -42,7 +42,7 @@ namespace Recaptcha\Recaptcha;
 use Recaptcha\Recaptcha\RecaptchaResponseInterface;
 
 /**
- * A RecaptchaResponse is returned from checkAnswer().
+ * A RecaptchaResponse returned by Google Server.
  */
 class RecaptchaResponse implements RecaptchaResponseInterface
 {

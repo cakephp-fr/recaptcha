@@ -5,7 +5,6 @@
  * @author   cake17
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link     http://blog.cake-websites.com/
- *
  */
 namespace Recaptcha\Test\TestCase\Recaptcha;
 
@@ -103,7 +102,7 @@ class RecaptchaResponseTest extends TestCase
      *
      * @return void
      */
-    public function testSetResponse()
+    public function testSetJsonWithWrongInputs()
     {
         $this->RecaptchaResponse->setJson(['eee', 'e']);
         $this->assertEquals(null, $this->RecaptchaResponse->errorCodes());
@@ -123,6 +122,10 @@ class RecaptchaResponseTest extends TestCase
         
         $this->RecaptchaResponse->setJson(['error-codes' => ['missing-input-secret'], 'success' => true]);
         $this->assertEquals(['missing-input-secret'], $this->RecaptchaResponse->errorCodes());
+        $this->assertEquals(true, $this->RecaptchaResponse->isSuccess());
+        
+        $this->RecaptchaResponse->setJson(['error-codes' => ['missing-input-secret', 'invalid-input-secret', 'eee'], 'success' => true]);
+        $this->assertEquals(['missing-input-secret', 'invalid-input-secret'], $this->RecaptchaResponse->errorCodes());
         $this->assertEquals(true, $this->RecaptchaResponse->isSuccess());
     }
 }
