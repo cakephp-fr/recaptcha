@@ -9,10 +9,10 @@
  */
 namespace Recaptcha\View\Helper;
 
+use Cake\Core\Configure;
 use Cake\I18n\I18n;
 use Cake\View\Helper;
 use Cake\View\View;
-use Cake\Core\Configure;
 
 class RecaptchaHelper extends Helper
 {
@@ -138,6 +138,11 @@ class RecaptchaHelper extends Helper
         </script>';
     }
 
+    /**
+     * Return html
+     *
+     * @return string
+     */
     public function render()
     {
         return $this->html();
@@ -147,7 +152,6 @@ class RecaptchaHelper extends Helper
      * Render the recaptcha div : multiple recaptcha
      *
      * @param int $id Id
-     * @param string $sitekey Key
      * @param array $options Options
      * - sitekey : Site Key
      * - theme : Theme
@@ -155,7 +159,7 @@ class RecaptchaHelper extends Helper
      * - lang : Langue
      * - callback : Callback
      *
-     * @return string HTML
+     * @return void
      */
     public function widget($id, array $options = [])
     {
@@ -178,7 +182,8 @@ class RecaptchaHelper extends Helper
      *
      * @return string html code
      */
-    public function html() {
+    public function html()
+    {
         $html = '';
 
         if (isset($this->widgets) && !empty($this->widgets)) {

@@ -44,7 +44,7 @@ class RecaptchaComponent extends Component
      *
      * @param \Cake\Event\Event $event Event.
      *
-     * @return mix void
+     * @return void
      */
     public function startup(Event $event)
     {
@@ -65,16 +65,15 @@ class RecaptchaComponent extends Component
     /**
      * Verify Recaptcha Response if POST['g-recaptcha-response'] exists.
      *
-     * @param Recaptcha $recaptcha Recaptcha.
      * @param Controller $controller Controller.
+     * @param Recaptcha $recaptcha Recaptcha.
      *
-     * @return mix void
+     * @return bool void
      */
     public function verifyPostRecaptcha($controller, Recaptcha $recaptcha)
     {
         if ($controller->request->is(['post', 'put', 'patch'])) {
             if (isset($controller->request->data["g-recaptcha-response"]) && !empty($controller->request->data["g-recaptcha-response"])) {
-
                 $gRecaptchaResponse = $controller->request->data["g-recaptcha-response"];
                 $host = $controller->request->env("REMOTE_ADDR");
 

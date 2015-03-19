@@ -67,31 +67,34 @@ class RecaptchaResponse implements RecaptchaResponseInterface
     ];
 
     /**
-     * Return true/false if Success/Fails
+     * Return true/false if Success/Fails.
      *
      * @return bool
      */
-    public function isSuccess() {
+    public function isSuccess()
+    {
         return $this->success;
     }
 
     /**
-     * Return the Code Errors if any
+     * Return the Code Errors if any.
      *
      * @return array
      */
-    public function errorCodes() {
+    public function errorCodes()
+    {
         return $this->errorCodes;
     }
 
     /**
-     * Sets the success
+     * Sets the success.
      *
-     * @param bool $success Success
+     * @param bool $success Success.
      *
      * @return void
      */
-    public function setSuccess($success) {
+    public function setSuccess($success)
+    {
         if ($this->validateSuccess($success)) {
             $this->success = $success;
         }
@@ -99,13 +102,14 @@ class RecaptchaResponse implements RecaptchaResponseInterface
 
     /**
      * Validates the success
-     * Only if success is a boolean
+     * Only if success is a boolean.
      *
-     * @param bool $success Success
+     * @param bool $success Success.
      *
      * @return bool
      */
-    protected function validateSuccess($success) {
+    protected function validateSuccess($success)
+    {
         if (is_bool($success)) {
             return true;
         }
@@ -113,13 +117,14 @@ class RecaptchaResponse implements RecaptchaResponseInterface
     }
 
     /**
-     * Sets the Code Errors
+     * Sets the Code Errors.
      *
-     * @param array $errorCodes Error Codes
+     * @param array $errorCodes Error Codes.
      *
      * @return void
      */
-    public function setErrorCodes(array $errorCodes) {
+    public function setErrorCodes(array $errorCodes)
+    {
         if ($this->validateErrorCodes($errorCodes)) {
             $this->errorCodes = $this->purifyErrorCodes($errorCodes);
         }
@@ -127,13 +132,14 @@ class RecaptchaResponse implements RecaptchaResponseInterface
 
     /**
      * Validates the errorCodes
-     * Only if errorCodes is an array and is in available errorCodes
+     * Only if errorCodes is an array and is in available errorCodes.
      *
-     * @param array $errorCodes Error Codes
+     * @param array $errorCodes Error Codes.
      *
      * @return bool
      */
-    protected function validateErrorCodes(array $errorCodes) {
+    protected function validateErrorCodes(array $errorCodes)
+    {
         if (empty($errorCodes)) {
             return false;
         }
@@ -145,12 +151,13 @@ class RecaptchaResponse implements RecaptchaResponseInterface
     }
 
     /**
-     * Return a array with only the authorized errorCodes
+     * Return a array with only the authorized errorCodes.
      *
-     * @param array $errorCodes
+     * @param array $errorCodes Error Codes.
      * @return array
      */
-    protected function purifyErrorCodes(array $errorCodes) {
+    protected function purifyErrorCodes(array $errorCodes)
+    {
         $errorCodesPurified = [];
         foreach ($errorCodes as $num => $errorCode) {
             if (key_exists($errorCode, self::$errorCodesAuthorized)) {
@@ -161,13 +168,14 @@ class RecaptchaResponse implements RecaptchaResponseInterface
     }
     
     /**
-     * Hydrate the Object with $json data
+     * Hydrate the Object with $json data.
      *
-     * @param array $json
+     * @param array $json Json response of GRecaptcha server.
      *
      * @return void
      */
-    public function setJson(array $json) {
+    public function setJson(array $json)
+    {
         if (isset($json['error-codes']) && !empty($json['error-codes'])) {
             $this->setErrorCodes($json['error-codes']);
         }

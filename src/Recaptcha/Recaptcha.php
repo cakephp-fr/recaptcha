@@ -70,7 +70,7 @@ class Recaptcha
     /**
      * Constructor.
      *
-     * @param RecaptchaResponse Recaptcha Response
+     * @param RecaptchaResponse $recaptchaResponse Recaptcha Response.
      * @param string $secret Required. The shared key between your site and ReCAPTCHA.
      *
      * @return void
