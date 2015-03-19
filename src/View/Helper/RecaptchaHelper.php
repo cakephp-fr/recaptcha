@@ -125,8 +125,9 @@ class RecaptchaHelper extends Helper
      *
      * @return string HTML
      */
-    public function display($siteKey = null, $lang = null, $theme = null, $type = null)
+    public function display(array $options = [])
     {
+        //$this->config(array_merge($));
         $lang = $this->_language($lang);
         $siteKey = $this->_siteKey($siteKey);
         $theme = $this->_theme($theme);

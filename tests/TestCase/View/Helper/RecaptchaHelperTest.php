@@ -177,93 +177,88 @@ class RecaptchaHelperTest extends TestCase
 
     public function testDisplay()
     {
-        $lang = 'en';
-        $siteKey = 'goodKey';
-        $theme = 'light';
-        $type = 'image';
+        $options = [
+            'lang' => 'en',
+            'sitekey' => 'goodkey',
+            'theme' => 'light',
+            'type' => 'image'
+        ];
 
         $expected = '<div class="g-recaptcha" data-sitekey="goodKey" data-theme="light" data-type="image"></div>
         <script type="text/javascript"
         src="https://www.google.com/recaptcha/api.js?hl=en">
         </script>';
 
-        $actual = $this->Recaptcha->display($siteKey, $lang, $theme, $type);
-
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($expected, $this->Recaptcha->display($options));
     }
 
     public function testDisplayWithEmptyValues()
     {
-        $lang = '';
-        $siteKey = '';
-        $theme = '';
-        $type = '';
+        $options = [];
 
         $expected = '<div class="g-recaptcha" data-sitekey="" data-theme="light" data-type="image"></div>
         <script type="text/javascript"
         src="https://www.google.com/recaptcha/api.js?hl=en">
         </script>';
 
-        $actual = $this->Recaptcha->display($siteKey, $lang, $theme, $type);
-
-        // $this->assertEquals($expected, $actual);
+        $this->assertEquals($expected, $this->Recaptcha->display($options));
     }
 
-    public function testMultipleWidgets()
-    {
-        $id = 1;
-        $siteKey = '';
-        $options = [
-            'theme' => '',
-            'type' => '',
-            'lang' => '',
-            'callback' => '',
-            'action' => ''
-        ];
-
-        $expected = '
-        <form action="javascript:alert(grecaptcha.getResponse(widgetId1));">
-          <div id="example1"></div>
-          <br>
-          <input type="submit" value="getResponse">
-        </form>
-        <br>
-        <form action="javascript:grecaptcha.reset(widgetId2);">
-          <div id="example2"></div>
-          <br>
-          <input type="submit" value="reset">
-        </form>
-        <br>
-        <form action="?" method="POST">
-          <div id="example3"></div>
-          <br>
-          <input type="submit" value="Submit">
-        </form>
-        <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>';
-
-        $actual = $this->Recaptcha->display($id, $siteKey, $options);
-
-        //$this->assertEquals($expected, $actual);
-    }
-
-    public function testMultipleWidgetsHeadScript()
-    {
-        // add widget
-        $id = 1;
-        $siteKey = '';
-        $options = [
-            'theme' => '',
-            'type' => '',
-            'lang' => '',
-            'callback' => '',
-            'action' => ''
-        ];
-        $this->Recaptcha->display($id, $siteKey, $options);
-
-        $expected = '';
-
-        $actual = $this->Recaptcha->script();
-
-        //$this->assertEquals($expected, $actual);
-    }
+    // public function testMultipleWidgets()
+    // {
+    //     $id = 1;
+    //     $siteKey = '';
+    //     $options = [
+    //         'theme' => '',
+    //         'type' => '',
+    //         'lang' => '',
+    //         'callback' => '',
+    //         'action' => ''
+    //     ];
+    //
+    //     $expected = '
+    //     <form action="javascript:alert(grecaptcha.getResponse(widgetId1));">
+    //       <div id="example1"></div>
+    //       <br>
+    //       <input type="submit" value="getResponse">
+    //     </form>
+    //     <br>
+    //     <form action="javascript:grecaptcha.reset(widgetId2);">
+    //       <div id="example2"></div>
+    //       <br>
+    //       <input type="submit" value="reset">
+    //     </form>
+    //     <br>
+    //     <form action="?" method="POST">
+    //       <div id="example3"></div>
+    //       <br>
+    //       <input type="submit" value="Submit">
+    //     </form>
+    //     <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>';
+    //
+    //     $actual = $this->Recaptcha->display($id, $siteKey, $options);
+    //
+    //     //$this->assertEquals($expected, $actual);
+    // }
+    //
+    // public function testMultipleWidgetsHeadScript()
+    // {
+    //     // add widget
+    //     $id = 1;
+    //     $siteKey = '';
+    //     $options = [
+    //         'theme' => '',
+    //         'type' => '',
+    //         'lang' => '',
+    //         'callback' => '',
+    //         'action' => ''
+    //     ];
+    //     $this->Recaptcha->display($id, $siteKey, $options);
+    //
+    //     $expected = '';
+    //
+    //     $actual = $this->Recaptcha->script();
+    //
+    //     //$this->assertEquals($expected, $actual);
+    // }
 }
