@@ -103,7 +103,6 @@ class Recaptcha
             return false;
         }
         // Get Json GRecaptchaResponse Obj from Google server
-        $http = new Client();
         $postOptions = [
             'secret' => $this->secret,
             'response' => $response
@@ -111,7 +110,7 @@ class Recaptcha
         if (!is_null($remoteIp)) {
             $postOptions['remoteip'] = $remoteIp;
         }
-        $gRecaptchaResponse = $http->post(self::$siteVerifyUrl, $postOptions);
+        $gRecaptchaResponse = $httpClient->post(self::$siteVerifyUrl, $postOptions);
 
         // problem while accessing remote
         if (!$gRecaptchaResponse->isOk()) {
@@ -119,7 +118,7 @@ class Recaptcha
         }
 
         $this->recaptchaResponse->setJson($gRecaptchaResponse->json);
-        
+
         if ($this->recaptchaResponse->isSuccess()) {
             return true;
         }

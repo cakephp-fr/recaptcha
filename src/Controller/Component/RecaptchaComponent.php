@@ -11,6 +11,7 @@ namespace Recaptcha\Controller\Component;
 use Cake\Controller\Component;
 use Cake\Core\Configure;
 use Cake\Event\Event;
+use Cake\Network\Http\Client;
 use Exception;
 use Recaptcha\Recaptcha\Recaptcha;
 use Recaptcha\Recaptcha\RecaptchaResponse;
@@ -23,6 +24,20 @@ class RecaptchaComponent extends Component
      * @var array
      */
     protected $_defaultConfig = [];
+
+    /**
+     * RecaptchaResponse.
+     *
+     * @var RecaptchaResponse
+     */
+    protected $response;
+
+    /**
+     * Recaptcha.
+     *
+     * @var Recaptcha
+     */
+    protected $recaptcha;
 
     /**
      * Attach Recaptcha helper to Controller.
@@ -53,40 +68,30 @@ class RecaptchaComponent extends Component
         if (empty($secret)) {
             throw new Exception(__d('recaptcha', "You must set your private Recaptcha key in config/recaptcha.php file"));
         }
-        $response = new RecaptchaResponse();
+        $this->response = new RecaptchaResponse();
         // instantiate Recaptcha object that deals with retrieving data from google recaptcha
-        $recaptcha = new Recaptcha($response, $secret);
+        $this->recaptcha = new Recaptcha($this->response, $secret);
+        $controller = $event->subject();
 
-        $this->setController($event->subject());
-
-        $this->verifyPostRecaptcha($event->subject(), $recaptcha);
+        $this->setController($controller);
     }
 
-    /**
-     * Verify Recaptcha Response if POST['g-recaptcha-response'] exists.
-     *
-     * @param Controller $controller Controller.
-     * @param Recaptcha $recaptcha Recaptcha.
-     *
-     * @return bool void
-     */
-    public function verifyPostRecaptcha($controller, Recaptcha $recaptcha)
+    public function verify()
     {
-        if ($controller->request->is(['post', 'put', 'patch'])) {
-            if (isset($controller->request->data["g-recaptcha-response"]) && !empty($controller->request->data["g-recaptcha-response"])) {
-                $gRecaptchaResponse = $controller->request->data["g-recaptcha-response"];
-                $host = $controller->request->env("REMOTE_ADDR");
+        $controller = $this->_registry->getController();
+        if (isset($controller->request->data["g-recaptcha-response"])) {
+            $gRecaptchaResponse = $controller->request->data["g-recaptcha-response"];
 
-                $resp = $recaptcha->verifyResponse(
-                    $host,
-                    $gRecaptchaResponse
-                );
-                // if verification is incorrect,
-                if ($resp != null && !$resp->success) {
-                    //$controller->Flash->error(__d('recaptcha', 'Please check Recaptcha Box.'));
-                    return false;
-                }
+            $resp = $this->recaptcha->verifyResponse(
+                new Client(),
+                $gRecaptchaResponse
+            );
+
+            // if verification is correct,
+            if ($resp) {
+                return true;
             }
         }
+        return false;
     }
 }
