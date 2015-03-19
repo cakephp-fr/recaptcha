@@ -1,10 +1,15 @@
 <?php
 /**
- * Example of Contact Form
+ * Recaptcha Form Example
+ *
+ * This needs is to be used with the following files:
+ * - form contact in src/View/Contact/index.ctp
+ * - form controller in src/Controller/ContactController.php
+ *
+ * THIS EXAMPLE is accessible with url www.yoursite.com/recaptcha/contact
  *
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link     http://book.cakephp.org/3.0/en/core-libraries/form.html#
- *
  */
 namespace Recaptcha\Form;
 

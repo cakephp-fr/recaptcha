@@ -35,7 +35,8 @@ class Installer
     }
 
     /**
-     * Create the config/app.php file if it does not exist.
+     * Copy the /config/recaptcha.default.php file from plugin to /config/recaptcha.php
+     * file in root app. Copy only if the file does not exists.
      *
      * @param string $dir The application's root directory.
      * @param string $pluginDir The plugin's directory.

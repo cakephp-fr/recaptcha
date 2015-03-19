@@ -1,14 +1,16 @@
 <?php
 /**
  * Recaptcha Example of Controller with Recaptcha
- * This works with the form contact in src/View/Contact/index.ctp
  *
- * YOU NEED TO COPY THIS FILE IN YOUR APPLICATION
+ * This needs is to be used with the following files:
+ * - form contact in src/View/Contact/index.ctp
+ * - the form in src/Form/ContactForm.php
+ *
+ * THIS EXAMPLE is accessible with url www.yoursite.com/recaptcha/contact
  *
  * @author   cake17
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link     http://blog.cake-websites.com/
- *
  */
 namespace Recaptcha\Controller;
 
