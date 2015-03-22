@@ -17,6 +17,8 @@ projects.
 
 - PHP >= 5.4.16
 - [CakePHP 3.x](http://book.cakephp.org/3.0/en/index.html)
+- Server under `localhost` name. Be aware that the widgets will not be displayed
+  if you have a vhost named local.dev/dev/ for instance.
 
 ## Installation ##
 
