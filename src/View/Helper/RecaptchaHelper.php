@@ -5,7 +5,6 @@
  * @author   cake17
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link     http://blog.cake-websites.com/
- *
  */
 namespace Recaptcha\View\Helper;
 
@@ -13,6 +12,7 @@ use Cake\Core\Configure;
 use Cake\I18n\I18n;
 use Cake\View\Helper;
 use Cake\View\View;
+use Recaptcha\Validation\ConfigValidator;
 
 class RecaptchaHelper extends Helper
 {
@@ -22,6 +22,13 @@ class RecaptchaHelper extends Helper
      * @var array
      */
     protected $widgets;
+
+    /**
+     * SecureApiUrl
+     *
+     * @var string
+     */
+    protected static $secureApiUrl = "https://www.google.com/recaptcha/api";
 
     /**
      * Default configuration.
@@ -34,65 +41,7 @@ class RecaptchaHelper extends Helper
         // If no theme is found anywhere
         'theme' => 'light',
         // If no type is found anywhere
-        'type' => 'image',
-        'secureApiUrl' => 'https://www.google.com/recaptcha/api',
-        // reCAPTCHA supported 40+ languages listed here: https://developers.google.com/recaptcha/docs/language
-        'langAccepted' => [
-            'ar',
-            'bg',
-            'ca',
-            'zh-CN',
-            'zh-TW',
-            'hr',
-            'cs',
-            'da',
-            'nl',
-            'en-GB',
-            'en',
-            'fil',
-            'fi',
-            'fr',
-            'fr-CA',
-            'de',
-            'de-AT',
-            'de-CH',
-            'el',
-            'iw',
-            'hi',
-            'hu',
-            'id',
-            'it',
-            'ja',
-            'ko',
-            'lv',
-            'lt',
-            'no',
-            'fa',
-            'pl',
-            'pt',
-            'pt-BR',
-            'pt-PT',
-            'ro',
-            'ru',
-            'sr',
-            'sk',
-            'sl',
-            'es',
-            'es-419',
-            'sv',
-            'th',
-            'tr',
-            'uk',
-            'vi'
-        ],
-        'themeAccepted' => [
-            'dark',
-            'light'
-        ],
-        'typeAccepted' => [
-            'audio',
-            'image'
-        ]
+        'type' => 'image'
     ];
 
     /**
@@ -111,6 +60,18 @@ class RecaptchaHelper extends Helper
         $configRecaptcha = Configure::read('Recaptcha');
 
         $this->config($configRecaptcha);
+
+        if (empty($this->config('lang'))) {
+            $this->config('lang', I18n::locale());
+        }
+        // Validate the Configure Data
+        $validator = new ConfigValidator();
+        $errors = $validator->errors($this->config());
+        if (!empty($errors)) {
+            throw new \Exception(__d('recaptcha', 'One of your recaptcha config value is incorrect'));
+            // throw an exception with config error that is raised
+        }
+
         // unset secret param
         $this->config('secret', '');
     }
@@ -130,15 +91,20 @@ class RecaptchaHelper extends Helper
     {
         // merge options
         $options = array_merge($this->config(), $options);
+
+        // Validate the Configure Data
+        $validator = new ConfigValidator();
+        $errors = $validator->errors($options);
+        if (!empty($errors)) {
+            throw new \Exception(__d('recaptcha', 'One of your recaptcha config value is incorrect'));
+            // throw an exception with config error that is raised
+        }
+
         extract($options);
-        $lang = $this->_language($lang);
-        $sitekey = $this->_siteKey($sitekey);
-        $theme = $this->_theme($theme);
-        $type = $this->_type($type);
 
         return '<div class="g-recaptcha" data-sitekey="' . $sitekey . '" data-theme="' . $theme . '" data-type="' . $type . '"></div>
         <script type="text/javascript"
-        src="' . $this->config('secureApiUrl') . '.js?hl=' . $lang . '">
+        src="' . self::$secureApiUrl . '.js?hl=' . $lang . '">
         </script>';
     }
 
@@ -149,35 +115,39 @@ class RecaptchaHelper extends Helper
      */
     public function render()
     {
-        return $this->html();
+        return $this->html() . $this->script();
     }
 
     /**
-     * Render the recaptcha div : multiple recaptcha
+     * Create a recaptcha widget (for multiple widgets)
      *
-     * @param int $id Id
      * @param array $options Options
+     * - id : Id
      * - sitekey : Site Key
      * - theme : Theme
      * - type : Type
      * - lang : Langue
-     * - callback : Callback
      *
      * @return void
      */
-    public function widget($id, array $options = [])
+    public function widget(array $options = [])
     {
         $options = array_merge($this->config(), $options);
 
+        // Validate the Configure Data
+        $validator = new ConfigValidator();
+        $errors = $validator->errors($options);
+        if (!empty($errors)) {
+            throw new \Exception(__d('recaptcha', 'One of your recaptcha config value is incorrect in a widget'));
+            // throw an exception with config error that is raised
+        }
         // add infos in widgets for script()
         $this->widgets[] = [
-            'id' => $id,
-            'sitekey' => $this->validate($options['sitekey'], 'sitekey'),
-            'theme' => $this->validate($options['theme'], 'theme'),
-            'type' => $this->validate($options['type'], 'type'),
-            'lang' => $this->validate($options['lang'], 'lang'),
-            'callback' => '',
-            'action' => 'render',
+            'id' => $options['id'],
+            'sitekey' => $options['sitekey'],
+            'theme' => $options['theme'],
+            'type' => $options['type'],
+            'lang' => $options['lang']
         ];
     }
 
@@ -197,16 +167,7 @@ class RecaptchaHelper extends Helper
                     'reset' => "javascript:grecaptcha.reset(id" . $widget['id'] . ");",
                     'render' => '?'
                 ];
-                if (isset($actions[$widget['action']])) {
-                    $html .= '<form action="' . $actions[$widget['action']] . '">';
-                }
                 $html .= '<div id="' . $widget['id'] . '"></div>';
-
-                if (isset($actions[$widget['action']])) {
-                    $html .= '<br>
-                    <input type="submit" value="' . $widget['action'] . '">
-                    </form>';
-                }
             }
         }
         return $html;
@@ -237,8 +198,7 @@ class RecaptchaHelper extends Helper
                     id" . $widget['id'] . " = grecaptcha.render('" . $widget['id'] . "', {
                         'sitekey' : '" . $widget['sitekey'] . "',
                         'theme' : '" . $widget['theme'] . "',
-                        'lang' : '" . $widget['lang'] . "',
-                        'callback' : " . $widget['callback'] . ",
+                        'lang' : '" . $widget['lang'] . "'
                     });
                 ";
             }
@@ -247,118 +207,5 @@ class RecaptchaHelper extends Helper
         $js .= '<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>';
         //debug($js);
         return $js;
-    }
-
-    /**
-     * Define the language.
-     * - First the one given in the display() method
-     * - If empty : use default one from config file
-     * - If empty : use I18n locale
-     * - If not correct : use defaultLang var
-     *
-     * @param string $lang Lang.
-     *
-     * @return string Language in code 2 (fr, en, ...)
-     */
-    protected function _language($lang)
-    {
-        if (empty($lang)) {
-            $lang = $this->config('lang');
-        }
-        if (empty($lang)) {
-            $lang = I18n::locale();
-        }
-        return $lang;
-    }
-
-    /**
-     * Define the siteKey
-     * - First the one given in the display() method
-     * - If empty : the default one from config file
-     *
-     * @param string $siteKey Key.
-     *
-     * @return string siteKey
-     */
-    protected function _siteKey($siteKey)
-    {
-        if (empty($siteKey)) {
-            $siteKey = $this->config('sitekey');
-        }
-        return $siteKey;
-    }
-
-    /**
-     * Define the theme : either dark or light
-     * - First the one given in the display() method
-     * - If empty : the default one from config file
-     * - If not correct : use defaultTheme var
-     *
-     * @param string $theme Theme.
-     *
-     * @return string theme
-     */
-    protected function _theme($theme)
-    {
-        if (empty($theme)) {
-            $theme = $this->config('theme');
-        }
-        // in case the theme is not in accepted themes, the default theme is chosen
-        if (!in_array($theme, $this->config('themeAccepted'))) {
-            $theme = $this->defaultTheme;
-        }
-        return $theme;
-    }
-
-    /**
-     * Define the type : either image or audio
-     * - First the one given in the display() method
-     * - If empty : the default one from config file
-     * - If not correct : use defaultType var
-     *
-     * @param string $type Type.
-     *
-     * @return string type
-     */
-    protected function _type($type)
-    {
-        if (empty($type)) {
-            $type = $this->config('type');
-        }
-        // in case the type is not in accepted types, the default type is chosen
-        if (!in_array($type, $this->config('typeAccepted'))) {
-            $type = $this->defaultType;
-        }
-        return $type;
-    }
-
-    /**
-     * Validate a value given a name
-     *
-     * @param string $value Value to check
-     * @param string $name Name of param to validate
-     *
-     * @return bool
-     */
-    protected function validate($value, $name)
-    {
-        switch ($name) {
-            case 'lang':
-                if (!in_array($value, $this->config('langAccepted'))) {
-                    return false;
-                }
-                break;
-            case 'theme':
-                if (!in_array($value, $this->config('themeAccepted'))) {
-                    return false;
-                }
-                break;
-            case 'type':
-                if (!in_array($value, $this->config('typeAccepted'))) {
-                    return false;
-                }
-                break;
-        }
-        return true;
     }
 }

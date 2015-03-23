@@ -41,32 +41,32 @@ class RecaptchaComponentTest extends TestCase
      *
      * @return void
      */
-    // public function setUp()
-    // {
-    //     parent::setUp();
-    //     $request = new Request();
-    //     $response = new Response();
-    //     $this->controller = $this->getMock(
-    //         'Cake\Controller\Controller',
-    //         [],
-    //         [$request, $response]
-    //     );
-    //
-    //     $registry = new ComponentRegistry($this->controller);
-    //     $this->component = new RecaptchaComponent($registry);
-    // }
+    public function setUp()
+    {
+        parent::setUp();
+        // $request = new Request();
+        // $response = new Response();
+        // $this->controller = $this->getMock(
+        //     'Cake\Controller\Controller',
+        //     [],
+        //     [$request, $response]
+        // );
+
+        $registry = new ComponentRegistry();
+        $this->Recaptcha = new RecaptchaComponent($registry);
+    }
 
     /**
      * tearDown method
      *
      * @return void
      */
-    // public function tearDown()
-    // {
-    //     unset($this->component, $this->controller);
-    //
-    //     parent::tearDown();
-    // }
+    public function tearDown()
+    {
+        unset($this->Recaptcha);
+
+        parent::tearDown();
+    }
 
     /**
      * Test StartupWithExistingConfigFile

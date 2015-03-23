@@ -72,7 +72,8 @@ of keys for your website.
       }
       ...
 
-Don't forget to put `/config/recaptcha.php` file in .gitignore.
+Whatever the method you used to copy the recaptcha config file, don't forget to
+put `/config/recaptcha.php` file in .gitignore.
 
 ### 4. Fullfill the information in `/config/recaptcha.php`
 
