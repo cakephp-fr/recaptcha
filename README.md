@@ -77,11 +77,11 @@ put `/config/recaptcha.php` file in .gitignore.
 
 ### 4. Fullfill the information in `/config/recaptcha.php`
 
-- siteKey: get it on google website
+- sitekey: get it on google website
 - secret: get it on google website
-- default lang: see the list on google website
-- default theme: dark or light
-- default type: image or audio
+- lang: see the list on google website
+- theme: dark or light
+- type: image or audio
 
 If you don't have a key and a secret, an exception will be raised.
 
