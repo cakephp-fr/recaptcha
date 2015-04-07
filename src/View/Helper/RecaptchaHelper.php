@@ -61,7 +61,8 @@ class RecaptchaHelper extends Helper
 
         $this->config($configRecaptcha);
 
-        if (empty($this->config('lang'))) {
+	$lang = $this->config('lang');
+        if (empty($lang)) {
             $this->config('lang', I18n::locale());
         }
         // Validate the Configure Data
