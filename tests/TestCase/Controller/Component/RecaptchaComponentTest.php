@@ -9,8 +9,8 @@
  */
 namespace Recaptcha\Test\TestCase\Controller\Component;
 
-use Cake\Controller\Controller;
 use Cake\Controller\ComponentRegistry;
+use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Cake\Core\Configure\Engine\PhpConfig;
 use Cake\Core\Plugin;

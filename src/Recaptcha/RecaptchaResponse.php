@@ -95,7 +95,7 @@ class RecaptchaResponse implements RecaptchaResponseInterface
      */
     public function setSuccess($success)
     {
-        if ($this->validateSuccess($success)) {
+        if ($this->_validateSuccess($success)) {
             $this->success = $success;
         }
     }
@@ -108,7 +108,7 @@ class RecaptchaResponse implements RecaptchaResponseInterface
      *
      * @return bool
      */
-    protected function validateSuccess($success)
+    protected function _validateSuccess($success)
     {
         if (is_bool($success)) {
             return true;
@@ -125,8 +125,8 @@ class RecaptchaResponse implements RecaptchaResponseInterface
      */
     public function setErrorCodes(array $errorCodes)
     {
-        if ($this->validateErrorCodes($errorCodes)) {
-            $this->errorCodes = $this->purifyErrorCodes($errorCodes);
+        if ($this->_validateErrorCodes($errorCodes)) {
+            $this->errorCodes = $this->_purifyErrorCodes($errorCodes);
         }
     }
 
@@ -138,7 +138,7 @@ class RecaptchaResponse implements RecaptchaResponseInterface
      *
      * @return bool
      */
-    protected function validateErrorCodes(array $errorCodes)
+    protected function _validateErrorCodes(array $errorCodes)
     {
         if (empty($errorCodes)) {
             return false;
@@ -146,7 +146,7 @@ class RecaptchaResponse implements RecaptchaResponseInterface
         if (!is_array($errorCodes)) {
             return false;
         }
-        
+
         return true;
     }
 
@@ -156,7 +156,7 @@ class RecaptchaResponse implements RecaptchaResponseInterface
      * @param array $errorCodes Error Codes.
      * @return array
      */
-    protected function purifyErrorCodes(array $errorCodes)
+    protected function _purifyErrorCodes(array $errorCodes)
     {
         $errorCodesPurified = [];
         foreach ($errorCodes as $num => $errorCode) {
@@ -166,7 +166,7 @@ class RecaptchaResponse implements RecaptchaResponseInterface
         }
         return $errorCodesPurified;
     }
-    
+
     /**
      * Hydrate the Object with $json data.
      *

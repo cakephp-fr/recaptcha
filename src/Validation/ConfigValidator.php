@@ -17,6 +17,8 @@ class ConfigValidator extends Validator
 {
     /**
      * List of accepted Values
+     *
+     * @var array
      */
     protected $validList = [
         'lang' => [
@@ -77,6 +79,11 @@ class ConfigValidator extends Validator
         ]
     ];
 
+    /**
+     * Constructor
+     *
+     * @return void
+     */
     public function __construct()
     {
         parent::__construct();
