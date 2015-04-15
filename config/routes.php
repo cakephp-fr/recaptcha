@@ -9,5 +9,12 @@
 use Cake\Routing\Router;
 
 Router::plugin('Recaptcha', function ($routes) {
-    $routes->fallbacks('DashedRoute');
+    $routes->connect(
+        '/contact',
+        ['controller' => 'Contact', 'action' => 'index']
+    );
+    $routes->connect(
+        '/contact/multiple-widget',
+        ['controller' => 'Contact', 'action' => 'multiple-widget']
+    );
 });
