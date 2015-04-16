@@ -3,6 +3,7 @@ Google reCAPTCHA for CakePHP 3
 
 [![Build Status](https://api.travis-ci.org/cake17/cakephp-recaptcha.png?branch=master)](https://travis-ci.org/cake17/cakephp-recaptcha)
 [![Latest Stable Version](https://poser.pugx.org/cake17/cakephp-recaptcha/v/stable.png)](https://packagist.org/packages/cake17/cakephp-recaptcha)
+[![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%205.4-8892BF.svg)](https://php.net/)
 [![License](https://poser.pugx.org/cake17/cakephp-recaptcha/license.png)](https://packagist.org/packages/cake17/cakephp-recaptcha)
 [![Total Downloads](https://poser.pugx.org/cake17/cakephp-recaptcha/d/total.png)](https://packagist.org/packages/cake17/cakephp-recaptcha)
 
@@ -12,6 +13,7 @@ This plugin is still under development...
 
 This plugin adds functionalities to use the new Google reCAPTCHA in CakePHP
 projects.
+For now multiple widgets on a single page is not available.
 
 ## Requirements ##
 
@@ -139,7 +141,8 @@ For example:
 
 See another example of contact with no form in
 `src/Controller/ContactController.php`, `src/Template/Contact/index.ctp` and
-`src/Form/ContactForm.php`. You can test it by going to `http://yoursite.com/recaptcha/contact`.
+`src/Form/ContactForm.php`. You can test it by going to
+`http://localhost/recaptcha/contact`.
 
 ## What's inside ? ##
 
