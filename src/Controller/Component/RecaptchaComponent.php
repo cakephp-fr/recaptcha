@@ -30,7 +30,7 @@ class RecaptchaComponent extends Component
      *
      * @var RecaptchaResponse
      */
-    protected $response;
+    public $response;
 
     /**
      * Recaptcha.
