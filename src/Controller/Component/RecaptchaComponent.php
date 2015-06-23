@@ -30,7 +30,7 @@ class RecaptchaComponent extends Component
      *
      * @var RecaptchaResponse
      */
-    public $response;
+    protected $recaptchaResponse;
 
     /**
      * Recaptcha.
@@ -68,9 +68,9 @@ class RecaptchaComponent extends Component
         if (empty($secret)) {
             throw new Exception(__d('recaptcha', "You must set the secret Recaptcha key in config/recaptcha.php file"));
         }
-        $this->response = new RecaptchaResponse();
+        $this->recaptchaResponse = new RecaptchaResponse();
         // instantiate Recaptcha object that deals with retrieving data from google recaptcha
-        $this->recaptcha = new Recaptcha($this->response, $secret);
+        $this->recaptcha = new Recaptcha($this->recaptchaResponse, $secret);
         $controller = $event->subject();
 
         $this->setController($controller);
