@@ -1,5 +1,5 @@
 {
-    "name": "cake17/cakephp-recaptcha",
+    "name": "cakephp-fr/recaptcha",
     "type": "cakephp-plugin",
     "description": "To easily use Google Recaptcha (free CAPTCHA service that protect websites from spam and abuse) in CakePHP projects",
     "keywords": [
