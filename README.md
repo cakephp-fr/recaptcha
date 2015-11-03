@@ -1,11 +1,11 @@
 Google reCAPTCHA for CakePHP 3
 ==============================
 
-[![Build Status](https://api.travis-ci.org/cake17/cakephp-recaptcha.png?branch=master)](https://travis-ci.org/cake17/cakephp-recaptcha)
-[![Latest Stable Version](https://poser.pugx.org/cake17/cakephp-recaptcha/v/stable.png)](https://packagist.org/packages/cake17/cakephp-recaptcha)
+[![Build Status](https://api.travis-ci.org/cakephp-fr/recaptcha.png?branch=master)](https://travis-ci.org/cakephp-fr/recaptcha)
+[![Latest Stable Version](https://poser.pugx.org/cakephp-fr/recaptcha/v/stable.png)](https://packagist.org/packages/cakephp-fr/recaptcha)
 [![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%205.4-8892BF.svg)](https://php.net/)
-[![License](https://poser.pugx.org/cake17/cakephp-recaptcha/license.png)](https://packagist.org/packages/cake17/cakephp-recaptcha)
-[![Total Downloads](https://poser.pugx.org/cake17/cakephp-recaptcha/d/total.png)](https://packagist.org/packages/cake17/cakephp-recaptcha)
+[![License](https://poser.pugx.org/cakephp-fr/recaptcha/license.png)](https://packagist.org/packages/cakephp-fr/recaptcha)
+[![Total Downloads](https://poser.pugx.org/cakephp-fr/recaptcha/d/total.png)](https://packagist.org/packages/cakephp-fr/recaptcha)
 
 This plugin is still under development...
 
@@ -31,7 +31,7 @@ Add the plugin to your project's `composer.json` - something like this:
 ```json
 {
     "require": {
-        "cake17/cakephp-recaptcha": "dev-master"
+        "cakephp-fr/recaptcha": "dev-master"
     }
 }
 ```
@@ -59,7 +59,7 @@ of keys for your website.
 ### 3. Create or copy the reCAPTCHA config file
 
 - Either copy the default file in `/config/recaptcha.php` from
-  `/vendor/cake17/cakephp-recaptcha/config/recaptcha.default.php`.
+  `/vendor/cakephp-fr/recaptcha/config/recaptcha.default.php`.
 
 - Either use the composer install command to add in composer.json that will
   make the copy for you
@@ -181,7 +181,7 @@ high.
 
 ## License ##
 
-Copyright (c) [2014-2015] [cake17]
+Copyright (c) [2014-2015] [cakephp-fr]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
