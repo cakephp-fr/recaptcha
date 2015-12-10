@@ -12,7 +12,7 @@ use Cake\Core\Configure;
 use Cake\I18n\I18n;
 use Cake\View\Helper;
 use Cake\View\View;
-use Recaptcha\Validation\ConfigValidator;
+use Recaptcha\Validation\RecaptchaValidator;
 
 class RecaptchaHelper extends Helper
 {
@@ -41,7 +41,9 @@ class RecaptchaHelper extends Helper
         // If no theme is found anywhere
         'theme' => 'light',
         // If no type is found anywhere
-        'type' => 'image'
+        'type' => 'image',
+        // If no size is found anywhere
+        'size' => 'normal'
     ];
 
     /**
@@ -57,23 +59,21 @@ class RecaptchaHelper extends Helper
         parent::__construct($view, $config);
 
         // Merge Options given by user in config/recaptcha
-        $configRecaptcha = Configure::read('Recaptcha');
-
-        $this->config($configRecaptcha);
+        $this->config(Configure::read('Recaptcha'));
 
         $lang = $this->config('lang');
         if (empty($lang)) {
             $this->config('lang', I18n::locale());
         }
         // Validate the Configure Data
-        $validator = new ConfigValidator();
+        $validator = new RecaptchaValidator();
         $errors = $validator->errors($this->config());
         if (!empty($errors)) {
             throw new \Exception(__d('recaptcha', 'One of your recaptcha config value is incorrect'));
             // throw an exception with config error that is raised
         }
 
-        // unset secret param
+        // Make sure the secret param is
         $this->config('secret', '');
     }
 
@@ -94,7 +94,7 @@ class RecaptchaHelper extends Helper
         $options = array_merge($this->config(), $options);
 
         // Validate the Configure Data
-        $validator = new ConfigValidator();
+        $validator = new RecaptchaValidator();
         $errors = $validator->errors($options);
         if (!empty($errors)) {
             throw new \Exception(__d('recaptcha', 'One of your recaptcha config value is incorrect'));
@@ -103,7 +103,7 @@ class RecaptchaHelper extends Helper
 
         extract($options);
 
-        return '<div class="g-recaptcha" data-sitekey="' . $sitekey . '" data-theme="' . $theme . '" data-type="' . $type . '"></div>
+        return '<div class="g-recaptcha" data-sitekey="' . $sitekey . '" data-theme="' . $theme . '" data-type="' . $type . '" data-size="' . $size . '"></div>
         <script type="text/javascript"
         src="' . self::$secureApiUrl . '.js?hl=' . $lang . '">
         </script>';
@@ -136,7 +136,7 @@ class RecaptchaHelper extends Helper
         $options = array_merge($this->config(), $options);
 
         // Validate the Configure Data
-        $validator = new ConfigValidator();
+        $validator = new RecaptchaValidator();
         $errors = $validator->errors($options);
         if (!empty($errors)) {
             throw new \Exception(__d('recaptcha', 'One of your recaptcha config value is incorrect in a widget'));
@@ -148,7 +148,8 @@ class RecaptchaHelper extends Helper
             'sitekey' => $options['sitekey'],
             'theme' => $options['theme'],
             'type' => $options['type'],
-            'lang' => $options['lang']
+            'lang' => $options['lang'],
+            'size' => $options['size']
         ];
     }
 
@@ -181,10 +182,7 @@ class RecaptchaHelper extends Helper
      */
     public function script()
     {
-        $js = "<script type=\"text/javascript\">
-        var verifyCallback = function(response) {
-            alert(response);
-        };";
+        $js = "<script type=\"text/javascript\">";
 
         if (isset($this->widgets) && !empty($this->widgets)) {
             foreach ($this->widgets as $widget) {
@@ -199,7 +197,8 @@ class RecaptchaHelper extends Helper
                     id" . $widget['id'] . " = grecaptcha.render('" . $widget['id'] . "', {
                         'sitekey' : '" . $widget['sitekey'] . "',
                         'theme' : '" . $widget['theme'] . "',
-                        'lang' : '" . $widget['lang'] . "'
+                        'lang' : '" . $widget['lang'] . "',
+                        'size' : '" . $widget['size'] . "'
                     });
                 ";
             }

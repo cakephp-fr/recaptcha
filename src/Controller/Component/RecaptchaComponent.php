@@ -68,9 +68,9 @@ class RecaptchaComponent extends Component
         if (empty($secret)) {
             throw new Exception(__d('recaptcha', "You must set the secret Recaptcha key in config/recaptcha.php file"));
         }
-        $this->recaptchaResponse = new RecaptchaResponse();
+
         // instantiate Recaptcha object that deals with retrieving data from google recaptcha
-        $this->recaptcha = new Recaptcha($this->recaptchaResponse, $secret);
+        $this->recaptcha = new Recaptcha(new RecaptchaResponse(), $secret);
         $controller = $event->subject();
 
         $this->setController($controller);

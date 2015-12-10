@@ -7,13 +7,13 @@
  * @link     http://blog.cake-websites.com/
  */
 use Cake\Core\Configure;
-use Cake\Core\Configure\Engine\PhpConfig;
 use Recaptcha\Validation\ConfigValidator;
 
-// Pass the config data from config/recaptcha.php to Configure Class
-// If the file does not exist, an exception is thrown
-Configure::config('default', new PhpConfig(dirname(APP) . DS . 'config' . DS));
-Configure::load('recaptcha', 'default', false);
+$config = Configure::read('Recaptcha');
+if ($config == null) {
+    throw new \Exception(__d('recaptcha', 'Please add a configuration for the plugin in the app.php file'));
+}
+// Recaptcha::config(Configure::consume('Recaptcha'));
 
 // Validate the Configure Data
 $validator = new ConfigValidator();

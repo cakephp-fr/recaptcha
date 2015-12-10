@@ -11,9 +11,9 @@ namespace Recaptcha\Validation;
 use Recaptcha\Validation\GlobalValidator;
 
 /**
- * Class used to validate config data given by user in app.php
+ * Class used to validate config data given by user in widgets ctp
  */
-class ConfigValidator extends GlobalValidator
+class RecaptchaValidator extends GlobalValidator
 {
 
     /**
@@ -24,8 +24,5 @@ class ConfigValidator extends GlobalValidator
     public function __construct()
     {
         parent::__construct();
-        $this
-            ->requirePresence('secret')
-            ->notEmpty('secret', __d('recaptcha', 'A secret should not be blank.'));
     }
 }

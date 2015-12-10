@@ -7,13 +7,12 @@ Google reCAPTCHA for CakePHP 3
 [![License](https://poser.pugx.org/cakephp-fr/recaptcha/license.png)](https://packagist.org/packages/cakephp-fr/recaptcha)
 [![Total Downloads](https://poser.pugx.org/cakephp-fr/recaptcha/d/total.png)](https://packagist.org/packages/cakephp-fr/recaptcha)
 
-This plugin is still under development...
-
 ## Plugin's Objective ##
 
-This plugin adds functionalities to use the new Google reCAPTCHA in CakePHP
-projects.
-For now multiple widgets on a single page is not available.
+This plugin adds functionalities to use the new reCAPTCHA API version 2.0 in
+CakePHP projects.
+
+This plugin is still under development... For now multiple widgets on a single page is not available.
 
 ## Requirements ##
 
@@ -28,66 +27,54 @@ _[Using [Composer](http://getcomposer.org/)]_
 
 Add the plugin to your project's `composer.json` - something like this:
 
-```json
-{
-    "require": {
-        "cakephp-fr/recaptcha": "dev-master"
-    }
-}
+```
+composer require cakephp-fr/recaptcha:~0.4
 ```
 
-And run `composer update`.
+You then need to load the plugin. In `config/boostrap.php`, something like:
 
-Because this plugin has the type `cakephp-plugin` set in it's own
-`composer.json`, composer knows to install it inside your `/vendor` directory.
-It is recommended that you add `/vendor` to your .gitignore file.
-(Why? [read this](http://getcomposer.org/doc/faqs/should-i-commit-the-dependencies-in-my-vendor-directory.md).)
+```php
+\Cake\Core\Plugin::load('Recaptcha', ['routes' => true, 'bootstrap' => true]);
+```
+
+The `'routes' => true` should be deleted in production. It's only useful if you want to see the demo.
 
 ## Usage of plugin ##
 
-### 1. Enable the plugin
-
-In your `config/bootstrap.php` file:
-
-    Plugin::load('Recaptcha', ['routes' => true, 'bootstrap' => true]);
-
-### 2. Go to Google reCAPTCHA site
+### 1. Go to Google reCAPTCHA site
 
 Go [here](https://www.google.com/recaptcha/intro/index.html) to create a pair
 of keys for your website.
 
-### 3. Create or copy the reCAPTCHA config file
+### 2. Configure the plugin
 
-- Either copy the default file in `/config/recaptcha.php` from
-  `/vendor/cakephp-fr/recaptcha/config/recaptcha.default.php`.
+The Easiest way is to add the recaptcha config to the `config/app.php`, something like:
 
-- Either use the composer install command to add in composer.json that will
-  make the copy for you
-  To use it, add the following snippet in your project composer.json and run
-  `composer run-script post-install-cmd` after::
+return [
 
-      ...
-      "scripts": {
-        "post-install-cmd": [
-          "Recaptcha\\Console\\Installer::postInstall"
-        ]
-      }
-      ...
+    .... (other configs before)
 
-Whatever the method you used to copy the recaptcha config file, don't forget to
-put `/config/recaptcha.php` file in .gitignore.
+    'Recaptcha' => [
+        // Register API keys at https://www.google.com/recaptcha/admin
+        'sitekey' => 'your-sitekey',
+        'secret' => 'your-secret',
+        // reCAPTCHA supported 40+ languages listed
+        // here: https://developers.google.com/recaptcha/docs/language
+        'lang' => 'en',
+        // either light or dark
+        'theme' => 'light',
+        // either image or audio
+        'type' => 'image',
+        // either normal or compact
+        'size' => 'normal'
+    ]
+]
 
-### 4. Fullfill the information in `/config/recaptcha.php`
-
-- sitekey: get it on google website
-- secret: get it on google website
-- lang: see the list on google website
-- theme: dark or light
-- type: image or audio
+Make sure that `/config/app.php` file is in `.gitignore`. The secret key must stay secret.
 
 If you don't have a key and a secret, an exception will be raised.
 
-### 5. Then add the component in your controller where you need the reCAPTCHA.
+### 3. Then add the component in your controller where you need the reCAPTCHA.
 
 For example:
 
@@ -98,7 +85,7 @@ For example:
         }
     }
 
-### 6. Add the following in your controller.
+### 4. Add the following in your controller.
 
     public function contact() {
         if ($this->request->is('post')) {
@@ -115,11 +102,11 @@ For example:
         }
     }
 
-### 7. No need to add the helper.
+### 5. No need to add the helper.
 
 It will be added with the component.
 
-### 8. Finally add `<?= $this->Recaptcha->display() ?>` in your view template inside the form.
+### 6. Finally add `<?= $this->Recaptcha->display() ?>` in your view template inside the form.
 
 For example:
 
@@ -154,10 +141,6 @@ See another example of contact with no form in
 
 - RecaptchaHelper (Automatically added when the RecaptchaComponent is added)
 
-**CONSOLE**
-
-- Installer
-
 **EXAMPLE**
 
 - Controller : ContactController
@@ -181,7 +164,7 @@ high.
 
 ## License ##
 
-Copyright (c) [2014-2015] [cakephp-fr]
+Copyright (c) [2014-2016] [cakephp-fr]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in

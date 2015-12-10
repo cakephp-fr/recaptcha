@@ -18,5 +18,7 @@ return [
         'theme' => 'light',
         // either image or audio
         'type' => 'image',
+        // either normal or compact
+        'size' => 'normal'
     ]
 ];
