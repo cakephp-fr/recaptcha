@@ -63,7 +63,7 @@ class RecaptchaComponent extends Component
      */
     public function startup(Event $event)
     {
-        $secret = Configure::read('Recaptcha.secret');
+        $secret = Configure::consume('Recaptcha.secret');
         // throw an exception if the secret is not defined in config/recaptcha.php file
         if (empty($secret)) {
             throw new Exception(__d('recaptcha', "You must set the secret Recaptcha key in config/recaptcha.php file"));
