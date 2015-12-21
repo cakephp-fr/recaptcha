@@ -22,14 +22,14 @@ use Recaptcha\Controller\Component\RecaptchaComponent;
 use Recaptcha\Recaptcha\Recaptcha;
 
 /**
-* Recaptcha\Controller\Component\RecaptchaComponent Test Case
-*/
+ * Recaptcha\Controller\Component\RecaptchaComponent Test Case
+ */
 class RecaptchaComponentTest extends TestCase
 {
     /**
      * @var Component Component
      */
-     public $component = null;
+    public $component = null;
 
     /**
      * @var Controller Controller
