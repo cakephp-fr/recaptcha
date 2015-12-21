@@ -11,7 +11,7 @@ use Recaptcha\Validation\ConfigValidator;
 
 $config = Configure::read('Recaptcha');
 if ($config == null) {
-    throw new \Exception(__d('recaptcha', 'Please add a configuration for the plugin in the app.php file'));
+    throw new \Exception(__d('recaptcha', 'Please add a configuration for the Recaptcha plugin in the app.php file'));
 }
 // Recaptcha::config(Configure::consume('Recaptcha'));
 
