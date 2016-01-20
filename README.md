@@ -83,34 +83,34 @@ If you don't have a key and a secret, an exception will be raised.
 For example:
 
 ```php
-    public function initialize() {
-        parent::initialize();
-        if ($this->request->action === 'contact') {
-            $this->loadComponent('Recaptcha.Recaptcha');
-        }
+public function initialize() {
+    parent::initialize();
+    if ($this->request->action === 'contact') {
+        $this->loadComponent('Recaptcha.Recaptcha');
     }
+}
 ```
 
 ### 4. Add the following in your controller.
 
 ```php
-    public function contact() {
-        if ($this->request->is('post')) {
-            if ($this->Recaptcha->verify()) {
-                // Here you can validate your data
-                if (!empty($this->request->data)) {
-                    $this->Flash->success(__('We will get back to you soon.'));
-                    return $this->redirect($this->referer());
-                } else {
-                    $this->Flash->error(__('There was a problem submitting your form.'));
-                }
+public function contact() {
+    if ($this->request->is('post')) {
+        if ($this->Recaptcha->verify()) {
+            // Here you can validate your data
+            if (!empty($this->request->data)) {
+                $this->Flash->success(__('We will get back to you soon.'));
+                return $this->redirect($this->referer());
             } else {
-                // You can debug developers errors with
-                // debug($this->Recaptcha->errors());
-                $this->Flash->error(__('Please check your Recaptcha Box.'));
+                $this->Flash->error(__('There was a problem submitting your form.'));
             }
+        } else {
+            // You can debug developers errors with
+            // debug($this->Recaptcha->errors());
+            $this->Flash->error(__('Please check your Recaptcha Box.'));
         }
     }
+}
 ```
 
 ### 5. No need to add the helper.
@@ -122,22 +122,22 @@ It will be added with the component.
 For example:
 
 ```php
-    <?= $this->Form->create() ?>
+<?= $this->Form->create() ?>
 
-    <?= $this->Form->input('name', [
-      'label' => __('Your Name'),
-      // 'default' => $this->request->query('name'); // in case you add the Prg Component
-    ]) ?>
-    <?= $this->Form->input('message', [
-      'type' => 'textarea',
-      // 'default' => $this->request->query('message'); // in case you add the Prg Component
-      'label' => __('Your Message')
-    ]) ?>
+<?= $this->Form->input('name', [
+  'label' => __('Your Name'),
+  // 'default' => $this->request->query('name'); // in case you add the Prg Component
+]) ?>
+<?= $this->Form->input('message', [
+  'type' => 'textarea',
+  // 'default' => $this->request->query('message'); // in case you add the Prg Component
+  'label' => __('Your Message')
+]) ?>
 
-    <?= $this->Recaptcha->display() ?>
+<?= $this->Recaptcha->display() ?>
 
-    <?= $this->Form->button(__('OK')) ?>
-    <?= $this->Form->end() ?>
+<?= $this->Form->button(__('OK')) ?>
+<?= $this->Form->end() ?>
 ```
 
 See another example of contact with no form in
