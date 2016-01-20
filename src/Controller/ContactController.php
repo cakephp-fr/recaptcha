@@ -27,7 +27,7 @@ class ContactController extends AppController
     public function initialize()
     {
         parent::initialize();
-        if ($this->request->action === 'index') {
+        if (in_array($this->request->action, ['index', 'multipleWidgets'])) {
             $this->loadComponent('Recaptcha.Recaptcha');
         }
     }
@@ -70,6 +70,8 @@ class ContactController extends AppController
                     $this->Flash->error(__('There was a problem submitting your form.'));
                 }
             } else {
+                debug($contact);
+                debug($this->Recaptcha);
                 $this->Flash->error(__('Please check your Recaptcha Box.'));
             }
         }

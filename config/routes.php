@@ -14,7 +14,7 @@ Router::plugin('Recaptcha', function ($routes) {
         ['controller' => 'Contact', 'action' => 'index']
     );
     $routes->connect(
-        '/contact/multiple-widget',
-        ['controller' => 'Contact', 'action' => 'multiple-widget']
+        '/contact/multiple-widgets',
+        ['controller' => 'Contact', 'action' => 'multiple-widgets']
     );
 });

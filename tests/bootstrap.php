@@ -31,8 +31,6 @@ require_once 'vendor/autoload.php';
 define('ROOT', $root . DS . 'tests' . DS . 'test_app' . DS);
 define('APP', ROOT . 'App' . DS);
 define('TMP', sys_get_temp_dir() . DS);
-// Path to config files for tests
-define('PATH_TO_CONFIG_FILES', dirname(__DIR__) . DS . 'tests' . DS . 'config' . DS);
 
 // require $root . '/config/bootstrap.php';
 
