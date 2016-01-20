@@ -31,11 +31,13 @@ Add the plugin to your project's `composer.json` - something like this:
 composer require cakephp-fr/recaptcha:~0.4
 ```
 
-You then need to load the plugin. In `config/boostrap.php`, something like:
+You then need to load the plugin, by running:
 
-```php
-\Cake\Core\Plugin::load('Recaptcha', ['routes' => true, 'bootstrap' => true]);
 ```
+bin/cake plugin load -r Recaptcha
+```
+
+You can check that this command has created the line `Plugin::load('Recaptcha', ['routes' => true]);` at the bottom of your `config/boostrap.php` file.
 
 The `'routes' => true` should be deleted in production. It's only useful if you want to see the demo.
 
