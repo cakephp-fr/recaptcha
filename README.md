@@ -27,13 +27,13 @@ _[Using [Composer](http://getcomposer.org/)]_
 
 Add the plugin to your project's `composer.json` - something like this:
 
-```
+```bash
 composer require cakephp-fr/recaptcha:~0.4
 ```
 
 You then need to load the plugin, by running:
 
-```
+```bash
 bin/cake plugin load -r Recaptcha
 ```
 
@@ -52,6 +52,7 @@ of keys for your website.
 
 The Easiest way is to add the recaptcha config to the `config/app.php`, something like:
 
+```php
 return [
 
     .... (other configs before)
@@ -71,6 +72,7 @@ return [
         'size' => 'normal'
     ]
 ]
+```
 
 Make sure that `/config/app.php` file is in `.gitignore`. The secret key must stay secret.
 
@@ -80,15 +82,18 @@ If you don't have a key and a secret, an exception will be raised.
 
 For example:
 
+```php
     public function initialize() {
         parent::initialize();
         if ($this->request->action === 'contact') {
             $this->loadComponent('Recaptcha.Recaptcha');
         }
     }
+```
 
 ### 4. Add the following in your controller.
 
+```php
     public function contact() {
         if ($this->request->is('post')) {
             if ($this->Recaptcha->verify()) {
@@ -106,6 +111,7 @@ For example:
             }
         }
     }
+```
 
 ### 5. No need to add the helper.
 
@@ -115,6 +121,7 @@ It will be added with the component.
 
 For example:
 
+```php
     <?= $this->Form->create() ?>
 
     <?= $this->Form->input('name', [
@@ -131,6 +138,7 @@ For example:
 
     <?= $this->Form->button(__('OK')) ?>
     <?= $this->Form->end() ?>
+```
 
 See another example of contact with no form in
 `src/Controller/ContactController.php`, `src/Template/Contact/index.ctp` and

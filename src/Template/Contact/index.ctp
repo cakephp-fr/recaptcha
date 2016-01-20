@@ -20,7 +20,8 @@
 <?= $this->Form->input('body') ?>
 <?= $this->Recaptcha->display([
     // This options override global configs
-    'type' => 'audio',
+    'theme' => 'dark',
+    'type' => 'image',
     'size' => 'normal'
 ]) ?>
 <?= $this->Form->button('Submit') ?>
