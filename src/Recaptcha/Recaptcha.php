@@ -68,6 +68,11 @@ class Recaptcha
     protected $recaptchaResponse;
 
     /**
+     * @var array
+     */
+    protected $errors;
+
+    /**
      * Constructor.
      *
      * @param RecaptchaResponse $recaptchaResponse Recaptcha Response.
@@ -100,6 +105,7 @@ class Recaptcha
     public function verifyResponse(Client $httpClient, $response, $remoteIp = null)
     {
         if (is_null($this->secret)) {
+            $this->errors['missing-secret'] = __d('recaptcha', 'secret is null');
             return false;
         }
         // Get Json GRecaptchaResponse Obj from Google server
@@ -114,6 +120,7 @@ class Recaptcha
 
         // problem while accessing remote
         if (!$gRecaptchaResponse->isOk()) {
+            $this->errors['remote-not-accessible'] = __d('recaptcha', 'Remote is not accessible');
             return false;
         }
 
@@ -122,6 +129,17 @@ class Recaptcha
         if ($this->recaptchaResponse->isSuccess()) {
             return true;
         }
+        $this->errors['not-checked'] = __d('recaptcha', 'Recaptcha is not checked');
         return false;
+    }
+
+    /**
+     * Return an array with errors : missing secret, connexion issue, ...
+     *
+     * @return array
+     */
+    public function errors()
+    {
+        return $this->errors;
     }
 }

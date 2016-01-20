@@ -99,4 +99,14 @@ class RecaptchaComponent extends Component
         }
         return false;
     }
+
+    /**
+     * Return an array with errors : missing secret, connexion issue, ...
+     *
+     * @return array
+     */
+    public function errors()
+    {
+        return $this->recaptcha->errors();
+    }
 }

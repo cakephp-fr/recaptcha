@@ -7,7 +7,7 @@
  * - form contact in src/View/Contact/index.ctp
  * - form controller in src/Controller/ContactController.php
  *
- * THIS EXAMPLE is accessible with url www.yoursite.com/recaptcha/contact
+ * THIS EXAMPLE is accessible with url www.yoursite.com/recaptcha/contact, only if routes are enabled while plugin is loaded.
  *
  * @author   cake17
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -19,12 +19,9 @@
 <?= $this->Form->input('email') ?>
 <?= $this->Form->input('body') ?>
 <?= $this->Recaptcha->display([
-    
+    // This options override global configs
+    'type' => 'audio',
+    'size' => 'normal'
 ]) ?>
 <?= $this->Form->button('Submit') ?>
 <?= $this->Form->end() ?>
-<?php
-// $this->Recaptcha->widget('widget1');
-// $this->Recaptcha->widget('widget2');
-?>
-<?php // echo $this->Recaptcha->render(); ?>
