@@ -34,10 +34,10 @@ composer require cakephp-fr/recaptcha:~0.4
 You then need to load the plugin, by running:
 
 ```bash
-bin/cake plugin load -r Recaptcha
+bin/cake plugin load -rb Recaptcha
 ```
 
-You can check that this command has created the line `Plugin::load('Recaptcha', ['routes' => true]);` at the bottom of your `config/boostrap.php` file.
+You can check that this command has created the line `Plugin::load('Recaptcha', ['routes' => true, 'bootstrap' => true]);` at the bottom of your `config/boostrap.php` file.
 
 The `'routes' => true` should be deleted in production. It's only useful if you want to see the demo.
 
@@ -113,11 +113,9 @@ public function contact() {
 }
 ```
 
-### 5. No need to add the helper.
+### 5. Finally add `<?= $this->Recaptcha->display() ?>` in your view template inside the form.
 
-It will be added with the component.
-
-### 6. Finally add `<?= $this->Recaptcha->display() ?>` in your view template inside the form.
+**No need** to add the helper: it will be added with the component.
 
 For example:
 
