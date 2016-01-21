@@ -2,6 +2,10 @@
 /**
  * Routes for Recaptcha Plugin
  *
+ * This file is only used to see live examples
+ * Do not use it in production, meaning remove 'routes' => true when plugin is
+ * loaded
+ *
  * @author   cake17
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link     http://blog.cake-websites.com/

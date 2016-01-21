@@ -91,8 +91,6 @@ public function initialize() {
 }
 ```
 
-### 4. Add the following in your controller.
-
 ```php
 public function contact() {
     if ($this->request->is('post')) {
@@ -113,7 +111,7 @@ public function contact() {
 }
 ```
 
-### 5. Finally add `<?= $this->Recaptcha->display() ?>` in your view template inside the form.
+### 4. Finally add `<?= $this->Recaptcha->display() ?>` in your view template inside the form.
 
 **No need** to add the helper: it will be added with the component.
 
@@ -161,8 +159,12 @@ See another example of contact with no form in
 
 ## Tests ##
 
-To test the plugin, clone it and run `composer install`. Then run
-`./vendor/bin/phpunit` and `./vendor/bin/phpcs -n -p --extensions=php --standard=vendor/cakephp/cakephp-codesniffer/CakePHP ./src ./tests --ignore=vendor`
+To test the plugin, clone it and run `composer install`. Then run:
+
+```bash
+./vendor/bin/phpunit
+./vendor/bin/phpcs -n -p --extensions=php --standard=vendor/cakephp/cakephp-codesniffer/CakePHP ./src ./tests --ignore=vendor
+```
 
 ## Support & Contribution ##
 
