@@ -49,8 +49,8 @@ class RecaptchaComponent extends Component
     public function setController($controller)
     {
         // Add the helper on the fly
-        if (!isset($controller->helpers['Recaptcha.Recaptcha'])) {
-            $controller->helpers[] = 'Recaptcha.Recaptcha';
+        if (!in_array('Recaptcha.Recaptcha', $controller->viewBuilder()->helpers())) {
+            $controller->viewBuilder()->helpers(['Recaptcha.Recaptcha'], true);
         }
     }
 
