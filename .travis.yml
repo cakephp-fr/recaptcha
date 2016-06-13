@@ -1,7 +1,6 @@
 language: php
 
 php:
-  - 5.4
   - 5.5
   - 5.6
 
@@ -20,13 +19,21 @@ matrix:
   fast_finish: true
 
   include:
-    - php: 5.4
+    - php: 7.0
       env: PHPCS=1 DEFAULT=0
+
+    - php: 7.0
+      env: CODECOVERAGE=1 DEFAULT=0
+
+    - php: hhvm
+      env: HHVM=1 DB=sqlite db_dsn='sqlite:///:memory:'
+
+    - php: hhvm
+      env: HHVM=1 DB=mysql db_dsn='mysql://travis@0.0.0.0/cakephp_test'
 
 install:
   - composer self-update
   - composer install --prefer-dist --no-interaction
-  - cp config/recaptcha.default.php config/recaptcha.php
 
 before_script:
   - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'CREATE DATABASE cakephp_test;'; fi"
