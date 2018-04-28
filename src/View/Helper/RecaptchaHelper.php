@@ -59,7 +59,7 @@ class RecaptchaHelper extends Helper
         parent::__construct($view, $config);
 
         // Merge Options given by user in config/recaptcha
-        $this->config(Configure::read('Recaptcha'));
+        $this->setConfig(Configure::read('Recaptcha'));
 
         $lang = $this->getConfig('lang');
         if (empty($lang)) {
@@ -67,14 +67,14 @@ class RecaptchaHelper extends Helper
         }
         // Validate the Configure Data
         $validator = new RecaptchaValidator();
-        $errors = $validator->setErrors($this->getConfig());
+        $errors = $validator->errors($this->getConfig());
         if (!empty($errors)) {
             throw new \Exception(__d('recaptcha', 'One of your recaptcha config value is incorrect'));
             // throw an exception with config error that is raised
         }
 
         // Make sure the secret param is
-        $this->config('secret', '');
+        $this->setConfig('secret', '');
     }
 
     /**
@@ -95,7 +95,7 @@ class RecaptchaHelper extends Helper
 
         // Validate the Configure Data
         $validator = new RecaptchaValidator();
-        $errors = $validator->setErrors($options);
+        $errors = $validator->errors($options);
         if (!empty($errors)) {
             throw new \Exception(__d('recaptcha', 'One of your recaptcha config value is incorrect'));
             // throw an exception with config error that is raised
@@ -137,7 +137,7 @@ class RecaptchaHelper extends Helper
 
         // Validate the Configure Data
         $validator = new RecaptchaValidator();
-        $errors = $validator->setErrors($options);
+        $errors = $validator->errors($options);
         if (!empty($errors)) {
             throw new \Exception(__d('recaptcha', 'One of your recaptcha config value is incorrect in a widget'));
             // throw an exception with config error that is raised
