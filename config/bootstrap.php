@@ -17,7 +17,7 @@ if ($config == null) {
 // Validate the Configure Data
 $validator = new ConfigValidator();
 
-$errors = $validator->setErrors(Configure::read('Recaptcha'));
+$errors = $validator->errors(Configure::read('Recaptcha'));
 
 if (!empty($errors)) {
     $errMsg = '';

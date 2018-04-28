@@ -49,7 +49,7 @@ class RecaptchaComponent extends Component
     public function setController($controller)
     {
         // Add the helper on the fly
-        if (!in_array('Recaptcha.Recaptcha', $controller->viewBuilder()->setHelpers())) {
+        if (!in_array('Recaptcha.Recaptcha', $controller->viewBuilder()->getHelpers())) {
             $controller->viewBuilder()->setHelpers(['Recaptcha.Recaptcha'], true);
         }
     }
