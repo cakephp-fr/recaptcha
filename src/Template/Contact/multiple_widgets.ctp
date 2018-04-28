@@ -15,9 +15,9 @@
  */
 ?>
 <?= $this->Form->create($contact) ?>
-<?= $this->Form->input('name') ?>
-<?= $this->Form->input('email') ?>
-<?= $this->Form->input('body') ?>
+<?= $this->Form->control('name') ?>
+<?= $this->Form->control('email') ?>
+<?= $this->Form->control('body') ?>
 <?= $this->Form->button('Submit') ?>
 <?= $this->Form->end() ?>
 

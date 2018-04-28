@@ -49,8 +49,8 @@ class RecaptchaComponent extends Component
     public function setController($controller)
     {
         // Add the helper on the fly
-        if (!in_array('Recaptcha.Recaptcha', $controller->viewBuilder()->helpers())) {
-            $controller->viewBuilder()->helpers(['Recaptcha.Recaptcha'], true);
+        if (!in_array('Recaptcha.Recaptcha', $controller->viewBuilder()->setHelpers())) {
+            $controller->viewBuilder()->setHelpers(['Recaptcha.Recaptcha'], true);
         }
     }
 
@@ -71,7 +71,7 @@ class RecaptchaComponent extends Component
 
         // instantiate Recaptcha object that deals with retrieving data from google recaptcha
         $this->recaptcha = new Recaptcha(new RecaptchaResponse(), $secret);
-        $controller = $event->subject();
+        $controller = $event->getSubject();
 
         $this->setController($controller);
     }
@@ -84,8 +84,8 @@ class RecaptchaComponent extends Component
     public function verify()
     {
         $controller = $this->_registry->getController();
-        if (isset($controller->request->data["g-recaptcha-response"])) {
-            $gRecaptchaResponse = $controller->request->data["g-recaptcha-response"];
+        $gRecaptchaResponse = $controller->request->getData("g-recaptcha-response");
+        if (!empty($gRecaptchaResponse)) {
 
             $resp = $this->recaptcha->verifyResponse(
                 new Client(),
@@ -107,6 +107,6 @@ class RecaptchaComponent extends Component
      */
     public function errors()
     {
-        return $this->recaptcha->errors();
+        return $this->recaptcha->setErrors();
     }
 }

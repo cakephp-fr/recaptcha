@@ -27,7 +27,7 @@ class ContactController extends AppController
     public function initialize()
     {
         parent::initialize();
-        if (in_array($this->request->action, ['index', 'multipleWidgets'])) {
+        if (in_array($this->request->getParam('action'), ['index', 'multipleWidgets'])) {
             $this->loadComponent('Recaptcha.Recaptcha');
         }
     }
@@ -43,7 +43,7 @@ class ContactController extends AppController
         if ($this->request->is('post')) {
             if ($this->Recaptcha->verify()) {
                 // Here you can validate your data instead
-                if ($contact->execute($this->request->data)) {
+                if ($contact->execute($this->request->getData())) {
                     $this->Flash->success(__('We will get back to you soon.'));
                 } else {
                     $this->Flash->error(__('There was a problem submitting your form.'));
@@ -67,14 +67,14 @@ class ContactController extends AppController
         $contact = new ContactForm();
         if ($this->request->is('post')) {
             if ($this->Recaptcha->verify()) {
-                if ($contact->execute($this->request->data)) {
+                if ($contact->execute($this->request->getData())) {
                     $this->Flash->success(__('We will get back to you soon.'));
                 } else {
                     $this->Flash->error(__('There was a problem submitting your form.'));
                 }
             } else {
-                debug($contact);
-                debug($this->Recaptcha);
+                // debug($contact);
+                // debug($this->Recaptcha);
                 $this->Flash->error(__('Please check your Recaptcha Box.'));
             }
         }

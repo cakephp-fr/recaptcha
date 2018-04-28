@@ -61,13 +61,13 @@ class RecaptchaHelper extends Helper
         // Merge Options given by user in config/recaptcha
         $this->config(Configure::read('Recaptcha'));
 
-        $lang = $this->config('lang');
+        $lang = $this->getConfig('lang');
         if (empty($lang)) {
-            $this->config('lang', I18n::locale());
+            $this->setConfig('lang', I18n::locale());
         }
         // Validate the Configure Data
         $validator = new RecaptchaValidator();
-        $errors = $validator->errors($this->config());
+        $errors = $validator->setErrors($this->getConfig());
         if (!empty($errors)) {
             throw new \Exception(__d('recaptcha', 'One of your recaptcha config value is incorrect'));
             // throw an exception with config error that is raised
@@ -91,11 +91,11 @@ class RecaptchaHelper extends Helper
     public function display(array $options = [])
     {
         // merge options
-        $options = array_merge($this->config(), $options);
+        $options = array_merge($this->getConfig(), $options);
 
         // Validate the Configure Data
         $validator = new RecaptchaValidator();
-        $errors = $validator->errors($options);
+        $errors = $validator->setErrors($options);
         if (!empty($errors)) {
             throw new \Exception(__d('recaptcha', 'One of your recaptcha config value is incorrect'));
             // throw an exception with config error that is raised
@@ -133,11 +133,11 @@ class RecaptchaHelper extends Helper
      */
     public function widget(array $options = [])
     {
-        $options = array_merge($this->config(), $options);
+        $options = array_merge($this->getConfig(), $options);
 
         // Validate the Configure Data
         $validator = new RecaptchaValidator();
-        $errors = $validator->errors($options);
+        $errors = $validator->setErrors($options);
         if (!empty($errors)) {
             throw new \Exception(__d('recaptcha', 'One of your recaptcha config value is incorrect in a widget'));
             // throw an exception with config error that is raised

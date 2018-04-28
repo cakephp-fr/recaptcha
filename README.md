@@ -7,12 +7,15 @@ Google reCAPTCHA for CakePHP 3
 [![License](https://poser.pugx.org/cakephp-fr/recaptcha/license.png)](https://packagist.org/packages/cakephp-fr/recaptcha)
 [![Total Downloads](https://poser.pugx.org/cakephp-fr/recaptcha/d/total.png)](https://packagist.org/packages/cakephp-fr/recaptcha)
 
+Be careful version 1.0 is for CakePHP 3.6 minimum.
+For a previous CakePHP version please use the 0.4.2 version.
+
 ## Plugin's Objective ##
 
 This plugin adds functionalities to use the new reCAPTCHA API version 2.0 in
 CakePHP projects.
 
-This plugin is still under development... For now multiple widgets on a single page is not available.
+This plugin is still under development... For now, multiple widgets on a single page is not available.
 
 ## Requirements ##
 
@@ -28,7 +31,7 @@ _[Using [Composer](http://getcomposer.org/)]_
 Add the plugin to your project's `composer.json` - something like this:
 
 ```bash
-composer require cakephp-fr/recaptcha:~0.4
+composer require cakephp-fr/recaptcha:~1.0
 ```
 
 You then need to load the plugin, by running:
@@ -85,7 +88,7 @@ For example:
 ```php
 public function initialize() {
     parent::initialize();
-    if ($this->request->action === 'contact') {
+    if ($this->request->getParam('action') === 'contact') {
         $this->loadComponent('Recaptcha.Recaptcha');
     }
 }
@@ -96,7 +99,7 @@ public function contact() {
     if ($this->request->is('post')) {
         if ($this->Recaptcha->verify()) {
             // Here you can validate your data
-            if (!empty($this->request->data)) {
+            if (!empty($this->request->getData())) {
                 $this->Flash->success(__('We will get back to you soon.'));
                 return $this->redirect($this->referer());
             } else {
@@ -120,11 +123,11 @@ For example:
 ```php
 <?= $this->Form->create() ?>
 
-<?= $this->Form->input('name', [
+<?= $this->Form->control('name', [
   'label' => __('Your Name'),
   // 'default' => $this->request->query('name'); // in case you add the Prg Component
 ]) ?>
-<?= $this->Form->input('message', [
+<?= $this->Form->control('message', [
   'type' => 'textarea',
   // 'default' => $this->request->query('message'); // in case you add the Prg Component
   'label' => __('Your Message')
@@ -178,7 +181,7 @@ high.
 
 ## License ##
 
-Copyright (c) [2014-2016] [cakephp-fr]
+Copyright (c) [2014-2018] [cakephp-fr]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
