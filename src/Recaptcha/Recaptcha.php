@@ -124,7 +124,7 @@ class Recaptcha
             return false;
         }
 
-        $this->recaptchaResponse->setJson($gRecaptchaResponse->json);
+        $this->recaptchaResponse->setJson($gRecaptchaResponse->getJson());
 
         if ($this->recaptchaResponse->isSuccess()) {
             return true;
