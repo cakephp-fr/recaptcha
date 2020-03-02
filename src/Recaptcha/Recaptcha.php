@@ -38,7 +38,7 @@
  */
 namespace Recaptcha\Recaptcha;
 
-use Cake\Network\Http\Client;
+use Cake\Http\Client;
 use Recaptcha\Recaptcha\Exception\MissingRecaptchaApiKey;
 use Recaptcha\Recaptcha\RecaptchaResponse;
 
