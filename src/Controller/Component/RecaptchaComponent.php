@@ -11,7 +11,7 @@ namespace Recaptcha\Controller\Component;
 use Cake\Controller\Component;
 use Cake\Core\Configure;
 use Cake\Event\Event;
-use Cake\Network\Http\Client;
+use Cake\Http\Client;
 use Exception;
 use Recaptcha\Recaptcha\Recaptcha;
 use Recaptcha\Recaptcha\RecaptchaResponse;
@@ -84,7 +84,7 @@ class RecaptchaComponent extends Component
     public function verify()
     {
         $controller = $this->_registry->getController();
-        $gRecaptchaResponse = $controller->request->getData("g-recaptcha-response");
+        $gRecaptchaResponse = $controller->getRequest()->getData("g-recaptcha-response");
         if (!empty($gRecaptchaResponse)) {
 
             $resp = $this->recaptcha->verifyResponse(
