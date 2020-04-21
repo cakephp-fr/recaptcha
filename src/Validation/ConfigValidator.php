@@ -26,6 +26,6 @@ class ConfigValidator extends GlobalValidator
         parent::__construct();
         $this
             ->requirePresence('secret')
-            ->notEmpty('secret', __d('recaptcha', 'A secret should not be blank.'));
+            ->notEmptyString('secret', __d('recaptcha', 'A secret should not be blank.'));
     }
 }
