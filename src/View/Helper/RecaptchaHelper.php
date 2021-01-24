@@ -67,7 +67,7 @@ class RecaptchaHelper extends Helper
         }
         // Validate the Configure Data
         $validator = new RecaptchaValidator();
-        $errors = $validator->errors($this->getConfig());
+        $errors = $validator->validate($this->getConfig());
         if (!empty($errors)) {
             throw new \Exception(__d('recaptcha', 'One of your recaptcha config value is incorrect'));
             // throw an exception with config error that is raised
