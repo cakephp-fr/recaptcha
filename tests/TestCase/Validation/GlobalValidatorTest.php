@@ -26,22 +26,22 @@ class GlobalValidatorTest extends TestCase
     {
         $validator = new GlobalValidator();
         $data = ['lang' => 'fr'];
-        $errors = $validator->errors($data);
+        $errors = $validator->validate($data);
         $this->assertEmpty($errors);
 
         $validator = new GlobalValidator();
         $data = ['theme' => 'light'];
-        $errors = $validator->errors($data);
+        $errors = $validator->validate($data);
         $this->assertEmpty($errors);
 
         $validator = new GlobalValidator();
         $data = ['type' => 'image'];
-        $errors = $validator->errors($data);
+        $errors = $validator->validate($data);
         $this->assertEmpty($errors);
 
         $validator = new GlobalValidator();
         $data = ['size' => 'normal'];
-        $errors = $validator->errors($data);
+        $errors = $validator->validate($data);
         $this->assertEmpty($errors);
     }
 
@@ -54,22 +54,22 @@ class GlobalValidatorTest extends TestCase
     {
         $validator = new GlobalValidator();
         $data = ['lang' => 'non-existing-lang'];
-        $errors = $validator->errors($data);
+        $errors = $validator->validate($data);
         $this->assertArrayHasKey('lang', $errors);
 
         $validator = new GlobalValidator();
         $data = ['theme' => 'non-existing-theme'];
-        $errors = $validator->errors($data);
+        $errors = $validator->validate($data);
         $this->assertArrayHasKey('theme', $errors);
 
         $validator = new GlobalValidator();
         $data = ['type' => 'non-existing-type'];
-        $errors = $validator->errors($data);
+        $errors = $validator->validate($data);
         $this->assertArrayHasKey('type', $errors);
 
         $validator = new GlobalValidator();
         $data = ['size' => 'non-existing-size'];
-        $errors = $validator->errors($data);
+        $errors = $validator->validate($data);
         $this->assertArrayHasKey('size', $errors);
     }
 
@@ -87,7 +87,7 @@ class GlobalValidatorTest extends TestCase
             'type' => 'audio',
             'size' => 'compact'
         ];
-        $errors = $validator->errors($data);
+        $errors = $validator->validate($data);
         $this->assertEmpty($errors);
     }
 
@@ -105,7 +105,7 @@ class GlobalValidatorTest extends TestCase
             'type' => 'non-existing-type',
             'size' => 'non-existing-size'
         ];
-        $errors = $validator->errors($data);
+        $errors = $validator->validate($data);
         $this->assertArrayHasKey('lang', $errors);
         $this->assertArrayHasKey('theme', $errors);
         $this->assertArrayHasKey('type', $errors);
