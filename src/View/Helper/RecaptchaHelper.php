@@ -95,7 +95,7 @@ class RecaptchaHelper extends Helper
 
         // Validate the Configure Data
         $validator = new RecaptchaValidator();
-        $errors = $validator->errors($options);
+        $errors = $validator->validate($options);
         if (!empty($errors)) {
             throw new \Exception(__d('recaptcha', 'One of your recaptcha config value is incorrect'));
             // throw an exception with config error that is raised
@@ -137,7 +137,7 @@ class RecaptchaHelper extends Helper
 
         // Validate the Configure Data
         $validator = new RecaptchaValidator();
-        $errors = $validator->errors($options);
+        $errors = $validator->validate($options);
         if (!empty($errors)) {
             throw new \Exception(__d('recaptcha', 'One of your recaptcha config value is incorrect in a widget'));
             // throw an exception with config error that is raised
