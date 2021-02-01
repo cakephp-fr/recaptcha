@@ -26,22 +26,22 @@ class ConfigValidatorTest extends TestCase
     {
         $validator = new ConfigValidator();
         $data = ['lang' => 'fr'];
-        $errors = $validator->errors($data);
+        $errors = $validator->validate($data);
         $this->assertArrayHasKey('secret', $errors);
 
         $validator = new ConfigValidator();
         $data = ['theme' => 'light'];
-        $errors = $validator->errors($data);
+        $errors = $validator->validate($data);
         $this->assertArrayHasKey('secret', $errors);
 
         $validator = new ConfigValidator();
         $data = ['type' => 'image'];
-        $errors = $validator->errors($data);
+        $errors = $validator->validate($data);
         $this->assertArrayHasKey('secret', $errors);
 
         $validator = new ConfigValidator();
         $data = ['size' => 'normal'];
-        $errors = $validator->errors($data);
+        $errors = $validator->validate($data);
         $this->assertArrayHasKey('secret', $errors);
     }
 
@@ -54,22 +54,22 @@ class ConfigValidatorTest extends TestCase
     {
         $validator = new ConfigValidator();
         $data = ['secret' => 'fff', 'lang' => 'fr'];
-        $errors = $validator->errors($data);
+        $errors = $validator->validate($data);
         $this->assertEmpty($errors);
 
         $validator = new ConfigValidator();
         $data = ['secret' => 'fff', 'theme' => 'light'];
-        $errors = $validator->errors($data);
+        $errors = $validator->validate($data);
         $this->assertEmpty($errors);
 
         $validator = new ConfigValidator();
         $data = ['secret' => 'fff', 'type' => 'image'];
-        $errors = $validator->errors($data);
+        $errors = $validator->validate($data);
         $this->assertEmpty($errors);
 
         $validator = new ConfigValidator();
         $data = ['secret' => 'fff', 'size' => 'normal'];
-        $errors = $validator->errors($data);
+        $errors = $validator->validate($data);
         $this->assertEmpty($errors);
     }
 
@@ -82,22 +82,22 @@ class ConfigValidatorTest extends TestCase
     {
         $validator = new ConfigValidator();
         $data = ['secret' => 'fff', 'lang' => 'non-existing-lang'];
-        $errors = $validator->errors($data);
+        $errors = $validator->validate($data);
         $this->assertArrayHasKey('lang', $errors);
 
         $validator = new ConfigValidator();
         $data = ['secret' => 'fff', 'theme' => 'non-existing-theme'];
-        $errors = $validator->errors($data);
+        $errors = $validator->validate($data);
         $this->assertArrayHasKey('theme', $errors);
 
         $validator = new ConfigValidator();
         $data = ['secret' => 'fff', 'type' => 'non-existing-type'];
-        $errors = $validator->errors($data);
+        $errors = $validator->validate($data);
         $this->assertArrayHasKey('type', $errors);
 
         $validator = new ConfigValidator();
         $data = ['secret' => 'fff', 'size' => 'non-existing-size'];
-        $errors = $validator->errors($data);
+        $errors = $validator->validate($data);
         $this->assertArrayHasKey('size', $errors);
     }
 
